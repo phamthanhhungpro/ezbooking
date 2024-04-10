@@ -4,9 +4,11 @@ namespace ezbooking;
 
 public partial class LoginForm : Form
 {
-    public LoginForm()
+    private readonly AppForm _appForm;
+    public LoginForm(AppForm appForm)
     {
         InitializeComponent();
+        _appForm = appForm;
     }
 
     private void login_btn_Click(object sender, EventArgs e)
@@ -17,7 +19,7 @@ public partial class LoginForm : Form
         this.Hide();
 
         // Show the main form
-        new AppForm().Show();
+        _appForm.Show();
 
     }
 

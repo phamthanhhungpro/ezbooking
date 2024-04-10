@@ -1,11 +1,12 @@
-using MaterialSkin;
+using ezbooking.Models;
 using MaterialSkin.Controls;
 
 namespace ezbooking;
 
 public partial class AppForm : MaterialForm
 {
-    public AppForm()
+    private readonly AppDbContext _appDbContext;
+    public AppForm(AppDbContext appDbContext)
     {
         InitializeComponent();
 
@@ -25,6 +26,8 @@ public partial class AppForm : MaterialForm
         //                                     Accent.Blue700,  // Accent color
         //                                     TextShade.WHITE   // Text color
         //                                 );
+        _appDbContext = appDbContext;
+        materialTabControl1.SelectedIndexChanged += TabChanged;
 
     }
 
@@ -38,28 +41,27 @@ public partial class AppForm : MaterialForm
 
     }
 
-    private void materialLabel1_Click(object sender, EventArgs e)
+    private void TabChanged(object sender, EventArgs e)
     {
-
+        switch (materialTabControl1.SelectedIndex)
+        {
+            case 0:
+                // load tab 1 here
+                LoadTabBacSiKtv();
+                break;
+            case 1:
+                Console.WriteLine("Tab 2");
+                break;
+            case 2:
+                Console.WriteLine("Tab 3");
+                break;
+            default:
+                break;
+        }
     }
 
-    private void label1_Click(object sender, EventArgs e)
+    private void LoadTabBacSiKtv()
     {
-
-    }
-
-    private void docter_add_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    private void label1_Click_1(object sender, EventArgs e)
-    {
-
-    }
-
-    private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-    {
-
+        var data = _appDbContext.BacSiKTVs.ToList();
     }
 }

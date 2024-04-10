@@ -32,18 +32,18 @@ partial class AppForm
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppForm));
         materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
         doctor = new TabPage();
-        add_doctor_btn = new MaterialSkin.Controls.MaterialButton();
-        label1 = new Label();
-        patient = new TabPage();
-        booking = new TabPage();
-        report = new TabPage();
-        imageList1 = new ImageList(components);
         materialListView1 = new MaterialSkin.Controls.MaterialListView();
         no = new ColumnHeader();
         name = new ColumnHeader();
         phone = new ColumnHeader();
         status = new ColumnHeader();
         update = new ColumnHeader();
+        add_doctor_btn = new MaterialSkin.Controls.MaterialButton();
+        label1 = new Label();
+        patient = new TabPage();
+        booking = new TabPage();
+        report = new TabPage();
+        imageList1 = new ImageList(components);
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
         SuspendLayout();
@@ -80,6 +80,49 @@ partial class AppForm
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
         // 
+        // materialListView1
+        // 
+        materialListView1.AutoSizeTable = false;
+        materialListView1.BackColor = Color.FromArgb(255, 255, 255);
+        materialListView1.BorderStyle = BorderStyle.None;
+        materialListView1.Columns.AddRange(new ColumnHeader[] { no, name, phone, status, update });
+        materialListView1.Depth = 0;
+        materialListView1.FullRowSelect = true;
+        materialListView1.Location = new Point(16, 70);
+        materialListView1.MinimumSize = new Size(200, 100);
+        materialListView1.MouseLocation = new Point(-1, -1);
+        materialListView1.MouseState = MaterialSkin.MouseState.OUT;
+        materialListView1.Name = "materialListView1";
+        materialListView1.OwnerDraw = true;
+        materialListView1.Size = new Size(885, 367);
+        materialListView1.TabIndex = 4;
+        materialListView1.UseCompatibleStateImageBehavior = false;
+        materialListView1.View = View.Details;
+        // 
+        // no
+        // 
+        no.Text = "STT";
+        // 
+        // name
+        // 
+        name.Text = "Họ tên";
+        name.Width = 200;
+        // 
+        // phone
+        // 
+        phone.Text = "Số điện thoại";
+        phone.Width = 120;
+        // 
+        // status
+        // 
+        status.Text = "Trạng thái";
+        status.Width = 100;
+        // 
+        // update
+        // 
+        update.Text = "Sửa thông tin";
+        update.Width = 150;
+        // 
         // add_doctor_btn
         // 
         add_doctor_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -89,7 +132,7 @@ partial class AppForm
         add_doctor_btn.ForeColor = SystemColors.ActiveCaption;
         add_doctor_btn.HighEmphasis = true;
         add_doctor_btn.Icon = null;
-        add_doctor_btn.Location = new Point(286, 9);
+        add_doctor_btn.Location = new Point(295, 9);
         add_doctor_btn.Margin = new Padding(4, 6, 4, 6);
         add_doctor_btn.MouseState = MaterialSkin.MouseState.HOVER;
         add_doctor_btn.Name = "add_doctor_btn";
@@ -105,12 +148,11 @@ partial class AppForm
         // 
         label1.AutoSize = true;
         label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold | FontStyle.Italic);
-        label1.Location = new Point(6, 13);
+        label1.Location = new Point(15, 13);
         label1.Name = "label1";
         label1.Size = new Size(273, 32);
         label1.TabIndex = 2;
         label1.Text = "Danh sách bác sĩ - KTV";
-        label1.Click += label1_Click_1;
         // 
         // patient
         // 
@@ -158,49 +200,6 @@ partial class AppForm
         imageList1.Images.SetKeyName(7, "icons8-nurse-call-48.png");
         imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
         imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
-        // 
-        // materialListView1
-        // 
-        materialListView1.AutoSizeTable = false;
-        materialListView1.BackColor = Color.FromArgb(255, 255, 255);
-        materialListView1.BorderStyle = BorderStyle.None;
-        materialListView1.Columns.AddRange(new ColumnHeader[] { no, name, phone, status, update });
-        materialListView1.Depth = 0;
-        materialListView1.FullRowSelect = true;
-        materialListView1.Location = new Point(16, 70);
-        materialListView1.MinimumSize = new Size(200, 100);
-        materialListView1.MouseLocation = new Point(-1, -1);
-        materialListView1.MouseState = MaterialSkin.MouseState.OUT;
-        materialListView1.Name = "materialListView1";
-        materialListView1.OwnerDraw = true;
-        materialListView1.Size = new Size(885, 367);
-        materialListView1.TabIndex = 4;
-        materialListView1.UseCompatibleStateImageBehavior = false;
-        materialListView1.View = View.Details;
-        // 
-        // no
-        // 
-        no.Text = "STT";
-        // 
-        // name
-        // 
-        name.Text = "Họ tên";
-        name.Width = 200;
-        // 
-        // phone
-        // 
-        phone.Text = "Số điện thoại";
-        phone.Width = 120;
-        // 
-        // status
-        // 
-        status.Text = "Trạng thái";
-        status.Width = 100;
-        // 
-        // update
-        // 
-        update.Text = "Sửa thông tin";
-        update.Width = 150;
         // 
         // AppForm
         // 
