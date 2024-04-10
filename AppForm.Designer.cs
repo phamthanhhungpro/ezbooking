@@ -37,7 +37,7 @@ partial class AppForm
         name = new ColumnHeader();
         phone = new ColumnHeader();
         status = new ColumnHeader();
-        update = new ColumnHeader();
+        nofuction = new ColumnHeader();
         add_doctor_btn = new MaterialSkin.Controls.MaterialButton();
         label1 = new Label();
         patient = new TabPage();
@@ -58,12 +58,13 @@ partial class AppForm
         materialTabControl1.Dock = DockStyle.Fill;
         materialTabControl1.Font = new Font("Segoe UI", 9F);
         materialTabControl1.ImageList = imageList1;
-        materialTabControl1.Location = new Point(3, 64);
+        materialTabControl1.Location = new Point(3, 48);
+        materialTabControl1.Margin = new Padding(3, 2, 3, 2);
         materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
         materialTabControl1.Multiline = true;
         materialTabControl1.Name = "materialTabControl1";
         materialTabControl1.SelectedIndex = 0;
-        materialTabControl1.Size = new Size(926, 486);
+        materialTabControl1.Size = new Size(810, 365);
         materialTabControl1.TabIndex = 0;
         // 
         // doctor
@@ -73,9 +74,10 @@ partial class AppForm
         doctor.Controls.Add(label1);
         doctor.ImageKey = "icons8-medical-doctor-48.png";
         doctor.Location = new Point(4, 39);
+        doctor.Margin = new Padding(3, 2, 3, 2);
         doctor.Name = "doctor";
-        doctor.Padding = new Padding(3);
-        doctor.Size = new Size(918, 443);
+        doctor.Padding = new Padding(3, 2, 3, 2);
+        doctor.Size = new Size(802, 322);
         doctor.TabIndex = 0;
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
@@ -85,16 +87,17 @@ partial class AppForm
         materialListView1.AutoSizeTable = false;
         materialListView1.BackColor = Color.FromArgb(255, 255, 255);
         materialListView1.BorderStyle = BorderStyle.None;
-        materialListView1.Columns.AddRange(new ColumnHeader[] { no, name, phone, status, update });
+        materialListView1.Columns.AddRange(new ColumnHeader[] { nofuction, no, name, phone, status });
         materialListView1.Depth = 0;
         materialListView1.FullRowSelect = true;
-        materialListView1.Location = new Point(16, 70);
-        materialListView1.MinimumSize = new Size(200, 100);
+        materialListView1.Location = new Point(14, 52);
+        materialListView1.Margin = new Padding(3, 2, 3, 2);
+        materialListView1.MinimumSize = new Size(175, 75);
         materialListView1.MouseLocation = new Point(-1, -1);
         materialListView1.MouseState = MaterialSkin.MouseState.OUT;
         materialListView1.Name = "materialListView1";
         materialListView1.OwnerDraw = true;
-        materialListView1.Size = new Size(885, 367);
+        materialListView1.Size = new Size(774, 275);
         materialListView1.TabIndex = 4;
         materialListView1.UseCompatibleStateImageBehavior = false;
         materialListView1.View = View.Details;
@@ -118,10 +121,11 @@ partial class AppForm
         status.Text = "Trạng thái";
         status.Width = 100;
         // 
-        // update
+        // nofuction
         // 
-        update.Text = "Sửa thông tin";
-        update.Width = 150;
+        nofuction.DisplayIndex = 4;
+        nofuction.Text = "";
+        nofuction.Width = 0;
         // 
         // add_doctor_btn
         // 
@@ -132,8 +136,8 @@ partial class AppForm
         add_doctor_btn.ForeColor = SystemColors.ActiveCaption;
         add_doctor_btn.HighEmphasis = true;
         add_doctor_btn.Icon = null;
-        add_doctor_btn.Location = new Point(295, 9);
-        add_doctor_btn.Margin = new Padding(4, 6, 4, 6);
+        add_doctor_btn.Location = new Point(258, 7);
+        add_doctor_btn.Margin = new Padding(4, 4, 4, 4);
         add_doctor_btn.MouseState = MaterialSkin.MouseState.HOVER;
         add_doctor_btn.Name = "add_doctor_btn";
         add_doctor_btn.NoAccentTextColor = Color.Empty;
@@ -148,9 +152,9 @@ partial class AppForm
         // 
         label1.AutoSize = true;
         label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold | FontStyle.Italic);
-        label1.Location = new Point(15, 13);
+        label1.Location = new Point(13, 10);
         label1.Name = "label1";
-        label1.Size = new Size(273, 32);
+        label1.Size = new Size(212, 25);
         label1.TabIndex = 2;
         label1.Text = "Danh sách bác sĩ - KTV";
         // 
@@ -158,9 +162,10 @@ partial class AppForm
         // 
         patient.ImageKey = "icons8-nurse-call-48.png";
         patient.Location = new Point(4, 39);
+        patient.Margin = new Padding(3, 2, 3, 2);
         patient.Name = "patient";
-        patient.Padding = new Padding(3);
-        patient.Size = new Size(918, 443);
+        patient.Padding = new Padding(3, 2, 3, 2);
+        patient.Size = new Size(802, 321);
         patient.TabIndex = 1;
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
@@ -169,8 +174,9 @@ partial class AppForm
         // 
         booking.ImageKey = "icons8-reserve-48.png";
         booking.Location = new Point(4, 39);
+        booking.Margin = new Padding(3, 2, 3, 2);
         booking.Name = "booking";
-        booking.Size = new Size(918, 443);
+        booking.Size = new Size(802, 321);
         booking.TabIndex = 2;
         booking.Text = "Đặt lịch";
         booking.UseVisualStyleBackColor = true;
@@ -179,8 +185,9 @@ partial class AppForm
         // 
         report.ImageKey = "icons8-report-48.png";
         report.Location = new Point(4, 39);
+        report.Margin = new Padding(3, 2, 3, 2);
         report.Name = "report";
-        report.Size = new Size(918, 443);
+        report.Size = new Size(802, 321);
         report.TabIndex = 3;
         report.Text = "Báo cáo";
         report.UseVisualStyleBackColor = true;
@@ -203,15 +210,17 @@ partial class AppForm
         // 
         // AppForm
         // 
-        AutoScaleDimensions = new SizeF(8F, 20F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(932, 553);
+        ClientSize = new Size(816, 415);
         Controls.Add(materialTabControl1);
         DrawerAutoShow = true;
         DrawerShowIconsWhenHidden = true;
         DrawerTabControl = materialTabControl1;
         Icon = (Icon)resources.GetObject("$this.Icon");
+        Margin = new Padding(3, 2, 3, 2);
         Name = "AppForm";
+        Padding = new Padding(3, 48, 3, 2);
         Text = "Phần mềm đặt lịch khám chữa bệnh";
         Load += AppForm_Load;
         materialTabControl1.ResumeLayout(false);
@@ -235,5 +244,5 @@ partial class AppForm
     private ColumnHeader name;
     private ColumnHeader phone;
     private ColumnHeader status;
-    private ColumnHeader update;
+    private ColumnHeader nofuction;
 }
