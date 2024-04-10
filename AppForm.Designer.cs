@@ -32,11 +32,20 @@ partial class AppForm
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppForm));
         materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
         doctor = new TabPage();
+        add_doctor_btn = new MaterialSkin.Controls.MaterialButton();
+        label1 = new Label();
         patient = new TabPage();
         booking = new TabPage();
         report = new TabPage();
         imageList1 = new ImageList(components);
+        materialListView1 = new MaterialSkin.Controls.MaterialListView();
+        no = new ColumnHeader();
+        name = new ColumnHeader();
+        phone = new ColumnHeader();
+        status = new ColumnHeader();
+        update = new ColumnHeader();
         materialTabControl1.SuspendLayout();
+        doctor.SuspendLayout();
         SuspendLayout();
         // 
         // materialTabControl1
@@ -59,6 +68,9 @@ partial class AppForm
         // 
         // doctor
         // 
+        doctor.Controls.Add(materialListView1);
+        doctor.Controls.Add(add_doctor_btn);
+        doctor.Controls.Add(label1);
         doctor.ImageKey = "icons8-medical-doctor-48.png";
         doctor.Location = new Point(4, 39);
         doctor.Name = "doctor";
@@ -67,6 +79,38 @@ partial class AppForm
         doctor.TabIndex = 0;
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
+        // 
+        // add_doctor_btn
+        // 
+        add_doctor_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        add_doctor_btn.Cursor = Cursors.Hand;
+        add_doctor_btn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+        add_doctor_btn.Depth = 0;
+        add_doctor_btn.ForeColor = SystemColors.ActiveCaption;
+        add_doctor_btn.HighEmphasis = true;
+        add_doctor_btn.Icon = null;
+        add_doctor_btn.Location = new Point(286, 9);
+        add_doctor_btn.Margin = new Padding(4, 6, 4, 6);
+        add_doctor_btn.MouseState = MaterialSkin.MouseState.HOVER;
+        add_doctor_btn.Name = "add_doctor_btn";
+        add_doctor_btn.NoAccentTextColor = Color.Empty;
+        add_doctor_btn.Size = new Size(64, 36);
+        add_doctor_btn.TabIndex = 3;
+        add_doctor_btn.Text = "Thêm";
+        add_doctor_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+        add_doctor_btn.UseAccentColor = false;
+        add_doctor_btn.UseVisualStyleBackColor = false;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold | FontStyle.Italic);
+        label1.Location = new Point(6, 13);
+        label1.Name = "label1";
+        label1.Size = new Size(273, 32);
+        label1.TabIndex = 2;
+        label1.Text = "Danh sách bác sĩ - KTV";
+        label1.Click += label1_Click_1;
         // 
         // patient
         // 
@@ -115,6 +159,49 @@ partial class AppForm
         imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
         imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
         // 
+        // materialListView1
+        // 
+        materialListView1.AutoSizeTable = false;
+        materialListView1.BackColor = Color.FromArgb(255, 255, 255);
+        materialListView1.BorderStyle = BorderStyle.None;
+        materialListView1.Columns.AddRange(new ColumnHeader[] { no, name, phone, status, update });
+        materialListView1.Depth = 0;
+        materialListView1.FullRowSelect = true;
+        materialListView1.Location = new Point(16, 70);
+        materialListView1.MinimumSize = new Size(200, 100);
+        materialListView1.MouseLocation = new Point(-1, -1);
+        materialListView1.MouseState = MaterialSkin.MouseState.OUT;
+        materialListView1.Name = "materialListView1";
+        materialListView1.OwnerDraw = true;
+        materialListView1.Size = new Size(885, 367);
+        materialListView1.TabIndex = 4;
+        materialListView1.UseCompatibleStateImageBehavior = false;
+        materialListView1.View = View.Details;
+        // 
+        // no
+        // 
+        no.Text = "STT";
+        // 
+        // name
+        // 
+        name.Text = "Họ tên";
+        name.Width = 200;
+        // 
+        // phone
+        // 
+        phone.Text = "Số điện thoại";
+        phone.Width = 120;
+        // 
+        // status
+        // 
+        status.Text = "Trạng thái";
+        status.Width = 100;
+        // 
+        // update
+        // 
+        update.Text = "Sửa thông tin";
+        update.Width = 150;
+        // 
         // AppForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
@@ -129,6 +216,8 @@ partial class AppForm
         Text = "Phần mềm đặt lịch khám chữa bệnh";
         Load += AppForm_Load;
         materialTabControl1.ResumeLayout(false);
+        doctor.ResumeLayout(false);
+        doctor.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -140,4 +229,12 @@ partial class AppForm
     private ImageList imageList1;
     private TabPage booking;
     private TabPage report;
+    private Label label1;
+    private MaterialSkin.Controls.MaterialButton add_doctor_btn;
+    private MaterialSkin.Controls.MaterialListView materialListView1;
+    private ColumnHeader no;
+    private ColumnHeader name;
+    private ColumnHeader phone;
+    private ColumnHeader status;
+    private ColumnHeader update;
 }
