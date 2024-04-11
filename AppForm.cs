@@ -18,6 +18,8 @@ public partial class AppForm : MaterialForm
 
         // Apply material skin
         var materialSkinManager = MaterialSkinManager.Instance;
+        materialSkinManager.EnforceBackcolorOnAllComponents = false;
+
         materialSkinManager.AddFormToManage(this);
         materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
         materialSkinManager.ColorScheme = new ColorScheme(
@@ -27,6 +29,7 @@ public partial class AppForm : MaterialForm
                                              Accent.Blue700,  // Accent color
                                              TextShade.WHITE   // Text color
                                          );
+
         _appDbContext = appDbContext;
         materialTabControl1.SelectedIndexChanged += TabChanged;
 

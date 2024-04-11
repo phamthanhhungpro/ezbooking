@@ -93,7 +93,7 @@ partial class AppForm
         delete_doctor.Cursor = Cursors.Hand;
         delete_doctor.Density = MaterialButton.MaterialButtonDensity.Default;
         delete_doctor.Depth = 0;
-        delete_doctor.ForeColor = SystemColors.ActiveCaption;
+        delete_doctor.ForeColor = Color.Red;
         delete_doctor.HighEmphasis = true;
         delete_doctor.Icon = null;
         delete_doctor.Location = new Point(501, 8);
@@ -156,6 +156,7 @@ partial class AppForm
         // doctorLabel
         // 
         doctorLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold | FontStyle.Italic);
+        doctorLabel.ForeColor = SystemColors.ActiveCaption;
         doctorLabel.Location = new Point(15, 13);
         doctorLabel.Name = "doctorLabel";
         doctorLabel.Size = new Size(273, 32);
@@ -164,11 +165,13 @@ partial class AppForm
         // 
         // doctorListView
         // 
+        doctorListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         doctorListView.AutoSizeTable = false;
         doctorListView.BackColor = Color.FromArgb(255, 255, 255);
         doctorListView.BorderStyle = BorderStyle.None;
         doctorListView.Columns.AddRange(new ColumnHeader[] { nofuction, no, name, phone, status });
         doctorListView.Depth = 0;
+        doctorListView.Font = new Font("Segoe UI", 16F, FontStyle.Underline);
         doctorListView.FullRowSelect = true;
         doctorListView.Location = new Point(3, 66);
         doctorListView.MinimumSize = new Size(200, 100);
