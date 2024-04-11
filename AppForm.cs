@@ -65,14 +65,9 @@ public partial class AppForm : MaterialForm
     {
         var data = _appDbContext.BacSiKTVs.ToList();
 
-        var exampleData = new List<BacSiKTV>()
-        {
-            new(){Id = 1, TenBacSiKTV = "Phạm Thành Hưng", SoDienThoai = "12345678", TrangThai= "Đang trong giờ làm việc" }
-        };
+        doctorListView.Items.Clear();
 
-        materialListView1.Items.Clear();
-
-        foreach ( var item in exampleData )
+        foreach (var item in data)
         {
             var newItem = new ListViewItem();
 
@@ -81,8 +76,37 @@ public partial class AppForm : MaterialForm
             newItem.SubItems.Add(item.SoDienThoai);
             newItem.SubItems.Add(item.TrangThai);
 
-            materialListView1.Items.Add(newItem);
-        }    
+            doctorListView.Items.Add(newItem);
+        }
+
+    }
+
+    private void materialButton1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void add_doctor_btn_Click(object sender, EventArgs e)
+    {
+        var addDoctorModel = new BacSiKTV()
+        {
+            TenBacSiKTV = "Bác sĩ Hải",
+            DiaChi = "Trái đất",
+            SoDienThoai = "0912345678",
+            Email = "abc@gmail.com",
+            TrangThai = "Online",
+            GioBatDau = new TimeOnly(08, 00),
+            GioKetThuc = new TimeOnly(17, 00)
+        };
+
+        _appDbContext.Add(addDoctorModel);
+        _appDbContext.SaveChanges();
+
+        LoadTabBacSiKtv();
+    }
+
+    private void doctorListView_SelectedIndexChanged(object sender, EventArgs e)
+    {
 
     }
 }
