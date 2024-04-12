@@ -371,6 +371,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Thêm/Sửa thông tin bác sĩ-Ktv";
             Load += AddUpdateBacSiForm_Load;
+            FormClosing += AddUpdateBacSiForm_FormClosing;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
