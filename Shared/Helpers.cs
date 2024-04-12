@@ -23,5 +23,12 @@ namespace ezbooking.Shared
 
             return TimeOnly.Parse(time);
         }
+
+        public static string GetWorkingTimeRange(TimeOnly startTime, TimeOnly endTime)
+        {
+            var start = startTime.ToShortTimeString();
+            var end = endTime.ToShortTimeString();
+            return start + " - " + end;
+        }
     }
 }

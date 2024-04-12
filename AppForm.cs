@@ -1,5 +1,6 @@
 ﻿using ezbooking.Forms;
 using ezbooking.Models;
+using ezbooking.Shared;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -84,22 +85,6 @@ public partial class AppForm : MaterialForm
 
     private void add_doctor_btn_Click(object sender, EventArgs e)
     {
-        //var addDoctorModel = new BacSiKTV()
-        //{
-        //    TenBacSiKTV = "Bác sĩ Hải",
-        //    DiaChi = "Trái đất",
-        //    SoDienThoai = "0912345678",
-        //    Email = "abc@gmail.com",
-        //    TrangThai = "Online",
-        //    GioBatDau = new TimeOnly(08, 00),
-        //    GioKetThuc = new TimeOnly(17, 00)
-        //};
-
-        //_appDbContext.Add(addDoctorModel);
-        //_appDbContext.SaveChanges();
-
-        //LoadTabBacSiKtv();
-
         // Open a new form
         _addUpdateBacSiForm.ShowDialog();
     }
@@ -128,15 +113,18 @@ public partial class AppForm : MaterialForm
     private void FillDataToDoctorListView(List<BacSiKTV> data)
     {
         doctorListView.Items.Clear();
-
+        int stt = 0;
         foreach (var item in data)
         {
+            stt++;
             var newItem = new ListViewItem();
 
-            newItem.SubItems.Add(item.Id.ToString());
+            newItem.SubItems.Add(stt.ToString());
             newItem.SubItems.Add(item.TenBacSiKTV);
             newItem.SubItems.Add(item.SoDienThoai);
-            newItem.SubItems.Add(item.TrangThai);
+            newItem.SubItems.Add(item.DiaChi);
+            newItem.SubItems.Add(item.Email);
+            newItem.SubItems.Add(Helpers.GetWorkingTimeRange(item.GioBatDau, item.GioKetThuc));
 
             doctorListView.Items.Add(newItem);
         }

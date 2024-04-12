@@ -45,11 +45,13 @@ partial class AppForm
         no = new ColumnHeader();
         name = new ColumnHeader();
         phone = new ColumnHeader();
-        status = new ColumnHeader();
+        address = new ColumnHeader();
         patient = new TabPage();
         booking = new TabPage();
         report = new TabPage();
         imageList1 = new ImageList(components);
+        email = new ColumnHeader();
+        workingTime = new ColumnHeader();
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
         SuspendLayout();
@@ -97,12 +99,12 @@ partial class AppForm
         searchTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
         searchTextBox.Hint = "Nhập họ tên cần tìm kiếm";
         searchTextBox.LeadingIcon = null;
-        searchTextBox.Location = new Point(15, 59);
+        searchTextBox.Location = new Point(3, 55);
         searchTextBox.MaxLength = 50;
         searchTextBox.MouseState = MouseState.OUT;
         searchTextBox.Multiline = false;
         searchTextBox.Name = "searchTextBox";
-        searchTextBox.Size = new Size(463, 50);
+        searchTextBox.Size = new Size(228, 50);
         searchTextBox.TabIndex = 7;
         searchTextBox.Text = "";
         searchTextBox.TrailingIcon = null;
@@ -190,17 +192,17 @@ partial class AppForm
         doctorListView.AutoSizeTable = false;
         doctorListView.BackColor = Color.FromArgb(255, 255, 255);
         doctorListView.BorderStyle = BorderStyle.None;
-        doctorListView.Columns.AddRange(new ColumnHeader[] { nofuction, no, name, phone, status });
+        doctorListView.Columns.AddRange(new ColumnHeader[] { nofuction, no, name, phone, address, email, workingTime });
         doctorListView.Depth = 0;
         doctorListView.Font = new Font("Segoe UI", 16F, FontStyle.Underline);
         doctorListView.FullRowSelect = true;
-        doctorListView.Location = new Point(3, 115);
+        doctorListView.Location = new Point(3, 125);
         doctorListView.MinimumSize = new Size(200, 100);
         doctorListView.MouseLocation = new Point(-1, -1);
         doctorListView.MouseState = MouseState.OUT;
         doctorListView.Name = "doctorListView";
         doctorListView.OwnerDraw = true;
-        doctorListView.Size = new Size(913, 325);
+        doctorListView.Size = new Size(913, 315);
         doctorListView.TabIndex = 4;
         doctorListView.UseCompatibleStateImageBehavior = false;
         doctorListView.View = View.Details;
@@ -225,10 +227,10 @@ partial class AppForm
         phone.Text = "Số điện thoại";
         phone.Width = 120;
         // 
-        // status
+        // address
         // 
-        status.Text = "Trạng thái";
-        status.Width = 100;
+        address.Text = "Địa chỉ";
+        address.Width = 100;
         // 
         // patient
         // 
@@ -277,6 +279,16 @@ partial class AppForm
         imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
         imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
         // 
+        // email
+        // 
+        email.Text = "Email";
+        email.Width = 100;
+        // 
+        // workingTime
+        // 
+        workingTime.Text = "Thời gian làm việc";
+        workingTime.Width = 150;
+        // 
         // AppForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
@@ -311,9 +323,11 @@ partial class AppForm
     private ColumnHeader no;
     private ColumnHeader name;
     private ColumnHeader phone;
-    private ColumnHeader status;
+    private ColumnHeader address;
     private ColumnHeader nofuction;
     private MaterialSkin.Controls.MaterialButton delete_doctor;
     private MaterialSkin.Controls.MaterialButton edit_doctor;
     private MaterialTextBox searchTextBox;
+    private ColumnHeader email;
+    private ColumnHeader workingTime;
 }
