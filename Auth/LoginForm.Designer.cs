@@ -32,8 +32,6 @@ partial class LoginForm
         materialButton1 = new MaterialSkin.Controls.MaterialButton();
         passwordTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
         usernameTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
-        usernameLabel = new Label();
-        passwordLabel = new Label();
         SuspendLayout();
         // 
         // materialButton1
@@ -43,8 +41,8 @@ partial class LoginForm
         materialButton1.Depth = 0;
         materialButton1.HighEmphasis = true;
         materialButton1.Icon = null;
-        materialButton1.Location = new Point(189, 445);
-        materialButton1.Margin = new Padding(4, 6, 4, 6);
+        materialButton1.Location = new Point(121, 327);
+        materialButton1.Margin = new Padding(5, 8, 5, 8);
         materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
         materialButton1.Name = "materialButton1";
         materialButton1.NoAccentTextColor = Color.Empty;
@@ -68,14 +66,16 @@ partial class LoginForm
         passwordTxt.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
         passwordTxt.HidePromptOnLeave = false;
         passwordTxt.HideSelection = true;
+        passwordTxt.Hint = "Mật khẩu";
         passwordTxt.InsertKeyMode = InsertKeyMode.Default;
         passwordTxt.LeadingIcon = null;
-        passwordTxt.Location = new Point(99, 360);
+        passwordTxt.Location = new Point(42, 252);
+        passwordTxt.Margin = new Padding(3, 4, 3, 4);
         passwordTxt.Mask = "";
         passwordTxt.MaxLength = 32767;
         passwordTxt.MouseState = MaterialSkin.MouseState.OUT;
         passwordTxt.Name = "passwordTxt";
-        passwordTxt.PasswordChar = '\0';
+        passwordTxt.PasswordChar = '●';
         passwordTxt.PrefixSuffixText = null;
         passwordTxt.PromptChar = '_';
         passwordTxt.ReadOnly = false;
@@ -87,14 +87,14 @@ partial class LoginForm
         passwordTxt.SelectionLength = 0;
         passwordTxt.SelectionStart = 0;
         passwordTxt.ShortcutsEnabled = true;
-        passwordTxt.Size = new Size(307, 48);
+        passwordTxt.Size = new Size(279, 48);
         passwordTxt.SkipLiterals = true;
         passwordTxt.TabIndex = 1;
         passwordTxt.TabStop = false;
         passwordTxt.TextAlign = HorizontalAlignment.Left;
         passwordTxt.TextMaskFormat = MaskFormat.IncludeLiterals;
         passwordTxt.TrailingIcon = null;
-        passwordTxt.UseSystemPasswordChar = false;
+        passwordTxt.UseSystemPasswordChar = true;
         passwordTxt.ValidatingType = null;
         // 
         // usernameTxt
@@ -109,9 +109,11 @@ partial class LoginForm
         usernameTxt.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
         usernameTxt.HidePromptOnLeave = false;
         usernameTxt.HideSelection = true;
+        usernameTxt.Hint = "Tên đăng nhập";
         usernameTxt.InsertKeyMode = InsertKeyMode.Default;
         usernameTxt.LeadingIcon = null;
-        usernameTxt.Location = new Point(99, 254);
+        usernameTxt.Location = new Point(42, 187);
+        usernameTxt.Margin = new Padding(3, 4, 3, 4);
         usernameTxt.Mask = "";
         usernameTxt.MaxLength = 32767;
         usernameTxt.MouseState = MaterialSkin.MouseState.OUT;
@@ -128,7 +130,7 @@ partial class LoginForm
         usernameTxt.SelectionLength = 0;
         usernameTxt.SelectionStart = 0;
         usernameTxt.ShortcutsEnabled = true;
-        usernameTxt.Size = new Size(307, 48);
+        usernameTxt.Size = new Size(279, 48);
         usernameTxt.SkipLiterals = true;
         usernameTxt.TabIndex = 2;
         usernameTxt.TabStop = false;
@@ -138,39 +140,17 @@ partial class LoginForm
         usernameTxt.UseSystemPasswordChar = false;
         usernameTxt.ValidatingType = null;
         // 
-        // usernameLabel
-        // 
-        usernameLabel.AutoSize = true;
-        usernameLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        usernameLabel.Location = new Point(99, 226);
-        usernameLabel.Name = "usernameLabel";
-        usernameLabel.Size = new Size(144, 25);
-        usernameLabel.TabIndex = 3;
-        usernameLabel.Text = "Tên đăng nhập";
-        // 
-        // passwordLabel
-        // 
-        passwordLabel.AutoSize = true;
-        passwordLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        passwordLabel.Location = new Point(99, 332);
-        passwordLabel.Name = "passwordLabel";
-        passwordLabel.Size = new Size(96, 25);
-        passwordLabel.TabIndex = 4;
-        passwordLabel.Text = "Mật khẩu";
-        // 
         // LoginForm
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        BackgroundImage = Properties.Resources.login_background;
-        ClientSize = new Size(494, 681);
-        Controls.Add(passwordLabel);
-        Controls.Add(usernameLabel);
+        BackgroundImage = Properties.Resources._2503670;
+        ClientSize = new Size(822, 538);
         Controls.Add(usernameTxt);
         Controls.Add(passwordTxt);
         Controls.Add(materialButton1);
+        FormBorderStyle = FormBorderStyle.FixedToolWindow;
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Margin = new Padding(3, 2, 3, 2);
         Name = "LoginForm";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Đăng nhập";
@@ -184,6 +164,4 @@ partial class LoginForm
     private MaterialSkin.Controls.MaterialButton materialButton1;
     private MaterialSkin.Controls.MaterialMaskedTextBox passwordTxt;
     private MaterialSkin.Controls.MaterialMaskedTextBox usernameTxt;
-    private Label usernameLabel;
-    private Label passwordLabel;
 }
