@@ -35,6 +35,7 @@ partial class AppForm
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppForm));
         materialTabControl1 = new MaterialTabControl();
         doctor = new TabPage();
+        searchTextBox = new MaterialTextBox();
         delete_doctor = new MaterialButton();
         edit_doctor = new MaterialButton();
         add_doctor_btn = new MaterialButton();
@@ -73,6 +74,7 @@ partial class AppForm
         // 
         // doctor
         // 
+        doctor.Controls.Add(searchTextBox);
         doctor.Controls.Add(delete_doctor);
         doctor.Controls.Add(edit_doctor);
         doctor.Controls.Add(add_doctor_btn);
@@ -86,6 +88,25 @@ partial class AppForm
         doctor.TabIndex = 0;
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
+        // 
+        // searchTextBox
+        // 
+        searchTextBox.AnimateReadOnly = false;
+        searchTextBox.BorderStyle = BorderStyle.None;
+        searchTextBox.Depth = 0;
+        searchTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+        searchTextBox.Hint = "Nhập họ tên cần tìm kiếm";
+        searchTextBox.LeadingIcon = null;
+        searchTextBox.Location = new Point(15, 59);
+        searchTextBox.MaxLength = 50;
+        searchTextBox.MouseState = MouseState.OUT;
+        searchTextBox.Multiline = false;
+        searchTextBox.Name = "searchTextBox";
+        searchTextBox.Size = new Size(463, 50);
+        searchTextBox.TabIndex = 7;
+        searchTextBox.Text = "";
+        searchTextBox.TrailingIcon = null;
+        searchTextBox.TextChanged += searchTextBox_TextChanged;
         // 
         // delete_doctor
         // 
@@ -173,13 +194,13 @@ partial class AppForm
         doctorListView.Depth = 0;
         doctorListView.Font = new Font("Segoe UI", 16F, FontStyle.Underline);
         doctorListView.FullRowSelect = true;
-        doctorListView.Location = new Point(3, 66);
+        doctorListView.Location = new Point(3, 115);
         doctorListView.MinimumSize = new Size(200, 100);
         doctorListView.MouseLocation = new Point(-1, -1);
         doctorListView.MouseState = MouseState.OUT;
         doctorListView.Name = "doctorListView";
         doctorListView.OwnerDraw = true;
-        doctorListView.Size = new Size(913, 374);
+        doctorListView.Size = new Size(913, 325);
         doctorListView.TabIndex = 4;
         doctorListView.UseCompatibleStateImageBehavior = false;
         doctorListView.View = View.Details;
@@ -267,6 +288,7 @@ partial class AppForm
         DrawerTabControl = materialTabControl1;
         Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "AppForm";
+        StartPosition = FormStartPosition.CenterScreen;
         Text = "Khoa PHCN – Đông y";
         Load += AppForm_Load;
         materialTabControl1.ResumeLayout(false);
@@ -293,4 +315,5 @@ partial class AppForm
     private ColumnHeader nofuction;
     private MaterialSkin.Controls.MaterialButton delete_doctor;
     private MaterialSkin.Controls.MaterialButton edit_doctor;
+    private MaterialTextBox searchTextBox;
 }
