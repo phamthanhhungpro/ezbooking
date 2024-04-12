@@ -368,6 +368,7 @@
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateBacSiForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Thêm/Sửa thông tin bác sĩ-Ktv";
             Load += AddUpdateBacSiForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
