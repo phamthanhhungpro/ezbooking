@@ -41,17 +41,18 @@ partial class AppForm
         add_doctor_btn = new MaterialButton();
         doctorLabel = new Label();
         doctorListView = new MaterialListView();
-        nofuction = new ColumnHeader();
+        nofunction = new ColumnHeader();
         no = new ColumnHeader();
         name = new ColumnHeader();
         phone = new ColumnHeader();
         address = new ColumnHeader();
+        email = new ColumnHeader();
+        workingTime = new ColumnHeader();
+        hiddenId = new ColumnHeader();
         patient = new TabPage();
         booking = new TabPage();
         report = new TabPage();
         imageList1 = new ImageList(components);
-        email = new ColumnHeader();
-        workingTime = new ColumnHeader();
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
         SuspendLayout();
@@ -130,6 +131,7 @@ partial class AppForm
         delete_doctor.Type = MaterialButton.MaterialButtonType.Outlined;
         delete_doctor.UseAccentColor = true;
         delete_doctor.UseVisualStyleBackColor = true;
+        delete_doctor.Click += delete_doctor_Click;
         // 
         // edit_doctor
         // 
@@ -152,7 +154,7 @@ partial class AppForm
         edit_doctor.Type = MaterialButton.MaterialButtonType.Outlined;
         edit_doctor.UseAccentColor = false;
         edit_doctor.UseVisualStyleBackColor = false;
-        edit_doctor.Click += materialButton1_Click;
+        edit_doctor.Click += edit_doctor_Click;
         // 
         // add_doctor_btn
         // 
@@ -192,7 +194,7 @@ partial class AppForm
         doctorListView.AutoSizeTable = false;
         doctorListView.BackColor = Color.FromArgb(255, 255, 255);
         doctorListView.BorderStyle = BorderStyle.None;
-        doctorListView.Columns.AddRange(new ColumnHeader[] { nofuction, no, name, phone, address, email, workingTime });
+        doctorListView.Columns.AddRange(new ColumnHeader[] { nofunction, no, name, phone, address, email, workingTime, hiddenId });
         doctorListView.Depth = 0;
         doctorListView.Font = new Font("Segoe UI", 16F, FontStyle.Underline);
         doctorListView.FullRowSelect = true;
@@ -208,10 +210,10 @@ partial class AppForm
         doctorListView.View = View.Details;
         doctorListView.SelectedIndexChanged += doctorListView_SelectedIndexChanged;
         // 
-        // nofuction
+        // nofunction
         // 
-        nofuction.Text = "";
-        nofuction.Width = 0;
+        nofunction.Text = "";
+        nofunction.Width = 0;
         // 
         // no
         // 
@@ -231,6 +233,21 @@ partial class AppForm
         // 
         address.Text = "Địa chỉ";
         address.Width = 100;
+        // 
+        // email
+        // 
+        email.Text = "Email";
+        email.Width = 100;
+        // 
+        // workingTime
+        // 
+        workingTime.Text = "Thời gian làm việc";
+        workingTime.Width = 150;
+        // 
+        // hiddenId
+        // 
+        hiddenId.Text = "";
+        hiddenId.Width = 0;
         // 
         // patient
         // 
@@ -279,16 +296,6 @@ partial class AppForm
         imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
         imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
         // 
-        // email
-        // 
-        email.Text = "Email";
-        email.Width = 100;
-        // 
-        // workingTime
-        // 
-        workingTime.Text = "Thời gian làm việc";
-        workingTime.Width = 150;
-        // 
         // AppForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
@@ -324,10 +331,11 @@ partial class AppForm
     private ColumnHeader name;
     private ColumnHeader phone;
     private ColumnHeader address;
-    private ColumnHeader nofuction;
+    private ColumnHeader nofunction;
     private MaterialSkin.Controls.MaterialButton delete_doctor;
     private MaterialSkin.Controls.MaterialButton edit_doctor;
     private MaterialTextBox searchTextBox;
     private ColumnHeader email;
     private ColumnHeader workingTime;
+    private ColumnHeader hiddenId;
 }

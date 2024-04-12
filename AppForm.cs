@@ -78,9 +78,27 @@ public partial class AppForm : MaterialForm
         FillDataToDoctorListView(data);
     }
 
-    private void materialButton1_Click(object sender, EventArgs e)
+    private void edit_doctor_Click(object sender, EventArgs e)
     {
+        if (doctorListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = doctorListView.SelectedItems[0];
+        var id = selectedRow.SubItems[7].Text;
 
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Open a new form and pass data into it for update
+        _addUpdateBacSiForm.IdBacSiKTV = int.Parse(id);
+        _addUpdateBacSiForm.LoadData(int.Parse(id));
+
+        _addUpdateBacSiForm.ShowDialog();
     }
 
     private void add_doctor_btn_Click(object sender, EventArgs e)
@@ -125,8 +143,34 @@ public partial class AppForm : MaterialForm
             newItem.SubItems.Add(item.DiaChi);
             newItem.SubItems.Add(item.Email);
             newItem.SubItems.Add(Helpers.GetWorkingTimeRange(item.GioBatDau, item.GioKetThuc));
+            newItem.SubItems.Add(item.Id.ToString());
 
             doctorListView.Items.Add(newItem);
         }
+    }
+
+    private void delete_doctor_Click(object sender, EventArgs e)
+    {
+        // Get selected row data
+        if(doctorListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        var selectedRow = doctorListView.SelectedItems[0];
+        var id = selectedRow.SubItems[7].Text;
+
+        if(id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        var toDelete = _appDbContext.BacSiKTVs.FirstOrDefault(x => x.Id == int.Parse(id));
+        _appDbContext.BacSiKTVs.Remove(toDelete);
+        _appDbContext.SaveChanges();
+
+        LoadTabBacSiKtv();
+
+        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }
