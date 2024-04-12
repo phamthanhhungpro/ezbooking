@@ -19,6 +19,40 @@ namespace ezbooking.Models
         {
             optionsBuilder.UseSqlite("Data Source=ezbooking.db");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // set default value for CreatedAt and IsDeleted
+            modelBuilder.Entity<ThoiGianBieu>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<DichVuKT>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<BacSiKTV>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<BenhNhan>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<ThietBi>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
+        }
     }
 }
 

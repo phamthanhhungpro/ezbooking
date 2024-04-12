@@ -37,6 +37,7 @@ partial class LoginForm
         // materialButton1
         // 
         materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        materialButton1.Cursor = Cursors.Hand;
         materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
         materialButton1.Depth = 0;
         materialButton1.HighEmphasis = true;

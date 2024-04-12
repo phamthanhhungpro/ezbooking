@@ -1,3 +1,4 @@
+using ezbooking.Forms;
 using ezbooking.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,5 +33,6 @@ static class Program
         // Add your services here
         services.AddSingleton<LoginForm>();
         services.AddSingleton<AppForm>();
+        services.AddScoped<AddUpdateBacSiForm>();
     }
 }

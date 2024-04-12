@@ -1,4 +1,5 @@
-﻿using ezbooking.Models;
+﻿using ezbooking.Forms;
+using ezbooking.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 
@@ -7,7 +8,9 @@ namespace ezbooking;
 public partial class AppForm : MaterialForm
 {
     private readonly AppDbContext _appDbContext;
-    public AppForm(AppDbContext appDbContext)
+    private readonly AddUpdateBacSiForm _addUpdateBacSiForm;
+    public AppForm(AppDbContext appDbContext,
+                   AddUpdateBacSiForm addUpdateBacSiForm)
     {
         InitializeComponent();
 
@@ -31,8 +34,10 @@ public partial class AppForm : MaterialForm
                                          );
 
         _appDbContext = appDbContext;
-        materialTabControl1.SelectedIndexChanged += TabChanged;
+        _addUpdateBacSiForm = addUpdateBacSiForm;
 
+        materialTabControl1.SelectedIndexChanged += TabChanged;
+        _addUpdateBacSiForm.DataChanged += TabChanged;
     }
 
     private void AppForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -66,7 +71,7 @@ public partial class AppForm : MaterialForm
 
     private void LoadTabBacSiKtv()
     {
-        var data = _appDbContext.BacSiKTVs.ToList();
+        var data = _appDbContext.BacSiKTVs.OrderByDescending(o => o.CreatedAt).ToList();
 
         doctorListView.Items.Clear();
 
@@ -81,7 +86,6 @@ public partial class AppForm : MaterialForm
 
             doctorListView.Items.Add(newItem);
         }
-
     }
 
     private void materialButton1_Click(object sender, EventArgs e)
@@ -91,21 +95,24 @@ public partial class AppForm : MaterialForm
 
     private void add_doctor_btn_Click(object sender, EventArgs e)
     {
-        var addDoctorModel = new BacSiKTV()
-        {
-            TenBacSiKTV = "Bác sĩ Hải",
-            DiaChi = "Trái đất",
-            SoDienThoai = "0912345678",
-            Email = "abc@gmail.com",
-            TrangThai = "Online",
-            GioBatDau = new TimeOnly(08, 00),
-            GioKetThuc = new TimeOnly(17, 00)
-        };
+        //var addDoctorModel = new BacSiKTV()
+        //{
+        //    TenBacSiKTV = "Bác sĩ Hải",
+        //    DiaChi = "Trái đất",
+        //    SoDienThoai = "0912345678",
+        //    Email = "abc@gmail.com",
+        //    TrangThai = "Online",
+        //    GioBatDau = new TimeOnly(08, 00),
+        //    GioKetThuc = new TimeOnly(17, 00)
+        //};
 
-        _appDbContext.Add(addDoctorModel);
-        _appDbContext.SaveChanges();
+        //_appDbContext.Add(addDoctorModel);
+        //_appDbContext.SaveChanges();
 
-        LoadTabBacSiKtv();
+        //LoadTabBacSiKtv();
+
+        // Open a new form
+        _addUpdateBacSiForm.ShowDialog();
     }
 
     private void doctorListView_SelectedIndexChanged(object sender, EventArgs e)

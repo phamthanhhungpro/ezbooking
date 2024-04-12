@@ -38,10 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Forms\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="ezbooking.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
