@@ -36,6 +36,7 @@ partial class LoginForm
         // 
         // materialButton1
         // 
+        materialButton1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         materialButton1.Cursor = Cursors.Hand;
         materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
@@ -58,6 +59,7 @@ partial class LoginForm
         // passwordTxt
         // 
         passwordTxt.AllowPromptAsInput = true;
+        passwordTxt.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         passwordTxt.AnimateReadOnly = false;
         passwordTxt.AsciiOnly = false;
         passwordTxt.BackgroundImageLayout = ImageLayout.None;
@@ -101,6 +103,7 @@ partial class LoginForm
         // usernameTxt
         // 
         usernameTxt.AllowPromptAsInput = true;
+        usernameTxt.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         usernameTxt.AnimateReadOnly = false;
         usernameTxt.AsciiOnly = false;
         usernameTxt.BackgroundImageLayout = ImageLayout.None;
