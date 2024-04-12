@@ -1,6 +1,7 @@
 ﻿using ezbooking.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ezbooking;
 
@@ -68,19 +69,7 @@ public partial class AppForm : MaterialForm
     {
         var data = _appDbContext.BacSiKTVs.ToList();
 
-        doctorListView.Items.Clear();
-
-        foreach (var item in data)
-        {
-            var newItem = new ListViewItem();
-
-            newItem.SubItems.Add(item.Id.ToString());
-            newItem.SubItems.Add(item.TenBacSiKTV);
-            newItem.SubItems.Add(item.SoDienThoai);
-            newItem.SubItems.Add(item.TrangThai);
-
-            doctorListView.Items.Add(newItem);
-        }
+        FillDataToDoctorListView(data);
 
     }
 
@@ -111,5 +100,38 @@ public partial class AppForm : MaterialForm
     private void doctorListView_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+
+    private void searchTextBox_TextChanged(object sender, EventArgs e)
+    {
+        var data = _appDbContext.BacSiKTVs.ToList();
+
+        if (searchTextBox.Text != null)
+        {
+            data = data.Where(x => x.TenBacSiKTV.ToLower().Contains(searchTextBox.Text.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+        else
+        {
+            return;
+        }
+
+        FillDataToDoctorListView(data);
+    }
+
+    private void FillDataToDoctorListView(List<BacSiKTV> data)
+    {
+        doctorListView.Items.Clear();
+
+        foreach (var item in data)
+        {
+            var newItem = new ListViewItem();
+
+            newItem.SubItems.Add(item.Id.ToString());
+            newItem.SubItems.Add(item.TenBacSiKTV);
+            newItem.SubItems.Add(item.SoDienThoai);
+            newItem.SubItems.Add(item.TrangThai);
+
+            doctorListView.Items.Add(newItem);
+        }
     }
 }
