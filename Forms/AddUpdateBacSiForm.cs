@@ -92,8 +92,6 @@ namespace ezbooking.Forms
                     _appDbContext.SaveChanges();
                 }
 
-                //ClearForm();
-
                 // Trigger the DataInserted event
                 OnDataChanged(EventArgs.Empty);
 
@@ -120,7 +118,7 @@ namespace ezbooking.Forms
             Helpers.UnCheckAllItems(doctorDvktCheckList);
         }
 
-        // Method to trigger the DataInserted event
+        // Method to trigger the DataChanged event
         protected virtual void OnDataChanged(EventArgs e)
         {
             DataChanged?.Invoke(this, e);

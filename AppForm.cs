@@ -12,6 +12,8 @@ public partial class AppForm : MaterialForm
     private readonly AppDbContext _appDbContext;
     private readonly AddUpdateBacSiForm _addUpdateBacSiForm;
     private readonly AddUpdateThietBiForm _addUpdateThietBiForm;
+    private readonly AddUpdateBenhNhanForm _addUpdateBenhNhanForm;
+    private readonly BenhNhanDatLichForm _benhNhanDatLichForm;
 
     private int pageIndex = 1;
     private int pageSize = 20;
@@ -19,7 +21,9 @@ public partial class AppForm : MaterialForm
 
     public AppForm(AppDbContext appDbContext,
                    AddUpdateBacSiForm addUpdateBacSiForm,
-                   AddUpdateThietBiForm addUpdateThietBiForm)
+                   AddUpdateThietBiForm addUpdateThietBiForm,
+                   AddUpdateBenhNhanForm addUpdateBenhNhanForm,
+                   BenhNhanDatLichForm benhNhanDatLichForm)
     {
         InitializeComponent();
 
@@ -41,10 +45,14 @@ public partial class AppForm : MaterialForm
         _appDbContext = appDbContext;
         _addUpdateBacSiForm = addUpdateBacSiForm;
         _addUpdateThietBiForm = addUpdateThietBiForm;
+        _addUpdateBenhNhanForm = addUpdateBenhNhanForm;
+        _benhNhanDatLichForm = benhNhanDatLichForm;
 
         materialTabControl1.SelectedIndexChanged += TabChanged;
+
         _addUpdateBacSiForm.DataChanged += TabChanged;
         _addUpdateThietBiForm.DataChanged += TabChanged;
+        _addUpdateBenhNhanForm.DataChanged += TabChanged;
     }
 
     private void AppForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -341,17 +349,7 @@ public partial class AppForm : MaterialForm
 
     private void add_patient_btn_Click(object sender, EventArgs e)
     {
-        var patientEx = new BenhNhan()
-        {
-            TenBenhNhan = "Nguyễn văn A",
-            DiaChi = "Hà Nội",
-            SoDienThoai = "11333111"
-        };
-
-        _appDbContext.Add(patientEx);
-
-        _appDbContext.SaveChanges();
-        LoadTabNguoiBenh();
+        _addUpdateBenhNhanForm.ShowDialog();
     }
 
     private void search_patient_box_TextChanged(object sender, EventArgs e)
@@ -376,5 +374,61 @@ public partial class AppForm : MaterialForm
         pageIndex = 1;
         pageSize = 20;
         totalPages = 0;
+    }
+
+    private void edit_patient_btn_Click(object sender, EventArgs e)
+    {
+        if (patientListview.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = patientListview.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Open a new form and pass data into it for update
+        _addUpdateBenhNhanForm.IdBenhNhan = int.Parse(id);
+        _addUpdateBenhNhanForm.LoadData(int.Parse(id));
+
+        _addUpdateBenhNhanForm.ShowDialog();
+    }
+
+    private void del_patient_btn_Click(object sender, EventArgs e)
+    {
+        if (patientListview.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = patientListview.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        var toDelete = _appDbContext.BenhNhans.FirstOrDefault(x => x.Id == int.Parse(id));
+
+        toDelete.IsDeleted = true;
+        toDelete.DeletedAt = DateTime.Now;
+
+        _appDbContext.SaveChanges();
+
+        LoadTabNguoiBenh();
+        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void patientBook_Click(object sender, EventArgs e)
+    {
+        _benhNhanDatLichForm.ShowDialog();
     }
 }

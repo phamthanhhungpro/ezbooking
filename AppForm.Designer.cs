@@ -50,6 +50,7 @@ partial class AppForm
         workingTime = new ColumnHeader();
         hiddenId = new ColumnHeader();
         patient = new TabPage();
+        patientBook = new MaterialButton();
         patient_prev_btn = new Button();
         patient_next_btn = new Button();
         patientListview = new MaterialListView();
@@ -289,6 +290,7 @@ partial class AppForm
         // 
         // patient
         // 
+        patient.Controls.Add(patientBook);
         patient.Controls.Add(patient_prev_btn);
         patient.Controls.Add(patient_next_btn);
         patient.Controls.Add(patientListview);
@@ -306,6 +308,26 @@ partial class AppForm
         patient.TabIndex = 1;
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
+        // 
+        // patientBook
+        // 
+        patientBook.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        patientBook.Density = MaterialButton.MaterialButtonDensity.Default;
+        patientBook.Depth = 0;
+        patientBook.HighEmphasis = true;
+        patientBook.Icon = null;
+        patientBook.Location = new Point(497, 9);
+        patientBook.Margin = new Padding(4, 6, 4, 6);
+        patientBook.MouseState = MouseState.HOVER;
+        patientBook.Name = "patientBook";
+        patientBook.NoAccentTextColor = Color.Empty;
+        patientBook.Size = new Size(86, 36);
+        patientBook.TabIndex = 13;
+        patientBook.Text = "Đặt lịch";
+        patientBook.Type = MaterialButton.MaterialButtonType.Contained;
+        patientBook.UseAccentColor = true;
+        patientBook.UseVisualStyleBackColor = true;
+        patientBook.Click += patientBook_Click;
         // 
         // patient_prev_btn
         // 
@@ -428,6 +450,7 @@ partial class AppForm
         del_patient_btn.Type = MaterialButton.MaterialButtonType.Outlined;
         del_patient_btn.UseAccentColor = false;
         del_patient_btn.UseVisualStyleBackColor = false;
+        del_patient_btn.Click += del_patient_btn_Click;
         // 
         // edit_patient_btn
         // 
@@ -447,6 +470,7 @@ partial class AppForm
         edit_patient_btn.Type = MaterialButton.MaterialButtonType.Outlined;
         edit_patient_btn.UseAccentColor = false;
         edit_patient_btn.UseVisualStyleBackColor = false;
+        edit_patient_btn.Click += edit_patient_btn_Click;
         // 
         // add_patient_btn
         // 
@@ -856,4 +880,5 @@ partial class AppForm
     private MaterialButton add_dvkt;
     private Label dvktLabel;
     private MaterialListView dvktListView;
+    private MaterialButton patientBook;
 }
