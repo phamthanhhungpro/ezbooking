@@ -12,6 +12,11 @@ public partial class AppForm : MaterialForm
     private readonly AppDbContext _appDbContext;
     private readonly AddUpdateBacSiForm _addUpdateBacSiForm;
     private readonly AddUpdateThietBiForm _addUpdateThietBiForm;
+
+    private int pageIndex = 1;
+    private int pageSize = 20;
+    private int totalPages = 0;
+
     public AppForm(AppDbContext appDbContext,
                    AddUpdateBacSiForm addUpdateBacSiForm,
                    AddUpdateThietBiForm addUpdateThietBiForm)
@@ -19,10 +24,6 @@ public partial class AppForm : MaterialForm
         InitializeComponent();
 
         this.FormClosed += AppForm_FormClosed;
-
-        // Set the form to full screen when it is loaded
-        this.WindowState = FormWindowState.Maximized;
-
         // Apply material skin
         var materialSkinManager = MaterialSkinManager.Instance;
         materialSkinManager.EnforceBackcolorOnAllComponents = false;
@@ -58,14 +59,17 @@ public partial class AppForm : MaterialForm
 
     private void TabChanged(object sender, EventArgs e)
     {
+        pageIndex = 1;
+        pageSize = 20;
+        totalPages = 0;
+
         switch (materialTabControl1.SelectedIndex)
         {
             case 0:
-                // load tab 1 here
                 LoadTabBacSiKtv();
                 break;
             case 1:
-                Console.WriteLine("Tab 2");
+                LoadTabNguoiBenh();
                 break;
             case 2:
                 LoadTabThietBi();
@@ -74,6 +78,10 @@ public partial class AppForm : MaterialForm
                 break;
         }
     }
+
+    /// <summary>
+    /// Bac si KTV
+    /// </summary>
 
     private void LoadTabBacSiKtv()
     {
@@ -178,6 +186,10 @@ public partial class AppForm : MaterialForm
         MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
+    /// <summary>
+    /// Thiet Bi
+    /// </summary>
+
     private void LoadTabThietBi()
     {
         var data = _appDbContext.ThietBis.OrderByDescending(o => o.CreatedAt).ToList();
@@ -272,5 +284,72 @@ public partial class AppForm : MaterialForm
         LoadTabThietBi();
 
         MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    /// <summary>
+    /// Nguoi benh
+    /// </summary>
+
+    private void LoadTabNguoiBenh()
+    {
+        var query = _appDbContext.BenhNhans.OrderByDescending(o => o.CreatedAt);
+
+        var data = query.Skip((pageIndex - 1) * pageSize)
+                                          .Take(pageSize)
+                                          .ToList();
+
+        var count = query.Count();
+        totalPages = (int)Math.Ceiling((double)count / pageSize);
+
+        FillDataToPatientListView(data);
+    }
+
+    private void FillDataToPatientListView(List<BenhNhan> data)
+    {
+        patientListview.Items.Clear();
+        int stt = 0;
+        foreach (var item in data)
+        {
+            stt++;
+            var newItem = new ListViewItem();
+
+            newItem.SubItems.Add(stt.ToString());
+            newItem.SubItems.Add(item.TenBenhNhan);
+            newItem.SubItems.Add(item.DiaChi);
+            newItem.SubItems.Add(item.SoDienThoai);
+            newItem.SubItems.Add(item.Id.ToString());
+
+            patientListview.Items.Add(newItem);
+        }
+
+        patient_next_btn.Enabled = pageIndex < totalPages;
+        patient_prev_btn.Enabled = pageIndex > 1;
+    }
+
+    private void patient_prev_btn_Click(object sender, EventArgs e)
+    {
+        pageIndex--;
+        LoadTabNguoiBenh();
+    }
+
+    private void patient_next_btn_Click(object sender, EventArgs e)
+    {
+        pageIndex++;
+        LoadTabNguoiBenh();
+    }
+
+    private void add_patient_btn_Click(object sender, EventArgs e)
+    {
+        var patientEx = new BenhNhan()
+        {
+            TenBenhNhan = "Nguyễn văn A",
+            DiaChi = "Hà Nội",
+            SoDienThoai = "11333111"
+        };
+
+        _appDbContext.Add(patientEx);
+
+        _appDbContext.SaveChanges();
+        LoadTabNguoiBenh();
     }
 }

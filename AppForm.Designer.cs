@@ -50,6 +50,20 @@ partial class AppForm
         workingTime = new ColumnHeader();
         hiddenId = new ColumnHeader();
         patient = new TabPage();
+        patient_prev_btn = new Button();
+        patient_next_btn = new Button();
+        patientListview = new MaterialListView();
+        nofunctionpatient = new ColumnHeader();
+        no_patient = new ColumnHeader();
+        patientName = new ColumnHeader();
+        patientAddress = new ColumnHeader();
+        patientNumber = new ColumnHeader();
+        patientId = new ColumnHeader();
+        search_patient_box = new MaterialTextBox();
+        del_patient_btn = new MaterialButton();
+        edit_patient_btn = new MaterialButton();
+        add_patient_btn = new MaterialButton();
+        label1 = new Label();
         device = new TabPage();
         delete_device_btn = new MaterialButton();
         update_device_btn = new MaterialButton();
@@ -65,9 +79,11 @@ partial class AppForm
         deviceTitleLabel = new Label();
         booking = new TabPage();
         report = new TabPage();
+        dvkts = new TabPage();
         imageList1 = new ImageList(components);
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
+        patient.SuspendLayout();
         device.SuspendLayout();
         SuspendLayout();
         // 
@@ -78,6 +94,7 @@ partial class AppForm
         materialTabControl1.Controls.Add(device);
         materialTabControl1.Controls.Add(booking);
         materialTabControl1.Controls.Add(report);
+        materialTabControl1.Controls.Add(dvkts);
         materialTabControl1.Depth = 0;
         materialTabControl1.Dock = DockStyle.Fill;
         materialTabControl1.Font = new Font("Segoe UI", 9F);
@@ -266,6 +283,15 @@ partial class AppForm
         // 
         // patient
         // 
+        patient.Controls.Add(patient_prev_btn);
+        patient.Controls.Add(patient_next_btn);
+        patient.Controls.Add(patientListview);
+        patient.Controls.Add(search_patient_box);
+        patient.Controls.Add(del_patient_btn);
+        patient.Controls.Add(edit_patient_btn);
+        patient.Controls.Add(add_patient_btn);
+        patient.Controls.Add(label1);
+        patient.Cursor = Cursors.Hand;
         patient.ImageKey = "icons8-nurse-call-48.png";
         patient.Location = new Point(4, 39);
         patient.Name = "patient";
@@ -275,6 +301,177 @@ partial class AppForm
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
         // 
+        // patient_prev_btn
+        // 
+        patient_prev_btn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+        patient_prev_btn.BackColor = Color.White;
+        patient_prev_btn.FlatAppearance.BorderColor = Color.White;
+        patient_prev_btn.ForeColor = Color.RosyBrown;
+        patient_prev_btn.Image = Properties.Resources.icons8_previous_30;
+        patient_prev_btn.Location = new Point(8, 412);
+        patient_prev_btn.Name = "patient_prev_btn";
+        patient_prev_btn.Size = new Size(36, 25);
+        patient_prev_btn.TabIndex = 12;
+        patient_prev_btn.UseVisualStyleBackColor = false;
+        patient_prev_btn.Click += patient_prev_btn_Click;
+        // 
+        // patient_next_btn
+        // 
+        patient_next_btn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+        patient_next_btn.BackColor = Color.White;
+        patient_next_btn.FlatAppearance.BorderColor = Color.White;
+        patient_next_btn.ForeColor = Color.RosyBrown;
+        patient_next_btn.Image = Properties.Resources.icons8_next_30;
+        patient_next_btn.Location = new Point(60, 412);
+        patient_next_btn.Name = "patient_next_btn";
+        patient_next_btn.Size = new Size(35, 25);
+        patient_next_btn.TabIndex = 11;
+        patient_next_btn.UseVisualStyleBackColor = false;
+        patient_next_btn.Click += patient_next_btn_Click;
+        // 
+        // patientListview
+        // 
+        patientListview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        patientListview.AutoSizeTable = false;
+        patientListview.BackColor = Color.FromArgb(255, 255, 255);
+        patientListview.BorderStyle = BorderStyle.None;
+        patientListview.Columns.AddRange(new ColumnHeader[] { nofunctionpatient, no_patient, patientName, patientAddress, patientNumber, patientId });
+        patientListview.Depth = 0;
+        patientListview.Font = new Font("Segoe UI", 16F);
+        patientListview.FullRowSelect = true;
+        patientListview.Location = new Point(8, 122);
+        patientListview.MinimumSize = new Size(200, 100);
+        patientListview.MouseLocation = new Point(-1, -1);
+        patientListview.MouseState = MouseState.OUT;
+        patientListview.Name = "patientListview";
+        patientListview.OwnerDraw = true;
+        patientListview.Size = new Size(905, 284);
+        patientListview.TabIndex = 10;
+        patientListview.UseCompatibleStateImageBehavior = false;
+        patientListview.View = View.Details;
+        // 
+        // nofunctionpatient
+        // 
+        nofunctionpatient.DisplayIndex = 5;
+        nofunctionpatient.Width = 0;
+        // 
+        // no_patient
+        // 
+        no_patient.DisplayIndex = 0;
+        no_patient.Text = "STT";
+        // 
+        // patientName
+        // 
+        patientName.DisplayIndex = 1;
+        patientName.Text = "Họ và tên";
+        patientName.Width = 150;
+        // 
+        // patientAddress
+        // 
+        patientAddress.DisplayIndex = 2;
+        patientAddress.Text = "Địa chỉ";
+        patientAddress.Width = 200;
+        // 
+        // patientNumber
+        // 
+        patientNumber.DisplayIndex = 3;
+        patientNumber.Text = "Số điện thoại";
+        patientNumber.Width = 150;
+        // 
+        // patientId
+        // 
+        patientId.DisplayIndex = 4;
+        patientId.Text = "";
+        patientId.Width = 0;
+        // 
+        // search_patient_box
+        // 
+        search_patient_box.AcceptsTab = true;
+        search_patient_box.AnimateReadOnly = false;
+        search_patient_box.BorderStyle = BorderStyle.None;
+        search_patient_box.Depth = 0;
+        search_patient_box.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+        search_patient_box.Hint = "Nhập tên bệnh nhân cần tìm";
+        search_patient_box.LeadingIcon = null;
+        search_patient_box.Location = new Point(7, 54);
+        search_patient_box.MaxLength = 50;
+        search_patient_box.MouseState = MouseState.OUT;
+        search_patient_box.Multiline = false;
+        search_patient_box.Name = "search_patient_box";
+        search_patient_box.Size = new Size(258, 50);
+        search_patient_box.TabIndex = 9;
+        search_patient_box.Text = "";
+        search_patient_box.TrailingIcon = null;
+        // 
+        // del_patient_btn
+        // 
+        del_patient_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        del_patient_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        del_patient_btn.Depth = 0;
+        del_patient_btn.HighEmphasis = true;
+        del_patient_btn.Icon = null;
+        del_patient_btn.Location = new Point(425, 9);
+        del_patient_btn.Margin = new Padding(4, 6, 4, 6);
+        del_patient_btn.MouseState = MouseState.HOVER;
+        del_patient_btn.Name = "del_patient_btn";
+        del_patient_btn.NoAccentTextColor = Color.Empty;
+        del_patient_btn.Size = new Size(64, 36);
+        del_patient_btn.TabIndex = 8;
+        del_patient_btn.Text = "Xoá";
+        del_patient_btn.Type = MaterialButton.MaterialButtonType.Outlined;
+        del_patient_btn.UseAccentColor = false;
+        del_patient_btn.UseVisualStyleBackColor = false;
+        // 
+        // edit_patient_btn
+        // 
+        edit_patient_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        edit_patient_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        edit_patient_btn.Depth = 0;
+        edit_patient_btn.HighEmphasis = true;
+        edit_patient_btn.Icon = null;
+        edit_patient_btn.Location = new Point(353, 9);
+        edit_patient_btn.Margin = new Padding(4, 6, 4, 6);
+        edit_patient_btn.MouseState = MouseState.HOVER;
+        edit_patient_btn.Name = "edit_patient_btn";
+        edit_patient_btn.NoAccentTextColor = Color.Empty;
+        edit_patient_btn.Size = new Size(64, 36);
+        edit_patient_btn.TabIndex = 7;
+        edit_patient_btn.Text = "Sửa";
+        edit_patient_btn.Type = MaterialButton.MaterialButtonType.Outlined;
+        edit_patient_btn.UseAccentColor = false;
+        edit_patient_btn.UseVisualStyleBackColor = false;
+        // 
+        // add_patient_btn
+        // 
+        add_patient_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        add_patient_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        add_patient_btn.Depth = 0;
+        add_patient_btn.HighEmphasis = true;
+        add_patient_btn.Icon = null;
+        add_patient_btn.Location = new Point(281, 9);
+        add_patient_btn.Margin = new Padding(4, 6, 4, 6);
+        add_patient_btn.MouseState = MouseState.HOVER;
+        add_patient_btn.Name = "add_patient_btn";
+        add_patient_btn.NoAccentTextColor = Color.Empty;
+        add_patient_btn.Size = new Size(64, 36);
+        add_patient_btn.TabIndex = 6;
+        add_patient_btn.Text = "Thêm";
+        add_patient_btn.Type = MaterialButton.MaterialButtonType.Outlined;
+        add_patient_btn.UseAccentColor = false;
+        add_patient_btn.UseVisualStyleBackColor = false;
+        add_patient_btn.Click += add_patient_btn_Click;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+        label1.ForeColor = SystemColors.ActiveCaption;
+        label1.Location = new Point(8, 13);
+        label1.Name = "label1";
+        label1.Size = new Size(258, 31);
+        label1.TabIndex = 1;
+        label1.Text = "Danh sách người bệnh";
+        // 
         // device
         // 
         device.Controls.Add(delete_device_btn);
@@ -283,6 +480,7 @@ partial class AppForm
         device.Controls.Add(searchDeviceTxt);
         device.Controls.Add(deviceListView);
         device.Controls.Add(deviceTitleLabel);
+        device.ImageKey = "icons8-repair-tools-64.png";
         device.Location = new Point(4, 39);
         device.Name = "device";
         device.Padding = new Padding(3);
@@ -450,6 +648,16 @@ partial class AppForm
         report.Text = "Báo cáo";
         report.UseVisualStyleBackColor = true;
         // 
+        // dvkts
+        // 
+        dvkts.ImageKey = "icons8-massage-64.png";
+        dvkts.Location = new Point(4, 39);
+        dvkts.Name = "dvkts";
+        dvkts.Size = new Size(919, 443);
+        dvkts.TabIndex = 5;
+        dvkts.Text = "Dịch vụ kĩ thuật";
+        dvkts.UseVisualStyleBackColor = true;
+        // 
         // imageList1
         // 
         imageList1.ColorDepth = ColorDepth.Depth32Bit;
@@ -465,6 +673,8 @@ partial class AppForm
         imageList1.Images.SetKeyName(7, "icons8-nurse-call-48.png");
         imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
         imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
+        imageList1.Images.SetKeyName(10, "icons8-repair-tools-64.png");
+        imageList1.Images.SetKeyName(11, "icons8-massage-64.png");
         // 
         // AppForm
         // 
@@ -483,6 +693,8 @@ partial class AppForm
         materialTabControl1.ResumeLayout(false);
         doctor.ResumeLayout(false);
         doctor.PerformLayout();
+        patient.ResumeLayout(false);
+        patient.PerformLayout();
         device.ResumeLayout(false);
         device.PerformLayout();
         ResumeLayout(false);
@@ -523,4 +735,19 @@ partial class AppForm
     private MaterialButton update_device_btn;
     private ColumnHeader hiddenId;
     private ColumnHeader hiddenDeviceId;
+    private TabPage dvkts;
+    private MaterialButton del_patient_btn;
+    private MaterialButton edit_patient_btn;
+    private MaterialButton add_patient_btn;
+    private Label label1;
+    private MaterialListView patientListview;
+    private MaterialTextBox search_patient_box;
+    private ColumnHeader no_patient;
+    private ColumnHeader patientName;
+    private ColumnHeader patientAddress;
+    private ColumnHeader patientNumber;
+    private ColumnHeader patientId;
+    private ColumnHeader nofunctionpatient;
+    private Button patient_prev_btn;
+    private Button patient_next_btn;
 }
