@@ -81,10 +81,16 @@ partial class AppForm
         report = new TabPage();
         dvkts = new TabPage();
         imageList1 = new ImageList(components);
+        dvktLabel = new Label();
+        del_dvkt = new MaterialButton();
+        edit_dvkt = new MaterialButton();
+        add_dvkt = new MaterialButton();
+        dvktListView = new MaterialListView();
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
         patient.SuspendLayout();
         device.SuspendLayout();
+        dvkts.SuspendLayout();
         SuspendLayout();
         // 
         // materialTabControl1
@@ -650,6 +656,11 @@ partial class AppForm
         // 
         // dvkts
         // 
+        dvkts.Controls.Add(dvktListView);
+        dvkts.Controls.Add(del_dvkt);
+        dvkts.Controls.Add(edit_dvkt);
+        dvkts.Controls.Add(add_dvkt);
+        dvkts.Controls.Add(dvktLabel);
         dvkts.ImageKey = "icons8-massage-64.png";
         dvkts.Location = new Point(4, 39);
         dvkts.Name = "dvkts";
@@ -676,6 +687,93 @@ partial class AppForm
         imageList1.Images.SetKeyName(10, "icons8-repair-tools-64.png");
         imageList1.Images.SetKeyName(11, "icons8-massage-64.png");
         // 
+        // dvktLabel
+        // 
+        dvktLabel.AutoSize = true;
+        dvktLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+        dvktLabel.ForeColor = SystemColors.ActiveCaption;
+        dvktLabel.Location = new Point(13, 17);
+        dvktLabel.Name = "dvktLabel";
+        dvktLabel.Size = new Size(307, 31);
+        dvktLabel.TabIndex = 2;
+        dvktLabel.Text = "Danh sách Dịch vụ kĩ thuật";
+        // 
+        // del_dvkt
+        // 
+        del_dvkt.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        del_dvkt.Density = MaterialButton.MaterialButtonDensity.Default;
+        del_dvkt.Depth = 0;
+        del_dvkt.HighEmphasis = true;
+        del_dvkt.Icon = null;
+        del_dvkt.Location = new Point(495, 12);
+        del_dvkt.Margin = new Padding(4, 6, 4, 6);
+        del_dvkt.MouseState = MouseState.HOVER;
+        del_dvkt.Name = "del_dvkt";
+        del_dvkt.NoAccentTextColor = Color.Empty;
+        del_dvkt.Size = new Size(64, 36);
+        del_dvkt.TabIndex = 11;
+        del_dvkt.Text = "Xoá";
+        del_dvkt.Type = MaterialButton.MaterialButtonType.Outlined;
+        del_dvkt.UseAccentColor = false;
+        del_dvkt.UseVisualStyleBackColor = false;
+        // 
+        // edit_dvkt
+        // 
+        edit_dvkt.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        edit_dvkt.Density = MaterialButton.MaterialButtonDensity.Default;
+        edit_dvkt.Depth = 0;
+        edit_dvkt.HighEmphasis = true;
+        edit_dvkt.Icon = null;
+        edit_dvkt.Location = new Point(423, 12);
+        edit_dvkt.Margin = new Padding(4, 6, 4, 6);
+        edit_dvkt.MouseState = MouseState.HOVER;
+        edit_dvkt.Name = "edit_dvkt";
+        edit_dvkt.NoAccentTextColor = Color.Empty;
+        edit_dvkt.Size = new Size(64, 36);
+        edit_dvkt.TabIndex = 10;
+        edit_dvkt.Text = "Sửa";
+        edit_dvkt.Type = MaterialButton.MaterialButtonType.Outlined;
+        edit_dvkt.UseAccentColor = false;
+        edit_dvkt.UseVisualStyleBackColor = false;
+        // 
+        // add_dvkt
+        // 
+        add_dvkt.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        add_dvkt.Density = MaterialButton.MaterialButtonDensity.Default;
+        add_dvkt.Depth = 0;
+        add_dvkt.HighEmphasis = true;
+        add_dvkt.Icon = null;
+        add_dvkt.Location = new Point(351, 12);
+        add_dvkt.Margin = new Padding(4, 6, 4, 6);
+        add_dvkt.MouseState = MouseState.HOVER;
+        add_dvkt.Name = "add_dvkt";
+        add_dvkt.NoAccentTextColor = Color.Empty;
+        add_dvkt.Size = new Size(64, 36);
+        add_dvkt.TabIndex = 9;
+        add_dvkt.Text = "Thêm";
+        add_dvkt.Type = MaterialButton.MaterialButtonType.Outlined;
+        add_dvkt.UseAccentColor = false;
+        add_dvkt.UseVisualStyleBackColor = false;
+        // 
+        // dvktListView
+        // 
+        dvktListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        dvktListView.AutoSizeTable = false;
+        dvktListView.BackColor = Color.FromArgb(255, 255, 255);
+        dvktListView.BorderStyle = BorderStyle.None;
+        dvktListView.Depth = 0;
+        dvktListView.FullRowSelect = true;
+        dvktListView.Location = new Point(13, 79);
+        dvktListView.MinimumSize = new Size(200, 100);
+        dvktListView.MouseLocation = new Point(-1, -1);
+        dvktListView.MouseState = MouseState.OUT;
+        dvktListView.Name = "dvktListView";
+        dvktListView.OwnerDraw = true;
+        dvktListView.Size = new Size(891, 348);
+        dvktListView.TabIndex = 12;
+        dvktListView.UseCompatibleStateImageBehavior = false;
+        dvktListView.View = View.Details;
+        // 
         // AppForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
@@ -697,6 +795,8 @@ partial class AppForm
         patient.PerformLayout();
         device.ResumeLayout(false);
         device.PerformLayout();
+        dvkts.ResumeLayout(false);
+        dvkts.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -750,4 +850,9 @@ partial class AppForm
     private ColumnHeader nofunctionpatient;
     private Button patient_prev_btn;
     private Button patient_next_btn;
+    private MaterialButton del_dvkt;
+    private MaterialButton edit_dvkt;
+    private MaterialButton add_dvkt;
+    private Label dvktLabel;
+    private MaterialListView dvktListView;
 }
