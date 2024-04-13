@@ -59,9 +59,7 @@ public partial class AppForm : MaterialForm
 
     private void TabChanged(object sender, EventArgs e)
     {
-        pageIndex = 1;
-        pageSize = 20;
-        totalPages = 0;
+        ResetPageSetting();
 
         switch (materialTabControl1.SelectedIndex)
         {
@@ -220,9 +218,9 @@ public partial class AppForm : MaterialForm
     {
         var data = _appDbContext.ThietBis.ToList();
 
-        if (searchTextBox.Text != null)
+        if (searchDeviceTxt.Text != null)
         {
-            data = data.Where(x => x.TenThietBi.ToLower().Contains(searchTextBox.Text.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
+            data = data.Where(x => x.TenThietBi.ToLower().Contains(searchDeviceTxt.Text.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
         }
         else
         {
@@ -292,11 +290,14 @@ public partial class AppForm : MaterialForm
 
     private void LoadTabNguoiBenh()
     {
-        var query = _appDbContext.BenhNhans.OrderByDescending(o => o.CreatedAt);
+        var search = search_patient_box.Text.RemoveSign4VietnameseString();
+
+        var query = _appDbContext.BenhNhans.AsEnumerable()
+            .Where(a => a.TenBenhNhan.RemoveSign4VietnameseString().Contains(search, StringComparison.OrdinalIgnoreCase));
 
         var data = query.Skip((pageIndex - 1) * pageSize)
-                                          .Take(pageSize)
-                                          .ToList();
+                                  .Take(pageSize)
+                                  .ToList();
 
         var count = query.Count();
         totalPages = (int)Math.Ceiling((double)count / pageSize);
@@ -351,5 +352,29 @@ public partial class AppForm : MaterialForm
 
         _appDbContext.SaveChanges();
         LoadTabNguoiBenh();
+    }
+
+    private void search_patient_box_TextChanged(object sender, EventArgs e)
+    {
+        var search = search_patient_box.Text.RemoveSign4VietnameseString();
+
+        var query = _appDbContext.BenhNhans.AsEnumerable()
+            .Where(a => a.TenBenhNhan.RemoveSign4VietnameseString().Contains(search, StringComparison.OrdinalIgnoreCase));
+
+        var data = query.Skip((pageIndex - 1) * pageSize)
+                                  .Take(pageSize)
+                                  .ToList();
+
+        var count = query.Count();
+        totalPages = (int)Math.Ceiling((double)count / pageSize);
+
+        FillDataToPatientListView(data);
+    }
+
+    private void ResetPageSetting()
+    {
+        pageIndex = 1;
+        pageSize = 20;
+        totalPages = 0;
     }
 }

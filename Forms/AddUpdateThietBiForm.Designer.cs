@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUpdateThietBiForm));
             device_title_label = new Label();
             panel1 = new Panel();
             time_device_txt = new MaterialSkin.Controls.MaterialTextBox();
@@ -179,6 +180,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(device_title_label);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateThietBiForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AddUpdateThietBiForm";

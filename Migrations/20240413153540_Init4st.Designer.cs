@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ezbooking.Models;
 
@@ -10,9 +11,11 @@ using ezbooking.Models;
 namespace ezbooking.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240413153540_Init4st")]
+    partial class Init4st
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -30,21 +33,6 @@ namespace ezbooking.Migrations
                     b.HasIndex("DichVuKTsId");
 
                     b.ToTable("BacSiKTVDichVuKT");
-                });
-
-            modelBuilder.Entity("BenhNhanDichVuKT", b =>
-                {
-                    b.Property<int>("BenhNhansId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DichVuKTsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BenhNhansId", "DichVuKTsId");
-
-                    b.HasIndex("DichVuKTsId");
-
-                    b.ToTable("BenhNhanDichVuKT");
                 });
 
             modelBuilder.Entity("ezbooking.Models.BacSiKTV", b =>
@@ -137,6 +125,9 @@ namespace ezbooking.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("BenhNhanId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("ChiPhi")
                         .HasColumnType("INTEGER");
 
@@ -166,6 +157,8 @@ namespace ezbooking.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BenhNhanId");
 
                     b.HasIndex("ThietBiId");
 
@@ -277,23 +270,12 @@ namespace ezbooking.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BenhNhanDichVuKT", b =>
-                {
-                    b.HasOne("ezbooking.Models.BenhNhan", null)
-                        .WithMany()
-                        .HasForeignKey("BenhNhansId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ezbooking.Models.DichVuKT", null)
-                        .WithMany()
-                        .HasForeignKey("DichVuKTsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ezbooking.Models.DichVuKT", b =>
                 {
+                    b.HasOne("ezbooking.Models.BenhNhan", null)
+                        .WithMany("DichVuKT")
+                        .HasForeignKey("BenhNhanId");
+
                     b.HasOne("ezbooking.Models.ThietBi", "ThietBi")
                         .WithMany()
                         .HasForeignKey("ThietBiId");
@@ -319,6 +301,11 @@ namespace ezbooking.Migrations
 
                     b.Navigation("BenhNhan");
 
+                    b.Navigation("DichVuKT");
+                });
+
+            modelBuilder.Entity("ezbooking.Models.BenhNhan", b =>
+                {
                     b.Navigation("DichVuKT");
                 });
 #pragma warning restore 612, 618

@@ -80,12 +80,12 @@ partial class AppForm
         booking = new TabPage();
         report = new TabPage();
         dvkts = new TabPage();
-        imageList1 = new ImageList(components);
-        dvktLabel = new Label();
+        dvktListView = new MaterialListView();
         del_dvkt = new MaterialButton();
         edit_dvkt = new MaterialButton();
         add_dvkt = new MaterialButton();
-        dvktListView = new MaterialListView();
+        dvktLabel = new Label();
+        imageList1 = new ImageList(components);
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
         patient.SuspendLayout();
@@ -408,6 +408,7 @@ partial class AppForm
         search_patient_box.TabIndex = 9;
         search_patient_box.Text = "";
         search_patient_box.TrailingIcon = null;
+        search_patient_box.TextChanged += search_patient_box_TextChanged;
         // 
         // del_patient_btn
         // 
@@ -669,34 +670,24 @@ partial class AppForm
         dvkts.Text = "Dịch vụ kĩ thuật";
         dvkts.UseVisualStyleBackColor = true;
         // 
-        // imageList1
+        // dvktListView
         // 
-        imageList1.ColorDepth = ColorDepth.Depth32Bit;
-        imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-        imageList1.TransparentColor = Color.Transparent;
-        imageList1.Images.SetKeyName(0, "report.png");
-        imageList1.Images.SetKeyName(1, "calendar.png");
-        imageList1.Images.SetKeyName(2, "hospitalisation.png");
-        imageList1.Images.SetKeyName(3, "medical-team.png");
-        imageList1.Images.SetKeyName(4, "icons8-reserve-32.png");
-        imageList1.Images.SetKeyName(5, "icons8-reserve-48.png");
-        imageList1.Images.SetKeyName(6, "icons8-report-48.png");
-        imageList1.Images.SetKeyName(7, "icons8-nurse-call-48.png");
-        imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
-        imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
-        imageList1.Images.SetKeyName(10, "icons8-repair-tools-64.png");
-        imageList1.Images.SetKeyName(11, "icons8-massage-64.png");
-        // 
-        // dvktLabel
-        // 
-        dvktLabel.AutoSize = true;
-        dvktLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-        dvktLabel.ForeColor = SystemColors.ActiveCaption;
-        dvktLabel.Location = new Point(13, 17);
-        dvktLabel.Name = "dvktLabel";
-        dvktLabel.Size = new Size(307, 31);
-        dvktLabel.TabIndex = 2;
-        dvktLabel.Text = "Danh sách Dịch vụ kĩ thuật";
+        dvktListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        dvktListView.AutoSizeTable = false;
+        dvktListView.BackColor = Color.FromArgb(255, 255, 255);
+        dvktListView.BorderStyle = BorderStyle.None;
+        dvktListView.Depth = 0;
+        dvktListView.FullRowSelect = true;
+        dvktListView.Location = new Point(13, 79);
+        dvktListView.MinimumSize = new Size(200, 100);
+        dvktListView.MouseLocation = new Point(-1, -1);
+        dvktListView.MouseState = MouseState.OUT;
+        dvktListView.Name = "dvktListView";
+        dvktListView.OwnerDraw = true;
+        dvktListView.Size = new Size(891, 348);
+        dvktListView.TabIndex = 12;
+        dvktListView.UseCompatibleStateImageBehavior = false;
+        dvktListView.View = View.Details;
         // 
         // del_dvkt
         // 
@@ -755,24 +746,34 @@ partial class AppForm
         add_dvkt.UseAccentColor = false;
         add_dvkt.UseVisualStyleBackColor = false;
         // 
-        // dvktListView
+        // dvktLabel
         // 
-        dvktListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        dvktListView.AutoSizeTable = false;
-        dvktListView.BackColor = Color.FromArgb(255, 255, 255);
-        dvktListView.BorderStyle = BorderStyle.None;
-        dvktListView.Depth = 0;
-        dvktListView.FullRowSelect = true;
-        dvktListView.Location = new Point(13, 79);
-        dvktListView.MinimumSize = new Size(200, 100);
-        dvktListView.MouseLocation = new Point(-1, -1);
-        dvktListView.MouseState = MouseState.OUT;
-        dvktListView.Name = "dvktListView";
-        dvktListView.OwnerDraw = true;
-        dvktListView.Size = new Size(891, 348);
-        dvktListView.TabIndex = 12;
-        dvktListView.UseCompatibleStateImageBehavior = false;
-        dvktListView.View = View.Details;
+        dvktLabel.AutoSize = true;
+        dvktLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+        dvktLabel.ForeColor = SystemColors.ActiveCaption;
+        dvktLabel.Location = new Point(13, 17);
+        dvktLabel.Name = "dvktLabel";
+        dvktLabel.Size = new Size(307, 31);
+        dvktLabel.TabIndex = 2;
+        dvktLabel.Text = "Danh sách Dịch vụ kĩ thuật";
+        // 
+        // imageList1
+        // 
+        imageList1.ColorDepth = ColorDepth.Depth32Bit;
+        imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+        imageList1.TransparentColor = Color.Transparent;
+        imageList1.Images.SetKeyName(0, "report.png");
+        imageList1.Images.SetKeyName(1, "calendar.png");
+        imageList1.Images.SetKeyName(2, "hospitalisation.png");
+        imageList1.Images.SetKeyName(3, "medical-team.png");
+        imageList1.Images.SetKeyName(4, "icons8-reserve-32.png");
+        imageList1.Images.SetKeyName(5, "icons8-reserve-48.png");
+        imageList1.Images.SetKeyName(6, "icons8-report-48.png");
+        imageList1.Images.SetKeyName(7, "icons8-nurse-call-48.png");
+        imageList1.Images.SetKeyName(8, "icons8-medical-doctor-48.png");
+        imageList1.Images.SetKeyName(9, "icons8-reserve-48.png");
+        imageList1.Images.SetKeyName(10, "icons8-repair-tools-64.png");
+        imageList1.Images.SetKeyName(11, "icons8-massage-64.png");
         // 
         // AppForm
         // 
