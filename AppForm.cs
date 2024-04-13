@@ -11,8 +11,10 @@ public partial class AppForm : MaterialForm
 {
     private readonly AppDbContext _appDbContext;
     private readonly AddUpdateBacSiForm _addUpdateBacSiForm;
+    private readonly AddUpdateThietBiForm _addUpdateThietBiForm;
     public AppForm(AppDbContext appDbContext,
-                   AddUpdateBacSiForm addUpdateBacSiForm)
+                   AddUpdateBacSiForm addUpdateBacSiForm,
+                   AddUpdateThietBiForm addUpdateThietBiForm)
     {
         InitializeComponent();
 
@@ -37,9 +39,11 @@ public partial class AppForm : MaterialForm
 
         _appDbContext = appDbContext;
         _addUpdateBacSiForm = addUpdateBacSiForm;
+        _addUpdateThietBiForm = addUpdateThietBiForm;
 
         materialTabControl1.SelectedIndexChanged += TabChanged;
         _addUpdateBacSiForm.DataChanged += TabChanged;
+        _addUpdateThietBiForm.DataChanged += TabChanged;
     }
 
     private void AppForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -64,7 +68,7 @@ public partial class AppForm : MaterialForm
                 Console.WriteLine("Tab 2");
                 break;
             case 2:
-                Console.WriteLine("Tab 3");
+                LoadTabThietBi();
                 break;
             default:
                 break;
@@ -152,7 +156,7 @@ public partial class AppForm : MaterialForm
     private void delete_doctor_Click(object sender, EventArgs e)
     {
         // Get selected row data
-        if(doctorListView.SelectedItems.Count == 0)
+        if (doctorListView.SelectedItems.Count == 0)
         {
             MessageBox.Show("Vui lòng chọn bác sĩ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
@@ -160,7 +164,7 @@ public partial class AppForm : MaterialForm
         var selectedRow = doctorListView.SelectedItems[0];
         var id = selectedRow.SubItems[7].Text;
 
-        if(id == null)
+        if (id == null)
         {
             MessageBox.Show("Vui lòng chọn bác sĩ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
@@ -170,6 +174,102 @@ public partial class AppForm : MaterialForm
         _appDbContext.SaveChanges();
 
         LoadTabBacSiKtv();
+
+        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void LoadTabThietBi()
+    {
+        var data = _appDbContext.ThietBis.OrderByDescending(o => o.CreatedAt).ToList();
+
+        FillDataToDeviceListView(data);
+    }
+
+    private void FillDataToDeviceListView(List<ThietBi> data)
+    {
+        deviceListView.Items.Clear();
+        int stt = 0;
+        foreach (var item in data)
+        {
+            stt++;
+            var newItem = new ListViewItem();
+
+            newItem.SubItems.Add(stt.ToString());
+            newItem.SubItems.Add(item.TenThietBi);
+            newItem.SubItems.Add(item.SoLuong.ToString());
+            newItem.SubItems.Add(item.ThoiGianCachNhau.ToString());
+            newItem.SubItems.Add(item.Id.ToString());
+
+            deviceListView.Items.Add(newItem);
+        }
+    }
+
+    private void searchDeviceTxt_TextChanged(object sender, EventArgs e)
+    {
+        var data = _appDbContext.ThietBis.ToList();
+
+        if (searchTextBox.Text != null)
+        {
+            data = data.Where(x => x.TenThietBi.ToLower().Contains(searchTextBox.Text.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+        else
+        {
+            return;
+        }
+
+        FillDataToDeviceListView(data);
+    }
+
+    private void add_device_btn_Click(object sender, EventArgs e)
+    {
+        // Open a new form
+        _addUpdateThietBiForm.ShowDialog();
+    }
+
+    private void update_device_btn_Click(object sender, EventArgs e)
+    {
+        if (deviceListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn thiết bị cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = deviceListView.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn thiết bị cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Open a new form and pass data into it for update
+        _addUpdateThietBiForm.IdDevice = int.Parse(id);
+        _addUpdateThietBiForm.LoadData(int.Parse(id));
+
+        _addUpdateThietBiForm.ShowDialog();
+    }
+
+    private void delete_device_btn_Click(object sender, EventArgs e)
+    {
+        // Get selected row data
+        if (deviceListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn thiết bị cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        var selectedRow = deviceListView.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn thiết bị cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        var toDelete = _appDbContext.ThietBis.FirstOrDefault(x => x.Id == int.Parse(id));
+        _appDbContext.ThietBis.Remove(toDelete);
+        _appDbContext.SaveChanges();
+
+        LoadTabThietBi();
 
         MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
