@@ -1,5 +1,6 @@
 ﻿using ezbooking.Models;
 using ezbooking.Shared;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace ezbooking.Forms
     {
         private readonly AppDbContext _appDbContext;
         private List<ThietBi> _thietBis = [];
+        private bool _isUpdate = false;
+        public int IdDevice = 0;
         public event EventHandler DataChanged;
         public AddUpdateThietBiForm(AppDbContext appDbContext)
         {
@@ -52,18 +55,49 @@ namespace ezbooking.Forms
                     MoTa = mota_device_txt.Text
                 };
 
-                _appDbContext.Add(thietBi);
-                _appDbContext.SaveChanges();
+                if (!_isUpdate)
+                {
+                    _appDbContext.Add(thietBi);
+                    _appDbContext.SaveChanges();
+                }
+                else
+                {
+                    var toUpdate = _appDbContext.ThietBis
+                        .FirstOrDefault(x => x.Id == IdDevice);
 
-                MessageBox.Show("Thêm thiết bị thành công!");
-                ClearForm();
+                    toUpdate.TenThietBi = thietBi.TenThietBi;
+                    toUpdate.SoLuong = thietBi.SoLuong;
+                    toUpdate.ThoiGianCachNhau = thietBi.ThoiGianCachNhau;
+                    toUpdate.MoTa = thietBi.MoTa;
+
+                    _appDbContext.SaveChanges();
+                }
 
                 // Trigger the DataInserted event
                 OnDataChanged(EventArgs.Empty);
+
+
+                MessageBox.Show("Thao tác thành công!");
+
+                // close the form
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void LoadData(int IdDevice)
+        {
+            _isUpdate = true;
+            var device = _appDbContext.ThietBis.FirstOrDefault(x => x.Id == IdDevice);
+            if (device != null)
+            {
+                name_device_txt.Text = device.TenThietBi.ToString();
+                soluong_device_txt.Text = device.SoLuong.ToString();
+                time_device_txt.Text = device.ThoiGianCachNhau.ToString();
+                mota_device_txt.Text= device.MoTa.ToString();
             }
         }
     }

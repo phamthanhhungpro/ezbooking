@@ -50,17 +50,32 @@ partial class AppForm
         workingTime = new ColumnHeader();
         hiddenId = new ColumnHeader();
         patient = new TabPage();
+        device = new TabPage();
+        delete_device_btn = new MaterialButton();
+        update_device_btn = new MaterialButton();
+        add_device_btn = new MaterialButton();
+        searchDeviceTxt = new MaterialTextBox();
+        deviceListView = new MaterialListView();
+        function = new ColumnHeader();
+        Id = new ColumnHeader();
+        tenThietBi = new ColumnHeader();
+        soLuongThietBi = new ColumnHeader();
+        thoiGianCachNhau = new ColumnHeader();
+        hiddenDeviceId = new ColumnHeader();
+        deviceTitleLabel = new Label();
         booking = new TabPage();
         report = new TabPage();
         imageList1 = new ImageList(components);
         materialTabControl1.SuspendLayout();
         doctor.SuspendLayout();
+        device.SuspendLayout();
         SuspendLayout();
         // 
         // materialTabControl1
         // 
         materialTabControl1.Controls.Add(doctor);
         materialTabControl1.Controls.Add(patient);
+        materialTabControl1.Controls.Add(device);
         materialTabControl1.Controls.Add(booking);
         materialTabControl1.Controls.Add(report);
         materialTabControl1.Depth = 0;
@@ -100,7 +115,7 @@ partial class AppForm
         searchTextBox.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
         searchTextBox.Hint = "Nhập họ tên cần tìm kiếm";
         searchTextBox.LeadingIcon = null;
-        searchTextBox.Location = new Point(3, 55);
+        searchTextBox.Location = new Point(6, 58);
         searchTextBox.MaxLength = 50;
         searchTextBox.MouseState = MouseState.OUT;
         searchTextBox.Multiline = false;
@@ -120,7 +135,7 @@ partial class AppForm
         delete_doctor.ForeColor = Color.Red;
         delete_doctor.HighEmphasis = true;
         delete_doctor.Icon = null;
-        delete_doctor.Location = new Point(501, 8);
+        delete_doctor.Location = new Point(488, 9);
         delete_doctor.Margin = new Padding(5);
         delete_doctor.MouseState = MouseState.HOVER;
         delete_doctor.Name = "delete_doctor";
@@ -165,7 +180,7 @@ partial class AppForm
         add_doctor_btn.ForeColor = SystemColors.ActiveCaption;
         add_doctor_btn.HighEmphasis = true;
         add_doctor_btn.Icon = null;
-        add_doctor_btn.Location = new Point(295, 9);
+        add_doctor_btn.Location = new Point(311, 9);
         add_doctor_btn.Margin = new Padding(5);
         add_doctor_btn.MouseState = MouseState.HOVER;
         add_doctor_btn.Name = "add_doctor_btn";
@@ -182,7 +197,7 @@ partial class AppForm
         // 
         doctorLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold | FontStyle.Italic);
         doctorLabel.ForeColor = SystemColors.ActiveCaption;
-        doctorLabel.Location = new Point(15, 13);
+        doctorLabel.Location = new Point(6, 13);
         doctorLabel.Name = "doctorLabel";
         doctorLabel.Size = new Size(273, 32);
         doctorLabel.TabIndex = 2;
@@ -260,6 +275,161 @@ partial class AppForm
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
         // 
+        // device
+        // 
+        device.Controls.Add(delete_device_btn);
+        device.Controls.Add(update_device_btn);
+        device.Controls.Add(add_device_btn);
+        device.Controls.Add(searchDeviceTxt);
+        device.Controls.Add(deviceListView);
+        device.Controls.Add(deviceTitleLabel);
+        device.Location = new Point(4, 39);
+        device.Name = "device";
+        device.Padding = new Padding(3);
+        device.Size = new Size(919, 443);
+        device.TabIndex = 4;
+        device.Text = "Thiết bị";
+        device.UseVisualStyleBackColor = true;
+        // 
+        // delete_device_btn
+        // 
+        delete_device_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        delete_device_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        delete_device_btn.Depth = 0;
+        delete_device_btn.HighEmphasis = true;
+        delete_device_btn.Icon = null;
+        delete_device_btn.Location = new Point(441, 9);
+        delete_device_btn.Margin = new Padding(4, 6, 4, 6);
+        delete_device_btn.MouseState = MouseState.HOVER;
+        delete_device_btn.Name = "delete_device_btn";
+        delete_device_btn.NoAccentTextColor = Color.Empty;
+        delete_device_btn.Size = new Size(64, 36);
+        delete_device_btn.TabIndex = 5;
+        delete_device_btn.Text = "Xoá";
+        delete_device_btn.Type = MaterialButton.MaterialButtonType.Outlined;
+        delete_device_btn.UseAccentColor = false;
+        delete_device_btn.UseVisualStyleBackColor = false;
+        delete_device_btn.Click += delete_device_btn_Click;
+        // 
+        // update_device_btn
+        // 
+        update_device_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        update_device_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        update_device_btn.Depth = 0;
+        update_device_btn.HighEmphasis = true;
+        update_device_btn.Icon = null;
+        update_device_btn.Location = new Point(369, 9);
+        update_device_btn.Margin = new Padding(4, 6, 4, 6);
+        update_device_btn.MouseState = MouseState.HOVER;
+        update_device_btn.Name = "update_device_btn";
+        update_device_btn.NoAccentTextColor = Color.Empty;
+        update_device_btn.Size = new Size(64, 36);
+        update_device_btn.TabIndex = 4;
+        update_device_btn.Text = "Sửa";
+        update_device_btn.Type = MaterialButton.MaterialButtonType.Outlined;
+        update_device_btn.UseAccentColor = false;
+        update_device_btn.UseVisualStyleBackColor = false;
+        update_device_btn.Click += update_device_btn_Click;
+        // 
+        // add_device_btn
+        // 
+        add_device_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        add_device_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        add_device_btn.Depth = 0;
+        add_device_btn.HighEmphasis = true;
+        add_device_btn.Icon = null;
+        add_device_btn.Location = new Point(297, 9);
+        add_device_btn.Margin = new Padding(4, 6, 4, 6);
+        add_device_btn.MouseState = MouseState.HOVER;
+        add_device_btn.Name = "add_device_btn";
+        add_device_btn.NoAccentTextColor = Color.Empty;
+        add_device_btn.Size = new Size(64, 36);
+        add_device_btn.TabIndex = 3;
+        add_device_btn.Text = "Thêm";
+        add_device_btn.Type = MaterialButton.MaterialButtonType.Outlined;
+        add_device_btn.UseAccentColor = false;
+        add_device_btn.UseVisualStyleBackColor = false;
+        add_device_btn.Click += add_device_btn_Click;
+        // 
+        // searchDeviceTxt
+        // 
+        searchDeviceTxt.AnimateReadOnly = false;
+        searchDeviceTxt.BorderStyle = BorderStyle.None;
+        searchDeviceTxt.Depth = 0;
+        searchDeviceTxt.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+        searchDeviceTxt.Hint = "Nhập tên thiết bị cần tìm kiếm";
+        searchDeviceTxt.LeadingIcon = null;
+        searchDeviceTxt.Location = new Point(6, 57);
+        searchDeviceTxt.MaxLength = 50;
+        searchDeviceTxt.MouseState = MouseState.OUT;
+        searchDeviceTxt.Multiline = false;
+        searchDeviceTxt.Name = "searchDeviceTxt";
+        searchDeviceTxt.Size = new Size(271, 50);
+        searchDeviceTxt.TabIndex = 2;
+        searchDeviceTxt.Text = "";
+        searchDeviceTxt.TrailingIcon = null;
+        searchDeviceTxt.TextChanged += searchDeviceTxt_TextChanged;
+        // 
+        // deviceListView
+        // 
+        deviceListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        deviceListView.AutoSizeTable = false;
+        deviceListView.BackColor = Color.FromArgb(255, 255, 255);
+        deviceListView.BorderStyle = BorderStyle.None;
+        deviceListView.Columns.AddRange(new ColumnHeader[] { function, Id, tenThietBi, soLuongThietBi, thoiGianCachNhau, hiddenDeviceId });
+        deviceListView.Depth = 0;
+        deviceListView.FullRowSelect = true;
+        deviceListView.Location = new Point(3, 125);
+        deviceListView.MinimumSize = new Size(200, 100);
+        deviceListView.MouseLocation = new Point(-1, -1);
+        deviceListView.MouseState = MouseState.OUT;
+        deviceListView.Name = "deviceListView";
+        deviceListView.OwnerDraw = true;
+        deviceListView.Size = new Size(913, 315);
+        deviceListView.TabIndex = 1;
+        deviceListView.UseCompatibleStateImageBehavior = false;
+        deviceListView.View = View.Details;
+        // 
+        // function
+        // 
+        function.Text = "";
+        function.Width = 0;
+        // 
+        // Id
+        // 
+        Id.Text = "STT";
+        // 
+        // tenThietBi
+        // 
+        tenThietBi.Text = "Tên thiết bị";
+        tenThietBi.Width = 200;
+        // 
+        // soLuongThietBi
+        // 
+        soLuongThietBi.Text = "Số lượng";
+        soLuongThietBi.Width = 100;
+        // 
+        // thoiGianCachNhau
+        // 
+        thoiGianCachNhau.Text = "Thời gian cách nhau";
+        thoiGianCachNhau.Width = 200;
+        // 
+        // hiddenDeviceId
+        // 
+        hiddenDeviceId.Text = "";
+        hiddenDeviceId.Width = 0;
+        // 
+        // deviceTitleLabel
+        // 
+        deviceTitleLabel.AutoSize = true;
+        deviceTitleLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+        deviceTitleLabel.ForeColor = SystemColors.ActiveCaption;
+        deviceTitleLabel.Location = new Point(6, 12);
+        deviceTitleLabel.Name = "deviceTitleLabel";
+        deviceTitleLabel.Size = new Size(212, 31);
+        deviceTitleLabel.TabIndex = 0;
+        deviceTitleLabel.Text = "Danh sách thiết bị";
+        // 
         // booking
         // 
         booking.ImageKey = "icons8-reserve-48.png";
@@ -313,6 +483,8 @@ partial class AppForm
         materialTabControl1.ResumeLayout(false);
         doctor.ResumeLayout(false);
         doctor.PerformLayout();
+        device.ResumeLayout(false);
+        device.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -337,5 +509,18 @@ partial class AppForm
     private MaterialTextBox searchTextBox;
     private ColumnHeader email;
     private ColumnHeader workingTime;
+    private TabPage device;
+    private MaterialListView deviceListView;
+    private Label deviceTitleLabel;
+    private ColumnHeader function;
+    private ColumnHeader Id;
+    private ColumnHeader tenThietBi;
+    private ColumnHeader soLuongThietBi;
+    private ColumnHeader thoiGianCachNhau;
+    private MaterialTextBox searchDeviceTxt;
+    private MaterialButton add_device_btn;
+    private MaterialButton delete_device_btn;
+    private MaterialButton update_device_btn;
     private ColumnHeader hiddenId;
+    private ColumnHeader hiddenDeviceId;
 }
