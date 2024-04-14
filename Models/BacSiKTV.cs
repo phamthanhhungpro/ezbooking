@@ -11,5 +11,6 @@
         public TimeOnly GioKetThuc { get; set; }
 
         public ICollection<DichVuKT> DichVuKTs { get; set; }
+        public ICollection<ThoiGianBieu> ThoiGianBieus { get; set; }
     }
 }

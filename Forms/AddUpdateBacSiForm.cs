@@ -28,6 +28,14 @@ namespace ezbooking.Forms
 
         private void AddUpdateBacSiForm_Load(object sender, EventArgs e)
         {
+            if(!_isUpdate)
+            {
+                LoadDvktList();
+            }
+        }
+
+        private void LoadDvktList()
+        {
             // Load data to checklist
             _dichVuKTs = _appDbContext.DichVuKTs.OrderByDescending(o => o.TenDichVu)
                                                 .AsEnumerable()
@@ -35,13 +43,12 @@ namespace ezbooking.Forms
                                                 .ToList();
             foreach (var dichVuKT in _dichVuKTs)
             {
-                if(doctorDvktCheckList.Items.All(x => x.Text != dichVuKT.TenDichVu))
+                if (doctorDvktCheckList.Items.All(x => x.Text != dichVuKT.TenDichVu))
                 {
                     doctorDvktCheckList.Items.Add(dichVuKT.TenDichVu);
                 }
             }
         }
-
         private void doctorSave_Click(object sender, EventArgs e)
         {
             try
@@ -127,7 +134,9 @@ namespace ezbooking.Forms
         public void LoadData(int IdBacSiKTV)
         {
             _isUpdate = true;
-            var bacSiKTV = _appDbContext.BacSiKTVs.FirstOrDefault(x => x.Id == IdBacSiKTV);
+            var bacSiKTV = _appDbContext.BacSiKTVs
+                                        .Include(a => a.DichVuKTs)
+                                        .FirstOrDefault(x => x.Id == IdBacSiKTV);
             if (bacSiKTV != null)
             {
                 doctorName.Text = bacSiKTV.TenBacSiKTV;
@@ -137,6 +146,7 @@ namespace ezbooking.Forms
                 doctorStartTime.Text = bacSiKTV.GioBatDau.ToString();
                 doctorEndTime.Text = bacSiKTV.GioKetThuc.ToString();
 
+                LoadDvktList();
                 foreach (var item in doctorDvktCheckList.Items)
                 {
                     var dichVuKT = _dichVuKTs.FirstOrDefault(d => d.TenDichVu == item.Text);

@@ -37,5 +37,6 @@ static class Program
         services.AddScoped<AddUpdateThietBiForm>();
         services.AddScoped<AddUpdateBenhNhanForm>();
         services.AddScoped<BenhNhanDatLichForm>();
+        services.AddScoped<AddUpdateDatLichForm>();
     }
 }

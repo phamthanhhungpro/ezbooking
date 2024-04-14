@@ -111,7 +111,7 @@ partial class AppForm
         materialTabControl1.Multiline = true;
         materialTabControl1.Name = "materialTabControl1";
         materialTabControl1.SelectedIndex = 0;
-        materialTabControl1.Size = new Size(927, 486);
+        materialTabControl1.Size = new Size(999, 518);
         materialTabControl1.TabIndex = 0;
         // 
         // doctor
@@ -126,7 +126,7 @@ partial class AppForm
         doctor.Location = new Point(4, 39);
         doctor.Name = "doctor";
         doctor.Padding = new Padding(3);
-        doctor.Size = new Size(919, 443);
+        doctor.Size = new Size(991, 475);
         doctor.TabIndex = 0;
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
@@ -243,7 +243,7 @@ partial class AppForm
         doctorListView.MouseState = MouseState.OUT;
         doctorListView.Name = "doctorListView";
         doctorListView.OwnerDraw = true;
-        doctorListView.Size = new Size(913, 315);
+        doctorListView.Size = new Size(985, 347);
         doctorListView.TabIndex = 4;
         doctorListView.UseCompatibleStateImageBehavior = false;
         doctorListView.View = View.Details;
@@ -803,7 +803,7 @@ partial class AppForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(933, 553);
+        ClientSize = new Size(1005, 585);
         Controls.Add(materialTabControl1);
         DrawerAutoShow = true;
         DrawerShowIconsWhenHidden = true;

@@ -41,6 +41,26 @@ namespace ezbooking.Shared
             }
         }
 
+        public static void UnCheckAllItems(CheckedListBox listBox)
+        {
+            for (int i = 0; i < listBox.Items.Count; i++)
+            {
+                listBox.SetItemChecked(i, false);
+            }
+        }
+
+        public static void SingleSelect(CheckedListBox listBox, int index)
+        {
+            for (int i = 0; i < listBox.Items.Count; i++)
+            {
+                // Bỏ chọn tất cả các mục ngoại trừ mục mới được chọn
+                if (i != index)
+                {
+                    listBox.SetItemChecked(i, false);
+                }
+            }
+        }
+
         public static string RemoveSign4VietnameseString(this string str)
         {
             for (int i = 1; i < VietnameseSigns.Length; i++)
@@ -84,5 +104,12 @@ namespace ezbooking.Shared
 
             "ÝỲỴỶỸ"
         };
+
+        public static string GetWorkingTimeRange(DateTime startTime, DateTime endTime)
+        {
+            var start = startTime.ToString("g");
+            var end = endTime.ToString("g");
+            return start + " - " + end;
+        }
     }
 }

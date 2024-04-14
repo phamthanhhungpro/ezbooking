@@ -6,5 +6,6 @@
         public string DiaChi { get; set; }
         public string SoDienThoai { get; set; }
         public ICollection<DichVuKT> DichVuKTs { get; set;}
+        public ICollection<ThoiGianBieu> ThoiGianBieus { get; set; }
     }
 }

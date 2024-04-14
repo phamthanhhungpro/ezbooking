@@ -427,8 +427,28 @@ public partial class AppForm : MaterialForm
         MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
+    /// <summary>
+    /// Bệnh nhân đặt lịch
+    /// </summary>
+
     private void patientBook_Click(object sender, EventArgs e)
     {
+        if (patientListview.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = patientListview.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        _benhNhanDatLichForm.BenhNhanId = int.Parse(id);
         _benhNhanDatLichForm.ShowDialog();
     }
 }

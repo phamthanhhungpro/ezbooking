@@ -30,6 +30,15 @@ namespace ezbooking.Forms
 
         private void AddUpdateBenhNhanForm_Load(object sender, EventArgs e)
         {
+            if(!_isUpdate)
+            {
+                LoadDvktList();
+            }
+
+        }
+
+        private void LoadDvktList()
+        {
             // Load data to checklist
             _dichVuKTs = _appDbContext.DichVuKTs.OrderByDescending(o => o.TenDichVu)
                                                 .AsEnumerable()
@@ -42,7 +51,6 @@ namespace ezbooking.Forms
                     benhnhanDvkts.Items.Add(dichVuKT.TenDichVu);
                 }
             }
-
         }
 
         private void save_btn_Click(object sender, EventArgs e)
@@ -125,12 +133,15 @@ namespace ezbooking.Forms
         public void LoadData(int id)
         {
             _isUpdate = true;
-            var benhNhan = _appDbContext.BenhNhans.FirstOrDefault(x => x.Id == IdBenhNhan);
+            var benhNhan = _appDbContext.BenhNhans
+                                        .Include(a => a.DichVuKTs)
+                                        .FirstOrDefault(x => x.Id == IdBenhNhan);
             if (benhNhan != null)
             {
                 name.Text = benhNhan.TenBenhNhan;
                 address.Text = benhNhan.DiaChi;
                 phone.Text = benhNhan.SoDienThoai;
+                LoadDvktList();
 
                 foreach (var item in benhnhanDvkts.Items)
                 {
