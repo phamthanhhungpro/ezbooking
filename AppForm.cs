@@ -12,6 +12,7 @@ public partial class AppForm : MaterialForm
     private readonly AppDbContext _appDbContext;
     private readonly AddUpdateBacSiForm _addUpdateBacSiForm;
     private readonly AddUpdateThietBiForm _addUpdateThietBiForm;
+    private readonly AddUpdateDVKTForm _addUpdateDVKTForm;
     private readonly AddUpdateBenhNhanForm _addUpdateBenhNhanForm;
     private readonly BenhNhanDatLichForm _benhNhanDatLichForm;
 
@@ -22,6 +23,7 @@ public partial class AppForm : MaterialForm
     public AppForm(AppDbContext appDbContext,
                    AddUpdateBacSiForm addUpdateBacSiForm,
                    AddUpdateThietBiForm addUpdateThietBiForm,
+                   AddUpdateDVKTForm addUpdateDVKT,
                    AddUpdateBenhNhanForm addUpdateBenhNhanForm,
                    BenhNhanDatLichForm benhNhanDatLichForm)
     {
@@ -45,6 +47,7 @@ public partial class AppForm : MaterialForm
         _appDbContext = appDbContext;
         _addUpdateBacSiForm = addUpdateBacSiForm;
         _addUpdateThietBiForm = addUpdateThietBiForm;
+        _addUpdateDVKTForm = addUpdateDVKT;
         _addUpdateBenhNhanForm = addUpdateBenhNhanForm;
         _benhNhanDatLichForm = benhNhanDatLichForm;
 
@@ -52,6 +55,7 @@ public partial class AppForm : MaterialForm
 
         _addUpdateBacSiForm.DataChanged += TabChanged;
         _addUpdateThietBiForm.DataChanged += TabChanged;
+        _addUpdateDVKTForm.DataChanged += TabChanged;
         _addUpdateBenhNhanForm.DataChanged += TabChanged;
     }
 
@@ -79,6 +83,9 @@ public partial class AppForm : MaterialForm
                 break;
             case 2:
                 LoadTabThietBi();
+                break;
+            case 5:
+                LoadTabDVKT();
                 break;
             default:
                 break;
@@ -430,5 +437,110 @@ public partial class AppForm : MaterialForm
     private void patientBook_Click(object sender, EventArgs e)
     {
         _benhNhanDatLichForm.ShowDialog();
+    }
+
+    // DVKT
+    private void FillDataTodvktListView(List<DichVuKT> dichVuKTs)
+    {
+        dvktListView.Items.Clear();
+        int stt = 0;
+        foreach (var item in dichVuKTs)
+        {
+            stt++;
+            var newItem = new ListViewItem();
+
+            newItem.SubItems.Add(stt.ToString());
+            newItem.SubItems.Add(item.TenDichVu);
+            newItem.SubItems.Add(item.ChiPhi.ToString());
+            newItem.SubItems.Add(item.ThoiGian.ToString());
+            newItem.SubItems.Add(item.Id.ToString());
+
+            dvktListView.Items.Add(newItem);
+        }
+
+    }
+
+    private void LoadTabDVKT()
+    {
+        var data = _appDbContext.DichVuKTs.OrderByDescending(o => o.CreatedAt).ToList();
+        FillDataTodvktListView(data);
+    }
+
+    private void dvktListView_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void del_dvkt_Click(object sender, EventArgs e)
+    {
+        if (dvktListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn dịch vụ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        var selectedRow = dvktListView.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn dịch vụ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        var toDelete = _appDbContext.DichVuKTs.FirstOrDefault(x => x.Id == int.Parse(id));
+        _appDbContext.DichVuKTs.Remove(toDelete);
+        _appDbContext.SaveChanges();
+
+        LoadTabDVKT();
+
+        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
+    private void dvktListView_SelectedIndexChanged_1(object sender, EventArgs e)
+    {
+
+    }
+
+    private void add_dvkt_Click(object sender, EventArgs e)
+    {
+        _addUpdateDVKTForm.ShowDialog();
+    }
+
+    private void edit_dvkt_Click(object sender, EventArgs e)
+    {
+        if (dvktListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn dịch vụ cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = dvktListView.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn dịch vụ cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Open a new form and pass data into it for update
+        _addUpdateDVKTForm.IdDVKT = int.Parse(id);
+        _addUpdateDVKTForm.LoadData(int.Parse(id));
+
+        _addUpdateDVKTForm.ShowDialog();
+    }
+
+    private void search_service_TextChanged(object sender, EventArgs e)
+    {
+        var data = _appDbContext.DichVuKTs.ToList();
+
+        if (search_service.Text != null)
+        {
+            data = data.Where(x => x.TenDichVu.ToLower().Contains(search_service.Text.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+        else
+        {
+            return;
+        }
+
+        FillDataTodvktListView(data);
     }
 }

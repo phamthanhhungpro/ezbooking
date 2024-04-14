@@ -81,7 +81,14 @@ partial class AppForm
         booking = new TabPage();
         report = new TabPage();
         dvkts = new TabPage();
+        search_service = new MaterialTextBox();
         dvktListView = new MaterialListView();
+        nofunc = new ColumnHeader();
+        dvtkno = new ColumnHeader();
+        dvktname = new ColumnHeader();
+        chiphi = new ColumnHeader();
+        time = new ColumnHeader();
+        dvktid = new ColumnHeader();
         del_dvkt = new MaterialButton();
         edit_dvkt = new MaterialButton();
         add_dvkt = new MaterialButton();
@@ -681,6 +688,7 @@ partial class AppForm
         // 
         // dvkts
         // 
+        dvkts.Controls.Add(search_service);
         dvkts.Controls.Add(dvktListView);
         dvkts.Controls.Add(del_dvkt);
         dvkts.Controls.Add(edit_dvkt);
@@ -694,24 +702,74 @@ partial class AppForm
         dvkts.Text = "Dịch vụ kĩ thuật";
         dvkts.UseVisualStyleBackColor = true;
         // 
+        // search_service
+        // 
+        search_service.AnimateReadOnly = false;
+        search_service.BorderStyle = BorderStyle.None;
+        search_service.Depth = 0;
+        search_service.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+        search_service.Hint = "Nhập tên dịch vụ cần tìm kiếm";
+        search_service.LeadingIcon = null;
+        search_service.Location = new Point(13, 51);
+        search_service.MaxLength = 50;
+        search_service.MouseState = MouseState.OUT;
+        search_service.Multiline = false;
+        search_service.Name = "search_service";
+        search_service.Size = new Size(252, 50);
+        search_service.TabIndex = 13;
+        search_service.Text = "";
+        search_service.TrailingIcon = null;
+        search_service.TextChanged += search_service_TextChanged;
+        // 
         // dvktListView
         // 
         dvktListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         dvktListView.AutoSizeTable = false;
         dvktListView.BackColor = Color.FromArgb(255, 255, 255);
         dvktListView.BorderStyle = BorderStyle.None;
+        dvktListView.Columns.AddRange(new ColumnHeader[] { nofunc, dvtkno, dvktname, chiphi, time, dvktid });
         dvktListView.Depth = 0;
         dvktListView.FullRowSelect = true;
-        dvktListView.Location = new Point(13, 79);
+        dvktListView.Location = new Point(13, 99);
         dvktListView.MinimumSize = new Size(200, 100);
         dvktListView.MouseLocation = new Point(-1, -1);
         dvktListView.MouseState = MouseState.OUT;
         dvktListView.Name = "dvktListView";
         dvktListView.OwnerDraw = true;
-        dvktListView.Size = new Size(891, 348);
+        dvktListView.Size = new Size(891, 328);
         dvktListView.TabIndex = 12;
         dvktListView.UseCompatibleStateImageBehavior = false;
         dvktListView.View = View.Details;
+        dvktListView.SelectedIndexChanged += dvktListView_SelectedIndexChanged_1;
+        // 
+        // nofunc
+        // 
+        nofunc.Text = "";
+        nofunc.Width = 0;
+        // 
+        // dvtkno
+        // 
+        dvtkno.Text = "STT";
+        // 
+        // dvktname
+        // 
+        dvktname.Text = "Tên dịch vụ";
+        dvktname.Width = 200;
+        // 
+        // chiphi
+        // 
+        chiphi.Text = "Chi phí";
+        chiphi.Width = 120;
+        // 
+        // time
+        // 
+        time.Text = "Thời gian";
+        time.Width = 120;
+        // 
+        // dvktid
+        // 
+        dvktid.Text = "";
+        dvktid.Width = 0;
         // 
         // del_dvkt
         // 
@@ -731,6 +789,7 @@ partial class AppForm
         del_dvkt.Type = MaterialButton.MaterialButtonType.Outlined;
         del_dvkt.UseAccentColor = false;
         del_dvkt.UseVisualStyleBackColor = false;
+        del_dvkt.Click += del_dvkt_Click;
         // 
         // edit_dvkt
         // 
@@ -750,6 +809,7 @@ partial class AppForm
         edit_dvkt.Type = MaterialButton.MaterialButtonType.Outlined;
         edit_dvkt.UseAccentColor = false;
         edit_dvkt.UseVisualStyleBackColor = false;
+        edit_dvkt.Click += edit_dvkt_Click;
         // 
         // add_dvkt
         // 
@@ -769,6 +829,7 @@ partial class AppForm
         add_dvkt.Type = MaterialButton.MaterialButtonType.Outlined;
         add_dvkt.UseAccentColor = false;
         add_dvkt.UseVisualStyleBackColor = false;
+        add_dvkt.Click += add_dvkt_Click;
         // 
         // dvktLabel
         // 
@@ -880,5 +941,12 @@ partial class AppForm
     private MaterialButton add_dvkt;
     private Label dvktLabel;
     private MaterialListView dvktListView;
+    private ColumnHeader nofunc;
+    private ColumnHeader dvtkno;
+    private ColumnHeader dvktname;
+    private ColumnHeader chiphi;
+    private ColumnHeader time;
+    private ColumnHeader dvktid;
+    private MaterialTextBox search_service;
     private MaterialButton patientBook;
 }
