@@ -35,5 +35,6 @@ static class Program
         services.AddSingleton<AppForm>();
         services.AddScoped<AddUpdateBacSiForm>();
         services.AddScoped<AddUpdateThietBiForm>();
+        services.AddScoped<AddUpdateDVKTForm>();
     }
 }
