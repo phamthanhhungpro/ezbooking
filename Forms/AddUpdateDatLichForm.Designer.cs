@@ -194,12 +194,13 @@
             save_btn.MouseState = MaterialSkin.MouseState.HOVER;
             save_btn.Name = "save_btn";
             save_btn.NoAccentTextColor = Color.Empty;
-            save_btn.Size = new Size(158, 36);
+            save_btn.Size = new Size(130, 36);
             save_btn.TabIndex = 6;
             save_btn.Text = "Lưu thông tin";
             save_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             save_btn.UseAccentColor = false;
             save_btn.UseVisualStyleBackColor = true;
+            save_btn.Click += save_btn_Click;
             // 
             // AddUpdateDatLichForm
             // 

@@ -9,6 +9,7 @@ namespace ezbooking.Models
         public DbSet<BacSiKTV> BacSiKTVs { get; set; }
         public DbSet<BenhNhan> BenhNhans { get; set; }
         public DbSet<ThietBi> ThietBis { get; set; }
+        public DbSet<ThoiGianSuDungThietBi> ThoiGianSuDungThietBis { get; set; }
 
         public AppDbContext()
         {
@@ -50,6 +51,12 @@ namespace ezbooking.Models
             });
 
             modelBuilder.Entity<ThietBi>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<ThoiGianSuDungThietBi>(entity =>
             {
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.IsDeleted).HasDefaultValue(false);
