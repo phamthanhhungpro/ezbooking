@@ -1,10 +1,4 @@
 ﻿using MaterialSkin.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ezbooking.Shared
 {
@@ -35,7 +29,7 @@ namespace ezbooking.Shared
 
         public static void UnCheckAllItems(MaterialCheckedListBox checkedListBox)
         {
-            foreach(var item in checkedListBox.Items)
+            foreach (var item in checkedListBox.Items)
             {
                 item.Checked = false;
             }
@@ -110,6 +104,14 @@ namespace ezbooking.Shared
             var start = startTime.ToString("g");
             var end = endTime.ToString("g");
             return start + " - " + end;
+        }
+
+        public static DateTime GetStartOfWeek(DateTime date)
+        {
+            int delta = DayOfWeek.Monday - date.DayOfWeek;
+            if (delta > 0)
+                delta -= 7;
+            return date.AddDays(delta);
         }
     }
 }

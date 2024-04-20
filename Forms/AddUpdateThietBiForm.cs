@@ -1,15 +1,4 @@
 ﻿using ezbooking.Models;
-using ezbooking.Shared;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ezbooking.Forms
 {
@@ -20,6 +9,7 @@ namespace ezbooking.Forms
         private bool _isUpdate = false;
         public int IdDevice = 0;
         public event EventHandler DataChanged;
+
         public AddUpdateThietBiForm(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
@@ -34,6 +24,7 @@ namespace ezbooking.Forms
             time_device_txt.Text = "";
             mota_device_txt.Text = "";
             _thietBis.Clear();
+            _isUpdate = false;
         }
 
         // Method to trigger the DataInserted event
@@ -97,8 +88,19 @@ namespace ezbooking.Forms
                 name_device_txt.Text = device.TenThietBi.ToString();
                 soluong_device_txt.Text = device.SoLuong.ToString();
                 time_device_txt.Text = device.ThoiGianCachNhau.ToString();
-                mota_device_txt.Text= device.MoTa.ToString();
+                mota_device_txt.Text = device.MoTa.ToString();
             }
+        }
+
+        private void AddUpdateThietBiForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void AddUpdateThietBiForm_FormClosing(object sender, EventArgs e)
+        {
+            ClearForm();
         }
     }
 }

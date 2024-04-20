@@ -62,6 +62,7 @@
             delete_datlich.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
             delete_datlich.UseAccentColor = true;
             delete_datlich.UseVisualStyleBackColor = true;
+            delete_datlich.Click += delete_datlich_Click;
             // 
             // edit_datlich
             // 
@@ -165,7 +166,7 @@
             // time
             // 
             time.Text = "Khung giờ";
-            time.Width = 200;
+            time.Width = 300;
             // 
             // BenhNhanDatLichForm
             // 

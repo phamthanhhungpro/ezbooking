@@ -3,7 +3,7 @@ using ezbooking.Models;
 using ezbooking.Shared;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore;
 
 namespace ezbooking;
 
@@ -190,7 +190,11 @@ public partial class AppForm : MaterialForm
             MessageBox.Show("Vui lòng chọn bác sĩ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
-        var toDelete = _appDbContext.BacSiKTVs.FirstOrDefault(x => x.Id == int.Parse(id));
+        var toDelete = _appDbContext.BacSiKTVs
+            .Include(id => id.ThoiGianBieus)
+            .Include(id => id.DichVuKTs)
+            .FirstOrDefault(x => x.Id == int.Parse(id));
+
         _appDbContext.BacSiKTVs.Remove(toDelete);
         _appDbContext.SaveChanges();
 
@@ -290,13 +294,22 @@ public partial class AppForm : MaterialForm
             MessageBox.Show("Vui lòng chọn thiết bị cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
-        var toDelete = _appDbContext.ThietBis.FirstOrDefault(x => x.Id == int.Parse(id));
-        _appDbContext.ThietBis.Remove(toDelete);
-        _appDbContext.SaveChanges();
+        var toDelete = _appDbContext.ThietBis
+            .FirstOrDefault(x => x.Id == int.Parse(id));
+        try
+        {
+            _appDbContext.ThietBis.Remove(toDelete);
+            _appDbContext.SaveChanges();
+            MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception)
+        {
+            MessageBox.Show("Thiết bị đang được sử dụng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            throw;
+        }
 
         LoadTabThietBi();
-
-        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
     /// <summary>
@@ -506,13 +519,24 @@ public partial class AppForm : MaterialForm
             MessageBox.Show("Vui lòng chọn dịch vụ cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
-        var toDelete = _appDbContext.DichVuKTs.FirstOrDefault(x => x.Id == int.Parse(id));
-        _appDbContext.DichVuKTs.Remove(toDelete);
-        _appDbContext.SaveChanges();
+
+        try
+        {
+            var toDelete = _appDbContext.DichVuKTs.FirstOrDefault(x => x.Id == int.Parse(id));
+
+            _appDbContext.DichVuKTs.Remove(toDelete);
+
+            _appDbContext.SaveChanges();
+
+
+            MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception)
+        {
+            MessageBox.Show("Dịch vụ đang được sử dụng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
         LoadTabDVKT();
-
-        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
     private void dvktListView_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -546,21 +570,5 @@ public partial class AppForm : MaterialForm
         _addUpdateDVKTForm.LoadData(int.Parse(id));
 
         _addUpdateDVKTForm.ShowDialog();
-    }
-
-    private void search_service_TextChanged(object sender, EventArgs e)
-    {
-        var data = _appDbContext.DichVuKTs.ToList();
-
-        if (search_service.Text != null)
-        {
-            data = data.Where(x => x.TenDichVu.ToLower().Contains(search_service.Text.ToLower(), StringComparison.OrdinalIgnoreCase)).ToList();
-        }
-        else
-        {
-            return;
-        }
-
-        FillDataTodvktListView(data);
     }
 }

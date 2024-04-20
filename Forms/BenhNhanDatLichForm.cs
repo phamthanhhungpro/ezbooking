@@ -2,16 +2,7 @@
 using ezbooking.Shared;
 using ezbooking.Shared.Dtos;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ezbooking.Forms
 {
@@ -27,6 +18,8 @@ namespace ezbooking.Forms
             InitializeComponent();
             _appDbContext = appDbContext;
             _addUpdateDatLichForm = addUpdateDatLichForm;
+            _addUpdateDatLichForm.DataChanged += BenhNhanDatLichForm_Load;
+
         }
 
         private List<ThoiGianBieuDto> GetListDatLich()
@@ -79,6 +72,17 @@ namespace ezbooking.Forms
 
         private void BenhNhanDatLichForm_Load(object sender, EventArgs e)
         {
+            LoadDataToUI();
+        }
+
+        private void add_datlich_Click(object sender, EventArgs e)
+        {
+            _addUpdateDatLichForm.BenhNhanId = BenhNhanId;
+            _addUpdateDatLichForm.ShowDialog();
+        }
+
+        public void LoadDataToUI()
+        {
             var data = GetListDatLich();
 
             if (data.Count > 0)
@@ -87,27 +91,17 @@ namespace ezbooking.Forms
             }
         }
 
-        private void add_datlich_Click(object sender, EventArgs e)
+        private void delete_datlich_Click(object sender, EventArgs e)
         {
-            _addUpdateDatLichForm.BenhNhanId = BenhNhanId;
-            _addUpdateDatLichForm.ShowDialog();
-            ////
-            //var benhNhan = _appDbContext.BenhNhans.FirstOrDefault(bn => bn.Id == BenhNhanId);
-            //var bacSi = _appDbContext.BacSiKTVs.FirstOrDefault(bs => bs.Id == 1);
-            //var dvkt = _appDbContext.DichVuKTs.FirstOrDefault(dv => dv.Id == 1);
-            //var datlich = new ThoiGianBieu()
-            //{
-            //    BenhNhan = benhNhan,
-            //    BacSiKTV = bacSi,
-            //    DichVuKT = dvkt,
-            //    ThoiGianBatDau = DateTime.Now,
-            //    ThoiGianKetThuc = DateTime.Now
-            //};
-
-            //_appDbContext.Add(datlich);
-            //_appDbContext.SaveChanges();
-
-            //BenhNhanDatLichForm_Load(sender, e);
+            if (datlichListView.SelectedItems.Count > 0)
+            {
+                var selectedItem = datlichListView.SelectedItems[0];
+                var id = int.Parse(selectedItem.Tag.ToString());
+                var toDelete = _appDbContext.ThoiGianBieus.FirstOrDefault(x => x.Id == id);
+                _appDbContext.Remove(toDelete);
+                _appDbContext.SaveChanges();
+                LoadDataToUI();
+            }
         }
     }
 }

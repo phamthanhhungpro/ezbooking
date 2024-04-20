@@ -1,16 +1,6 @@
 ﻿using ezbooking.Models;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace ezbooking.Forms
 {
@@ -28,33 +18,40 @@ namespace ezbooking.Forms
         }
         private void AddUpdateDVKTForm_Load(object sender, EventArgs e)
         {
+            if (!_isUpdate)
+            {
+                LoadDataComboBoxThietBi();
+
+            }
+        }
+
+        private void LoadDataComboBoxThietBi()
+        {
             // Load data to checklist
             var listThietbi = _appDbContext.ThietBis.ToList();
 
-            var data = _appDbContext.ThietBis.Select(oneData => new {
+            var data = _appDbContext.ThietBis.Select(oneData => new
+            {
                 Value = oneData.Id,
                 Text = oneData.TenThietBi
             }).ToList();
+
+            data.Add(new
+            {
+                Value = 0,
+                Text = "Không sử dụng thiết bị"
+            });
+
+            data = [.. data.OrderBy(a => a.Value)];
+
             ComboThietBi.ValueMember = "Value";
             ComboThietBi.DisplayMember = "Text";
             ComboThietBi.DataSource = data;
         }
+
         protected virtual void OnDataChanged(EventArgs e)
         {
             DataChanged?.Invoke(this, e);
-        }
-
-        public void LoadData(int id)
-        {
-            _isUpdate = true;
-            var dvkt = _appDbContext.DichVuKTs.FirstOrDefault(x => x.Id == id);
-            if (dvkt != null)
-            {
-                serviceNameTxt.Text = dvkt.TenDichVu;
-                ChiPhiTxt.Text = dvkt.ChiPhi.ToString();
-                TimeTxt.Text = dvkt.ThoiGian.ToString();
-
-            }
         }
 
         private void ClearForm()
@@ -62,6 +59,8 @@ namespace ezbooking.Forms
             serviceNameTxt.Text = "";
             ChiPhiTxt.Text = "";
             TimeTxt.Text = "";
+            ComboThietBi.DataBindings.Clear();
+            _isUpdate = false;
         }
 
         private void AddUpdateDVTKForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -80,6 +79,7 @@ namespace ezbooking.Forms
                     ChiPhi = int.Parse(ChiPhiTxt.Text),
                     ThoiGian = int.Parse(TimeTxt.Text),
                     ThietBi = thietBi,
+                    LoaiDichVu = int.Parse(loaiThuThuat.Text)
                 };
 
                 if (!_isUpdate)
@@ -94,6 +94,8 @@ namespace ezbooking.Forms
                     toUpdate.TenDichVu = item.TenDichVu;
                     toUpdate.ChiPhi = item.ChiPhi;
                     toUpdate.ThoiGian = item.ThoiGian;
+                    toUpdate.ThietBi = item.ThietBi;
+                    toUpdate.LoaiDichVu = item.LoaiDichVu;
 
                     _appDbContext.SaveChanges();
                 }
@@ -110,6 +112,22 @@ namespace ezbooking.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void LoadData(int id)
+        {
+            LoadDataComboBoxThietBi();
+            _isUpdate = true;
+            var dvkt = _appDbContext.DichVuKTs.Include(dv => dv.ThietBi)
+                                              .FirstOrDefault(x => x.Id == id);
+            if (dvkt != null)
+            {
+                serviceNameTxt.Text = dvkt.TenDichVu;
+                ChiPhiTxt.Text = dvkt.ChiPhi.ToString();
+                TimeTxt.Text = dvkt.ThoiGian.ToString();
+                loaiThuThuat.Text = dvkt.LoaiDichVu.ToString();
+                ComboThietBi.SelectedValue = dvkt.ThietBi == null ? 0 : dvkt.ThietBi.Id;
             }
         }
     }

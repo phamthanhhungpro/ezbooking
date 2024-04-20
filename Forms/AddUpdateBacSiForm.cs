@@ -1,15 +1,7 @@
 ﻿using ezbooking.Models;
 using ezbooking.Shared;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ezbooking.Forms
 {
@@ -28,7 +20,7 @@ namespace ezbooking.Forms
 
         private void AddUpdateBacSiForm_Load(object sender, EventArgs e)
         {
-            if(!_isUpdate)
+            if (!_isUpdate)
             {
                 LoadDvktList();
             }
@@ -76,7 +68,7 @@ namespace ezbooking.Forms
                     DichVuKTs = selectedDichVuKTs
                 };
 
-                if(!_isUpdate)
+                if (!_isUpdate)
                 {
                     _appDbContext.Add(bacSiKTV);
                     _appDbContext.SaveChanges();
@@ -123,6 +115,7 @@ namespace ezbooking.Forms
             doctorStartTime.Text = "";
             doctorEndTime.Text = "";
             Helpers.UnCheckAllItems(doctorDvktCheckList);
+            _isUpdate = false;
         }
 
         // Method to trigger the DataChanged event

@@ -81,7 +81,6 @@ partial class AppForm
         booking = new TabPage();
         report = new TabPage();
         dvkts = new TabPage();
-        search_service = new MaterialTextBox();
         dvktListView = new MaterialListView();
         nofunc = new ColumnHeader();
         dvtkno = new ColumnHeader();
@@ -311,7 +310,7 @@ partial class AppForm
         patient.Location = new Point(4, 39);
         patient.Name = "patient";
         patient.Padding = new Padding(3);
-        patient.Size = new Size(919, 443);
+        patient.Size = new Size(991, 475);
         patient.TabIndex = 1;
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
@@ -522,7 +521,7 @@ partial class AppForm
         device.Location = new Point(4, 39);
         device.Name = "device";
         device.Padding = new Padding(3);
-        device.Size = new Size(919, 443);
+        device.Size = new Size(991, 475);
         device.TabIndex = 4;
         device.Text = "Thiết bị";
         device.UseVisualStyleBackColor = true;
@@ -671,7 +670,7 @@ partial class AppForm
         booking.ImageKey = "icons8-reserve-48.png";
         booking.Location = new Point(4, 39);
         booking.Name = "booking";
-        booking.Size = new Size(919, 443);
+        booking.Size = new Size(991, 475);
         booking.TabIndex = 2;
         booking.Text = "Đặt lịch";
         booking.UseVisualStyleBackColor = true;
@@ -681,14 +680,13 @@ partial class AppForm
         report.ImageKey = "icons8-report-48.png";
         report.Location = new Point(4, 39);
         report.Name = "report";
-        report.Size = new Size(919, 443);
+        report.Size = new Size(991, 475);
         report.TabIndex = 3;
         report.Text = "Báo cáo";
         report.UseVisualStyleBackColor = true;
         // 
         // dvkts
         // 
-        dvkts.Controls.Add(search_service);
         dvkts.Controls.Add(dvktListView);
         dvkts.Controls.Add(del_dvkt);
         dvkts.Controls.Add(edit_dvkt);
@@ -697,29 +695,10 @@ partial class AppForm
         dvkts.ImageKey = "icons8-massage-64.png";
         dvkts.Location = new Point(4, 39);
         dvkts.Name = "dvkts";
-        dvkts.Size = new Size(919, 443);
+        dvkts.Size = new Size(991, 475);
         dvkts.TabIndex = 5;
         dvkts.Text = "Dịch vụ kĩ thuật";
         dvkts.UseVisualStyleBackColor = true;
-        // 
-        // search_service
-        // 
-        search_service.AnimateReadOnly = false;
-        search_service.BorderStyle = BorderStyle.None;
-        search_service.Depth = 0;
-        search_service.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-        search_service.Hint = "Nhập tên dịch vụ cần tìm kiếm";
-        search_service.LeadingIcon = null;
-        search_service.Location = new Point(13, 51);
-        search_service.MaxLength = 50;
-        search_service.MouseState = MouseState.OUT;
-        search_service.Multiline = false;
-        search_service.Name = "search_service";
-        search_service.Size = new Size(252, 50);
-        search_service.TabIndex = 13;
-        search_service.Text = "";
-        search_service.TrailingIcon = null;
-        search_service.TextChanged += search_service_TextChanged;
         // 
         // dvktListView
         // 
@@ -730,7 +709,7 @@ partial class AppForm
         dvktListView.Columns.AddRange(new ColumnHeader[] { nofunc, dvtkno, dvktname, chiphi, time, dvktid });
         dvktListView.Depth = 0;
         dvktListView.FullRowSelect = true;
-        dvktListView.Location = new Point(13, 99);
+        dvktListView.Location = new Point(13, 79);
         dvktListView.MinimumSize = new Size(200, 100);
         dvktListView.MouseLocation = new Point(-1, -1);
         dvktListView.MouseState = MouseState.OUT;
@@ -947,6 +926,5 @@ partial class AppForm
     private ColumnHeader chiphi;
     private ColumnHeader time;
     private ColumnHeader dvktid;
-    private MaterialTextBox search_service;
     private MaterialButton patientBook;
 }

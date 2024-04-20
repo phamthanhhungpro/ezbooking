@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUpdateDVKTForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             TimeTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
             ChiPhiTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
             ComboThietBi = new MaterialSkin.Controls.MaterialComboBox();
             serviceNameTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
             save_service_btn = new MaterialSkin.Controls.MaterialButton();
+            loaiThuThuat = new MaterialSkin.Controls.MaterialMaskedTextBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,15 +44,17 @@
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(loaiThuThuat, 0, 2);
             tableLayoutPanel1.Controls.Add(TimeTxt, 0, 1);
             tableLayoutPanel1.Controls.Add(ChiPhiTxt, 0, 1);
             tableLayoutPanel1.Controls.Add(ComboThietBi, 1, 0);
             tableLayoutPanel1.Controls.Add(serviceNameTxt, 0, 0);
             tableLayoutPanel1.Location = new Point(61, 71);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.Size = new Size(618, 296);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -69,7 +73,7 @@
             TimeTxt.Hint = "Thời gian";
             TimeTxt.InsertKeyMode = InsertKeyMode.Default;
             TimeTxt.LeadingIcon = null;
-            TimeTxt.Location = new Point(3, 151);
+            TimeTxt.Location = new Point(312, 101);
             TimeTxt.Mask = "";
             TimeTxt.MaxLength = 32767;
             TimeTxt.MouseState = MaterialSkin.MouseState.OUT;
@@ -111,7 +115,7 @@
             ChiPhiTxt.Hint = "Chi phí";
             ChiPhiTxt.InsertKeyMode = InsertKeyMode.Default;
             ChiPhiTxt.LeadingIcon = null;
-            ChiPhiTxt.Location = new Point(312, 151);
+            ChiPhiTxt.Location = new Point(3, 101);
             ChiPhiTxt.Mask = "";
             ChiPhiTxt.MaxLength = 32767;
             ChiPhiTxt.MouseState = MaterialSkin.MouseState.OUT;
@@ -223,6 +227,48 @@
             save_service_btn.UseVisualStyleBackColor = true;
             save_service_btn.Click += save_service_btn_Click;
             // 
+            // loaiThuThuat
+            // 
+            loaiThuThuat.AllowPromptAsInput = true;
+            loaiThuThuat.AnimateReadOnly = false;
+            loaiThuThuat.AsciiOnly = false;
+            loaiThuThuat.BackgroundImageLayout = ImageLayout.None;
+            loaiThuThuat.BeepOnError = false;
+            loaiThuThuat.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
+            loaiThuThuat.Depth = 0;
+            loaiThuThuat.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            loaiThuThuat.HidePromptOnLeave = false;
+            loaiThuThuat.HideSelection = true;
+            loaiThuThuat.Hint = "Loại thủ thuật";
+            loaiThuThuat.InsertKeyMode = InsertKeyMode.Default;
+            loaiThuThuat.LeadingIcon = null;
+            loaiThuThuat.Location = new Point(3, 199);
+            loaiThuThuat.Mask = "";
+            loaiThuThuat.MaxLength = 32767;
+            loaiThuThuat.MouseState = MaterialSkin.MouseState.OUT;
+            loaiThuThuat.Name = "loaiThuThuat";
+            loaiThuThuat.PasswordChar = '\0';
+            loaiThuThuat.PrefixSuffixText = null;
+            loaiThuThuat.PromptChar = '_';
+            loaiThuThuat.ReadOnly = false;
+            loaiThuThuat.RejectInputOnFirstFailure = false;
+            loaiThuThuat.ResetOnPrompt = true;
+            loaiThuThuat.ResetOnSpace = true;
+            loaiThuThuat.RightToLeft = RightToLeft.No;
+            loaiThuThuat.SelectedText = "";
+            loaiThuThuat.SelectionLength = 0;
+            loaiThuThuat.SelectionStart = 0;
+            loaiThuThuat.ShortcutsEnabled = true;
+            loaiThuThuat.Size = new Size(303, 48);
+            loaiThuThuat.SkipLiterals = true;
+            loaiThuThuat.TabIndex = 8;
+            loaiThuThuat.TabStop = false;
+            loaiThuThuat.TextAlign = HorizontalAlignment.Left;
+            loaiThuThuat.TextMaskFormat = MaskFormat.IncludeLiterals;
+            loaiThuThuat.TrailingIcon = null;
+            loaiThuThuat.UseSystemPasswordChar = false;
+            loaiThuThuat.ValidatingType = null;
+            // 
             // AddUpdateDVKTForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -230,8 +276,9 @@
             ClientSize = new Size(800, 450);
             Controls.Add(save_service_btn);
             Controls.Add(tableLayoutPanel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateDVKTForm";
-            Text = "AddUpdateDVKT";
+            Text = "Thêm/Cập nhật DVKT";
             FormClosing += AddUpdateDVTKForm_FormClosing;
             Load += AddUpdateDVKTForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
@@ -247,5 +294,6 @@
         private MaterialSkin.Controls.MaterialMaskedTextBox ChiPhiTxt;
         private MaterialSkin.Controls.MaterialComboBox ComboThietBi;
         private MaterialSkin.Controls.MaterialButton save_service_btn;
+        private MaterialSkin.Controls.MaterialMaskedTextBox loaiThuThuat;
     }
 }

@@ -184,6 +184,8 @@
             Name = "AddUpdateThietBiForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AddUpdateThietBiForm";
+            Load += AddUpdateThietBiForm_Load;
+            FormClosing += AddUpdateThietBiForm_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
