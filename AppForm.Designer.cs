@@ -50,9 +50,10 @@ partial class AppForm
         workingTime = new ColumnHeader();
         hiddenId = new ColumnHeader();
         patient = new TabPage();
-        patientBook = new MaterialButton();
-        patient_prev_btn = new Button();
+        patient_paging_label = new MaterialLabel();
         patient_next_btn = new Button();
+        patient_prev_btn = new Button();
+        patientBook = new MaterialButton();
         patientListview = new MaterialListView();
         nofunctionpatient = new ColumnHeader();
         no_patient = new ColumnHeader();
@@ -296,9 +297,10 @@ partial class AppForm
         // 
         // patient
         // 
-        patient.Controls.Add(patientBook);
-        patient.Controls.Add(patient_prev_btn);
+        patient.Controls.Add(patient_paging_label);
         patient.Controls.Add(patient_next_btn);
+        patient.Controls.Add(patient_prev_btn);
+        patient.Controls.Add(patientBook);
         patient.Controls.Add(patientListview);
         patient.Controls.Add(search_patient_box);
         patient.Controls.Add(del_patient_btn);
@@ -314,6 +316,51 @@ partial class AppForm
         patient.TabIndex = 1;
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
+        // 
+        // patient_paging_label
+        // 
+        patient_paging_label.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        patient_paging_label.AutoSize = true;
+        patient_paging_label.Depth = 0;
+        patient_paging_label.Font = new Font("Roboto", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+        patient_paging_label.FontType = MaterialSkinManager.fontType.Button;
+        patient_paging_label.Location = new Point(900, 429);
+        patient_paging_label.MouseState = MouseState.HOVER;
+        patient_paging_label.Name = "patient_paging_label";
+        patient_paging_label.Size = new Size(1, 0);
+        patient_paging_label.TabIndex = 13;
+        patient_paging_label.TextAlign = ContentAlignment.MiddleCenter;
+        // 
+        // patient_next_btn
+        // 
+        patient_next_btn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+        patient_next_btn.BackgroundImageLayout = ImageLayout.Stretch;
+        patient_next_btn.FlatAppearance.BorderSize = 0;
+        patient_next_btn.FlatStyle = FlatStyle.Flat;
+        patient_next_btn.Image = Properties.Resources.icons8_next_30;
+        patient_next_btn.Location = new Point(42, 416);
+        patient_next_btn.Margin = new Padding(0);
+        patient_next_btn.Name = "patient_next_btn";
+        patient_next_btn.Size = new Size(36, 52);
+        patient_next_btn.TabIndex = 11;
+        patient_next_btn.UseVisualStyleBackColor = false;
+        patient_next_btn.Click += patient_next_btn_Click;
+        // 
+        // patient_prev_btn
+        // 
+        patient_prev_btn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+        patient_prev_btn.AutoSize = true;
+        patient_prev_btn.BackgroundImageLayout = ImageLayout.Stretch;
+        patient_prev_btn.FlatAppearance.BorderSize = 0;
+        patient_prev_btn.FlatStyle = FlatStyle.Flat;
+        patient_prev_btn.Image = Properties.Resources.icons8_previous_30;
+        patient_prev_btn.Location = new Point(6, 416);
+        patient_prev_btn.Margin = new Padding(0);
+        patient_prev_btn.Name = "patient_prev_btn";
+        patient_prev_btn.Size = new Size(36, 52);
+        patient_prev_btn.TabIndex = 12;
+        patient_prev_btn.UseVisualStyleBackColor = false;
+        patient_prev_btn.Click += patient_prev_btn_Click;
         // 
         // patientBook
         // 
@@ -335,34 +382,6 @@ partial class AppForm
         patientBook.UseVisualStyleBackColor = true;
         patientBook.Click += patientBook_Click;
         // 
-        // patient_prev_btn
-        // 
-        patient_prev_btn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-        patient_prev_btn.BackColor = Color.White;
-        patient_prev_btn.FlatAppearance.BorderColor = Color.White;
-        patient_prev_btn.ForeColor = Color.RosyBrown;
-        patient_prev_btn.Image = Properties.Resources.icons8_previous_30;
-        patient_prev_btn.Location = new Point(8, 412);
-        patient_prev_btn.Name = "patient_prev_btn";
-        patient_prev_btn.Size = new Size(36, 25);
-        patient_prev_btn.TabIndex = 12;
-        patient_prev_btn.UseVisualStyleBackColor = false;
-        patient_prev_btn.Click += patient_prev_btn_Click;
-        // 
-        // patient_next_btn
-        // 
-        patient_next_btn.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-        patient_next_btn.BackColor = Color.White;
-        patient_next_btn.FlatAppearance.BorderColor = Color.White;
-        patient_next_btn.ForeColor = Color.RosyBrown;
-        patient_next_btn.Image = Properties.Resources.icons8_next_30;
-        patient_next_btn.Location = new Point(60, 412);
-        patient_next_btn.Name = "patient_next_btn";
-        patient_next_btn.Size = new Size(35, 25);
-        patient_next_btn.TabIndex = 11;
-        patient_next_btn.UseVisualStyleBackColor = false;
-        patient_next_btn.Click += patient_next_btn_Click;
-        // 
         // patientListview
         // 
         patientListview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -379,7 +398,7 @@ partial class AppForm
         patientListview.MouseState = MouseState.OUT;
         patientListview.Name = "patientListview";
         patientListview.OwnerDraw = true;
-        patientListview.Size = new Size(905, 284);
+        patientListview.Size = new Size(966, 284);
         patientListview.TabIndex = 10;
         patientListview.UseCompatibleStateImageBehavior = false;
         patientListview.View = View.Details;
@@ -913,8 +932,6 @@ partial class AppForm
     private ColumnHeader patientNumber;
     private ColumnHeader patientId;
     private ColumnHeader nofunctionpatient;
-    private Button patient_prev_btn;
-    private Button patient_next_btn;
     private MaterialButton del_dvkt;
     private MaterialButton edit_dvkt;
     private MaterialButton add_dvkt;
@@ -927,4 +944,7 @@ partial class AppForm
     private ColumnHeader time;
     private ColumnHeader dvktid;
     private MaterialButton patientBook;
+    private MaterialLabel patient_paging_label;
+    private Button patient_next_btn;
+    private Button patient_prev_btn;
 }

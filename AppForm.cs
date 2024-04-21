@@ -330,6 +330,8 @@ public partial class AppForm : MaterialForm
         var count = query.Count();
         totalPages = (int)Math.Ceiling((double)count / pageSize);
 
+        patient_paging_label.Text = totalPages > 0 ? $"Trang {pageIndex}/{totalPages}" : "";
+
         FillDataToPatientListView(data);
     }
 
