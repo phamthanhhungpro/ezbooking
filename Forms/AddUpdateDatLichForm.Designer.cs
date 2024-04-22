@@ -30,60 +30,55 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUpdateDatLichForm));
             panel1 = new Panel();
-            timeLabel = new MaterialSkin.Controls.MaterialLabel();
-            timeCheckBox = new CheckedListBox();
+            save_btn = new MaterialSkin.Controls.MaterialButton();
             bacsiLabel = new MaterialSkin.Controls.MaterialLabel();
             tableLayoutPanel1 = new TableLayoutPanel();
             dvktCheckList = new CheckedListBox();
             bacsiCheckBox = new CheckedListBox();
             tenbenhnhan = new MaterialSkin.Controls.MaterialMaskedTextBox();
             dvktLabel = new MaterialSkin.Controls.MaterialLabel();
-            save_btn = new MaterialSkin.Controls.MaterialButton();
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Controls.Add(timeLabel);
-            panel1.Controls.Add(timeCheckBox);
+            panel1.Controls.Add(save_btn);
             panel1.Controls.Add(bacsiLabel);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Controls.Add(tenbenhnhan);
             panel1.Controls.Add(dvktLabel);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 450);
+            panel1.Size = new Size(1024, 570);
             panel1.TabIndex = 0;
             // 
-            // timeLabel
+            // save_btn
             // 
-            timeLabel.AutoSize = true;
-            timeLabel.Depth = 0;
-            timeLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            timeLabel.Location = new Point(15, 286);
-            timeLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            timeLabel.Name = "timeLabel";
-            timeLabel.Size = new Size(104, 19);
-            timeLabel.TabIndex = 5;
-            timeLabel.Text = "Chọn thời gian";
-            timeLabel.Visible = false;
-            // 
-            // timeCheckBox
-            // 
-            timeCheckBox.FormattingEnabled = true;
-            timeCheckBox.Location = new Point(12, 309);
-            timeCheckBox.Name = "timeCheckBox";
-            timeCheckBox.Size = new Size(773, 114);
-            timeCheckBox.TabIndex = 4;
-            timeCheckBox.Visible = false;
+            save_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            save_btn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            save_btn.Depth = 0;
+            save_btn.HighEmphasis = true;
+            save_btn.Icon = null;
+            save_btn.Location = new Point(446, 473);
+            save_btn.Margin = new Padding(4, 6, 4, 6);
+            save_btn.MouseState = MaterialSkin.MouseState.HOVER;
+            save_btn.Name = "save_btn";
+            save_btn.NoAccentTextColor = Color.Empty;
+            save_btn.Size = new Size(130, 36);
+            save_btn.TabIndex = 6;
+            save_btn.Text = "Lưu thông tin";
+            save_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            save_btn.UseAccentColor = false;
+            save_btn.UseVisualStyleBackColor = true;
+            save_btn.Click += save_btn_Click;
             // 
             // bacsiLabel
             // 
             bacsiLabel.AutoSize = true;
             bacsiLabel.Depth = 0;
             bacsiLabel.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            bacsiLabel.Location = new Point(403, 69);
+            bacsiLabel.Location = new Point(515, 70);
             bacsiLabel.MouseState = MaterialSkin.MouseState.HOVER;
             bacsiLabel.Name = "bacsiLabel";
             bacsiLabel.Size = new Size(84, 19);
@@ -104,7 +99,7 @@
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(776, 189);
+            tableLayoutPanel1.Size = new Size(1000, 309);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // dvktCheckList
@@ -113,7 +108,7 @@
             dvktCheckList.FormattingEnabled = true;
             dvktCheckList.Location = new Point(3, 3);
             dvktCheckList.Name = "dvktCheckList";
-            dvktCheckList.Size = new Size(382, 183);
+            dvktCheckList.Size = new Size(494, 303);
             dvktCheckList.TabIndex = 0;
             dvktCheckList.ItemCheck += dvktCheckList_ItemCheck;
             // 
@@ -121,9 +116,9 @@
             // 
             bacsiCheckBox.Dock = DockStyle.Fill;
             bacsiCheckBox.FormattingEnabled = true;
-            bacsiCheckBox.Location = new Point(391, 3);
+            bacsiCheckBox.Location = new Point(503, 3);
             bacsiCheckBox.Name = "bacsiCheckBox";
-            bacsiCheckBox.Size = new Size(382, 183);
+            bacsiCheckBox.Size = new Size(494, 303);
             bacsiCheckBox.TabIndex = 1;
             bacsiCheckBox.Visible = false;
             bacsiCheckBox.ItemCheck += bacsiCheckList_ItemCheck;
@@ -143,7 +138,7 @@
             tenbenhnhan.Hint = "Tên bệnh nhân";
             tenbenhnhan.InsertKeyMode = InsertKeyMode.Default;
             tenbenhnhan.LeadingIcon = null;
-            tenbenhnhan.Location = new Point(248, 12);
+            tenbenhnhan.Location = new Point(350, 12);
             tenbenhnhan.Mask = "";
             tenbenhnhan.MaxLength = 32767;
             tenbenhnhan.MouseState = MaterialSkin.MouseState.OUT;
@@ -182,32 +177,11 @@
             dvktLabel.TabIndex = 2;
             dvktLabel.Text = "Chọn dịch vụ cần đặt lịch";
             // 
-            // save_btn
-            // 
-            save_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            save_btn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            save_btn.Depth = 0;
-            save_btn.HighEmphasis = true;
-            save_btn.Icon = null;
-            save_btn.Location = new Point(12, 446);
-            save_btn.Margin = new Padding(4, 6, 4, 6);
-            save_btn.MouseState = MaterialSkin.MouseState.HOVER;
-            save_btn.Name = "save_btn";
-            save_btn.NoAccentTextColor = Color.Empty;
-            save_btn.Size = new Size(130, 36);
-            save_btn.TabIndex = 6;
-            save_btn.Text = "Lưu thông tin";
-            save_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            save_btn.UseAccentColor = false;
-            save_btn.UseVisualStyleBackColor = true;
-            save_btn.Click += save_btn_Click;
-            // 
             // AddUpdateDatLichForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(838, 497);
-            Controls.Add(save_btn);
+            ClientSize = new Size(1036, 582);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateDatLichForm";
@@ -218,7 +192,6 @@
             panel1.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -230,8 +203,6 @@
         private MaterialSkin.Controls.MaterialLabel dvktLabel;
         private CheckedListBox dvktCheckList;
         private CheckedListBox bacsiCheckBox;
-        private CheckedListBox timeCheckBox;
-        private MaterialSkin.Controls.MaterialLabel timeLabel;
         private MaterialSkin.Controls.MaterialButton save_btn;
     }
 }
