@@ -4,5 +4,6 @@
     {
         public const string SuccessLoginMessage = "Đăng nhập thành công";
         public const string Success = "Thành công";
+        public const string Divider = "--";
     }
 }

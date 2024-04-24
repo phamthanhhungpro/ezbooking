@@ -117,163 +117,89 @@ namespace ezbooking.Forms
             return listBacsiFree;
         }
 
-        private string GetFreeTime(TimeOnly startTime, TimeOnly endTime, List<ThoiGianBieu> thoigianbieu, int timeDvkt, DateTime thoigianThietBi)
-        {
-            bool isValidTimeRange = true;
-            var today = DateTime.Today;
-            var result = "";
-            do
-            {
-                isValidTimeRange = true;
-                var startDateTime = new DateTime(today.Year, today.Month, today.Day, startTime.Hour, startTime.Minute, 0);
-
-                if (thoigianThietBi > DateTime.MinValue && today.Date <= thoigianThietBi.Date)
-                {
-                    startDateTime = thoigianThietBi;
-                    today = thoigianThietBi;
-                }
-
-                if (startDateTime < DateTime.Now)
-                {
-                    isValidTimeRange = false;
-                    today = today.AddDays(1);
-                    continue;
-                }
-
-                var endDateTime = new DateTime(today.Year, today.Month, today.Day, endTime.Hour, endTime.Minute, 0);
-
-                var freeStartTime = new DateTime();
-                var freeEndTime = new DateTime();
-                var time = startDateTime;
-                var isStartDay = true;
-                while (time < endDateTime)
-                {
-                    var isFree = true;
-
-                    foreach (var tg in thoigianbieu)
-                    {
-                        if (time >= tg.ThoiGianBatDau && time <= tg.ThoiGianKetThuc)
-                        {
-                            isFree = false;
-                            isStartDay = false;
-                            break;
-                        }
-                    }
-
-                    if (isFree)
-                    {
-                        if (!isStartDay)
-                        {
-                            time = time.AddMinutes(0);
-                        }
-
-                        freeStartTime = time;
-                        break;
-                    }
-
-                    time = time.AddMinutes(5);
-                }
-
-                freeEndTime = freeStartTime.AddMinutes(timeDvkt);
-
-                if (freeEndTime > endDateTime)
-                {
-                    isValidTimeRange = false;
-                }
-
-                foreach (var tg in thoigianbieu)
-                {
-                    if (freeEndTime >= tg.ThoiGianBatDau && freeEndTime <= tg.ThoiGianKetThuc)
-                    {
-                        isValidTimeRange = false;
-                        break;
-                    }
-                }
-
-                if (isValidTimeRange)
-                {
-                    result = Helpers.GetWorkingTimeRange(freeStartTime, freeEndTime);
-                }
-
-                today = today.AddDays(1);
-
-            }
-            while (!isValidTimeRange);
-
-            return result;
-        }
-
         private void save_btn_Click(object sender, EventArgs e)
         {
-            //// get time range
-            //var timeRange = timeCheckBox.SelectedItem.ToString();
-            //var timeRangeArr = timeRange.Split(" - ");
-            //var startTime = DateTime.Parse(timeRangeArr[0]);
-            //var endTime = DateTime.Parse(timeRangeArr[1]);
+            try
+            {
+                var doctorTime = bacsiCheckBox.SelectedItem.ToString(); // "Pham Van A--date - date"
+                var arr = doctorTime.Split(Constants.Divider);
 
-            //// get doctor
-            //var doctorName = bacsiCheckBox.SelectedItem.ToString();
-            //var doctor = _appDbContext.BacSiKTVs
-            //                        .Include(bs => bs.ThoiGianBieus)
-            //                        .FirstOrDefault(bs => bs.TenBacSiKTV == doctorName);
+                var timeRange = arr[1];
+                var timeRangeArr = timeRange.Split(" - ");
+                var startTime = DateTime.Parse(timeRangeArr[0]);
+                var endTime = DateTime.Parse(timeRangeArr[1]);
 
-            //var (isThuNhapTrungBinh, thunhap, tongthunhaptrungbinh) = CompareThuNhapTrungBinh(doctor.Id, startTime);
+                // get doctor
+                var doctorName = arr[0];
+                var doctor = _appDbContext.BacSiKTVs
+                                        .Include(bs => bs.ThoiGianBieus)
+                                        .FirstOrDefault(bs => bs.TenBacSiKTV == doctorName);
 
-            //if (isThuNhapTrungBinh)
-            //{
-            //    DialogResult result = MessageBox.Show("Thu nhập của bác sĩ vượt quá mức trung bình trong tuần này. Bạn có chắc chắn muốn đặt lịch cho bác sĩ này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var (isThuNhapTrungBinh, thunhap, tongthunhaptrungbinh) = CompareThuNhapTrungBinh(doctor.Id, startTime);
 
-            //    if (result == DialogResult.Yes)
-            //    {
-            //    }
-            //    else
-            //    {
-            //        this.Close();
-            //        return;
-            //    }
-            //}
+                if (isThuNhapTrungBinh)
+                {
+                    DialogResult result = MessageBox.Show("Thu nhập của bác sĩ vượt quá mức trung bình trong tuần này. Bạn có chắc chắn muốn đặt lịch cho bác sĩ này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            //// dvkt
-            //var dvkt = GetDoctorForDvkt();
-            //var thoigianbieu = new ThoiGianBieu()
-            //{
-            //    ThoiGianBatDau = startTime,
-            //    ThoiGianKetThuc = endTime,
-            //    BacSiKTV = doctor,
-            //    BenhNhan = _appDbContext.BenhNhans.FirstOrDefault(bn => bn.Id == BenhNhanId),
-            //    DichVuKT = dvkt,
-            //};
-            //_appDbContext.ThoiGianBieus.Add(thoigianbieu);
+                    if (result == DialogResult.Yes)
+                    {
+                    }
+                    else
+                    {
+                        this.Close();
+                        return;
+                    }
+                }
 
-            //// add thoi gian su dung thiet bi
-            //if (dvkt.ThietBi != null)
-            //{
-            //    var thietBi = dvkt.ThietBi;
-            //    var thoiGianSuDungThietBi = new ThoiGianSuDungThietBi()
-            //    {
-            //        ThoiGianBatDau = startTime,
-            //        ThoiGianKetThuc = endTime,
-            //        ThietBi = thietBi,
-            //    };
+                // dvkt
+                var dvkt = GetDvkt();
+                var thoigianbieu = new ThoiGianBieu()
+                {
+                    ThoiGianBatDau = startTime,
+                    ThoiGianKetThuc = endTime,
+                    BacSiKTV = doctor,
+                    BenhNhan = _appDbContext.BenhNhans.FirstOrDefault(bn => bn.Id == BenhNhanId),
+                    DichVuKT = dvkt,
+                };
+                _appDbContext.ThoiGianBieus.Add(thoigianbieu);
 
-            //    if (thietBi.ThoiGianCachNhau > 0)
-            //    {
-            //        thoiGianSuDungThietBi.ThoiGianKetThuc = startTime.AddMinutes(thietBi.ThoiGianCachNhau);
-            //    }
+                // add thoi gian su dung thiet bi
+                if (dvkt.ThietBi != null)
+                {
+                    var thietBi = dvkt.ThietBi;
+                    var thoiGianSuDungThietBi = new ThoiGianSuDungThietBi()
+                    {
+                        ThoiGianBatDau = startTime,
+                        ThoiGianKetThuc = endTime,
+                        ThietBi = thietBi,
+                    };
 
-            //    _appDbContext.ThoiGianSuDungThietBis.Add(thoiGianSuDungThietBi);
-            //}
+                    if (thietBi.ThoiGianCachNhau > 0)
+                    {
+                        thoiGianSuDungThietBi.ThoiGianKetThuc = startTime.AddMinutes(thietBi.ThoiGianCachNhau);
+                    }
 
-            //_appDbContext.SaveChanges();
+                    _appDbContext.ThoiGianSuDungThietBis.Add(thoiGianSuDungThietBi);
+                }
 
-            //// Trigger the DataInserted event
-            //OnDataChanged(EventArgs.Empty);
+                _appDbContext.SaveChanges();
+
+                // Trigger the DataInserted event
+                OnDataChanged(EventArgs.Empty);
 
 
-            //MessageBox.Show("Thao tác thành công!");
+                MessageBox.Show("Thao tác thành công!");
 
-            //// close the form
-            //this.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Có lỗi xảy ra. Vui lòng thử lại!");
+            }
+            finally
+            {
+                this.Close();
+            }
+
         }
 
         // Method to trigger the DataInserted event
@@ -312,65 +238,6 @@ namespace ezbooking.Forms
 
             }
         }
-
-        private (bool, DateTime) CheckAvailableThietBi(TimeOnly startTime, TimeOnly endTime, DichVuKT dichVuKT)
-        {
-            var now = DateTime.Now;
-            var thietBi = dichVuKT.ThietBi;
-            var result = DateTime.MinValue;
-
-            var endDateTime = new DateTime(now.Year, now.Month, now.Day, endTime.Hour, endTime.Minute, 0);
-            if (thietBi != null)
-            {
-                var quantity = dichVuKT.ThietBi.SoLuong;
-                if (quantity == 0)
-                {
-                    return (false, result);
-                }
-
-                var thoiGianSudungThietBi = _appDbContext.ThoiGianSuDungThietBis
-                                                .Include(tb => tb.ThietBi)
-                                                .Where(tb => tb.ThietBi.Id == thietBi.Id)
-                                                .Where(tb => tb.ThoiGianBatDau >= now)
-                                                .OrderByDescending(tgb => tgb.ThoiGianBatDau)
-                                                .ToList();
-
-                var groupData = thoiGianSudungThietBi.GroupBy(tg => tg.ThoiGianBatDau)
-                                                    .Select(g => new
-                                                    {
-                                                        ThoiGianBatDau = g.Key,
-                                                        ListThoiGian = g.ToList(),
-                                                        Count = g.Count()
-                                                    })
-                                                    .OrderBy(o => o.ThoiGianBatDau);
-                var lastTime = DateTime.Now;
-
-                foreach (var data in groupData)
-                {
-                    if (data.Count >= quantity)
-                    {
-                        lastTime = data.ListThoiGian.MaxBy(tg => tg.ThoiGianKetThuc).ThoiGianKetThuc;
-                        continue;
-                    }
-
-                    return (true, data.ThoiGianBatDau);
-                }
-
-                var suitableTime = lastTime.AddMinutes(5);
-
-                if (suitableTime.TimeOfDay <= endDateTime.TimeOfDay)
-                {
-                    result = suitableTime;
-                }
-                else
-                {
-                    // move to the next day from suitableTime
-                    result = new DateTime(suitableTime.Year, suitableTime.Month, suitableTime.Day + 1, startTime.Hour, startTime.Minute, 0);
-                }
-            }
-            return result > DateTime.MinValue ? (true, result) : (false, result);
-        }
-
 
         private (DateTime, DateTime) GetTimeRangeThietBi(DichVuKT dichVuKT)
         {
@@ -470,8 +337,8 @@ namespace ezbooking.Forms
                         {
                             Id = item.Id,
                             Name = item.TenBacSiKTV,
-                            TimeStart = item.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc),
-                            TimeEnd = item.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(dvkt.ThoiGian)
+                            TimeStart = item.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5),
+                            TimeEnd = item.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5).AddMinutes(dvkt.ThoiGian)
                         });
                     }
                 }
@@ -515,8 +382,8 @@ namespace ezbooking.Forms
                                            {
                                                Id = bs.Id,
                                                Name = bs.TenBacSiKTV,
-                                               TimeStart = bs.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc),
-                                               TimeEnd = bs.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(dvkt.ThoiGian)
+                                               TimeStart = bs.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5),
+                                               TimeEnd = bs.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5).AddMinutes(dvkt.ThoiGian)
                                            })
                                            .ToList();
 
@@ -546,7 +413,7 @@ namespace ezbooking.Forms
             {
                 foreach (var item in bacsi)
                 {
-                    result.Add(item.TenBacSiKTV + "--" + Helpers.GetWorkingTimeRange(thietbiStart.AddMinutes(5), thietbiStart.AddMinutes(5).AddMinutes(dvkt.ThoiGian)));
+                    result.Add(item.TenBacSiKTV + "--" + Helpers.GetWorkingTimeRange(thietbiStart, thietbiStart.AddMinutes(dvkt.ThoiGian)));
                 }
             }
 

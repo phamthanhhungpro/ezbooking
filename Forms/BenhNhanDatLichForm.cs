@@ -65,11 +65,6 @@ namespace ezbooking.Forms
             }
         }
 
-        private void datlichListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BenhNhanDatLichForm_Load(object sender, EventArgs e)
         {
             LoadDataToUI();
@@ -102,6 +97,12 @@ namespace ezbooking.Forms
                 _appDbContext.SaveChanges();
                 LoadDataToUI();
             }
+        }
+
+        private void BenhNhanDatLichForm_Close(object sender, EventArgs e)
+        {
+            datlichListView.Items.Clear();
+            BenhNhanId = 0;
         }
     }
 }

@@ -137,7 +137,6 @@
             datlichListView.TabIndex = 11;
             datlichListView.UseCompatibleStateImageBehavior = false;
             datlichListView.View = View.Details;
-            datlichListView.SelectedIndexChanged += datlichListView_SelectedIndexChanged;
             // 
             // temp
             // 
@@ -182,6 +181,7 @@
             Name = "BenhNhanDatLichForm";
             Text = "Đặt lịch";
             Load += BenhNhanDatLichForm_Load;
+            FormClosing += BenhNhanDatLichForm_Close;
             ResumeLayout(false);
             PerformLayout();
         }
