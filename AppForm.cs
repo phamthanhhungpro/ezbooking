@@ -1,9 +1,11 @@
 ﻿using ezbooking.Forms;
 using ezbooking.Models;
 using ezbooking.Shared;
+using ezbooking.Shared.Dtos;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace ezbooking;
 
@@ -15,6 +17,7 @@ public partial class AppForm : MaterialForm
     private readonly AddUpdateDVKTForm _addUpdateDVKTForm;
     private readonly AddUpdateBenhNhanForm _addUpdateBenhNhanForm;
     private readonly BenhNhanDatLichForm _benhNhanDatLichForm;
+    private readonly BacSiDatLichForm _bacsiDatLichForm;
 
     private int pageIndex = 1;
     private int pageSize = 20;
@@ -25,7 +28,8 @@ public partial class AppForm : MaterialForm
                    AddUpdateThietBiForm addUpdateThietBiForm,
                    AddUpdateDVKTForm addUpdateDVKT,
                    AddUpdateBenhNhanForm addUpdateBenhNhanForm,
-                   BenhNhanDatLichForm benhNhanDatLichForm)
+                   BenhNhanDatLichForm benhNhanDatLichForm,
+                   BacSiDatLichForm bacsiDatLichForm)
     {
         InitializeComponent();
 
@@ -57,6 +61,7 @@ public partial class AppForm : MaterialForm
         _addUpdateThietBiForm.DataChanged += TabChanged;
         _addUpdateDVKTForm.DataChanged += TabChanged;
         _addUpdateBenhNhanForm.DataChanged += TabChanged;
+        _bacsiDatLichForm = bacsiDatLichForm;
     }
 
     private void AppForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -84,7 +89,10 @@ public partial class AppForm : MaterialForm
             case 2:
                 LoadTabThietBi();
                 break;
-            case 5:
+            case 3:
+                LoadTabBaoCao();
+                break;
+            case 4:
                 LoadTabDVKT();
                 break;
             default:
@@ -124,6 +132,27 @@ public partial class AppForm : MaterialForm
         _addUpdateBacSiForm.LoadData(int.Parse(id));
 
         _addUpdateBacSiForm.ShowDialog();
+    }
+
+    private void bacsi_changelich_Click(object sender, EventArgs e)
+    {
+        if (doctorListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = doctorListView.SelectedItems[0];
+        var id = selectedRow.SubItems[7].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        _bacsiDatLichForm.BacSiId = int.Parse(id);
+        _bacsiDatLichForm.ShowDialog();
     }
 
     private void add_doctor_btn_Click(object sender, EventArgs e)
@@ -572,5 +601,48 @@ public partial class AppForm : MaterialForm
         _addUpdateDVKTForm.LoadData(int.Parse(id));
 
         _addUpdateDVKTForm.ShowDialog();
+    }
+
+    /// <summary>
+    /// BAO CAO
+    /// </summary>
+    
+    private void LoadTabBaoCao()
+    {
+        var startOfWeek = Helpers.GetStartOfWeek(DateTime.Now);
+        var endOfWeek = startOfWeek.AddDays(6);
+
+        var thoigianbieuInWeek = _appDbContext.ThoiGianBieus
+                                            .Include(tgb => tgb.DichVuKT)
+                                            .Include(tgb => tgb.BacSiKTV)
+                                            .Where(tgb => tgb.ThoiGianBatDau >= startOfWeek)
+                                            .Where(tgb => tgb.ThoiGianKetThuc <= endOfWeek)
+                                            .ToList();
+        var groupData = thoigianbieuInWeek.GroupBy(tgb => tgb.BacSiKTV.TenBacSiKTV)
+            .Select(tgb => new BacSiThuNhap
+            {
+                TenBacSi = tgb.Key,
+                ThuNhap = tgb.Sum(tgb => tgb.DichVuKT.ChiPhi)
+            }).ToList();
+
+        // fill data to listview
+        FillDataToBaoCaoListView(groupData);
+    }
+
+    private void FillDataToBaoCaoListView(List<BacSiThuNhap> data)
+    {
+        thunhap_lstview.Items.Clear();
+        int stt = 0;
+        foreach (var item in data)
+        {
+            stt++;
+            var newItem = new ListViewItem();
+
+            newItem.SubItems.Add(stt.ToString());
+            newItem.SubItems.Add(item.TenBacSi);
+            newItem.SubItems.Add(item.ThuNhap.ToString());
+
+            thunhap_lstview.Items.Add(newItem);
+        }
     }
 }

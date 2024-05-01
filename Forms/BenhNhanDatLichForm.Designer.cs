@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BenhNhanDatLichForm));
             delete_datlich = new MaterialSkin.Controls.MaterialButton();
-            edit_datlich = new MaterialSkin.Controls.MaterialButton();
             add_datlich = new MaterialSkin.Controls.MaterialButton();
             patientBookingLabel = new Label();
             datlichListView = new MaterialSkin.Controls.MaterialListView();
@@ -51,7 +50,7 @@
             delete_datlich.ForeColor = Color.Red;
             delete_datlich.HighEmphasis = true;
             delete_datlich.Icon = null;
-            delete_datlich.Location = new Point(662, 5);
+            delete_datlich.Location = new Point(569, 5);
             delete_datlich.Margin = new Padding(5);
             delete_datlich.MouseState = MaterialSkin.MouseState.HOVER;
             delete_datlich.Name = "delete_datlich";
@@ -63,28 +62,6 @@
             delete_datlich.UseAccentColor = true;
             delete_datlich.UseVisualStyleBackColor = true;
             delete_datlich.Click += delete_datlich_Click;
-            // 
-            // edit_datlich
-            // 
-            edit_datlich.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            edit_datlich.BackColor = Color.Red;
-            edit_datlich.Cursor = Cursors.Hand;
-            edit_datlich.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            edit_datlich.Depth = 0;
-            edit_datlich.ForeColor = SystemColors.ActiveCaption;
-            edit_datlich.HighEmphasis = true;
-            edit_datlich.Icon = null;
-            edit_datlich.Location = new Point(559, 5);
-            edit_datlich.Margin = new Padding(5);
-            edit_datlich.MouseState = MaterialSkin.MouseState.HOVER;
-            edit_datlich.Name = "edit_datlich";
-            edit_datlich.NoAccentTextColor = Color.Empty;
-            edit_datlich.Size = new Size(93, 36);
-            edit_datlich.TabIndex = 9;
-            edit_datlich.Text = "Cập nhật";
-            edit_datlich.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
-            edit_datlich.UseAccentColor = false;
-            edit_datlich.UseVisualStyleBackColor = false;
             // 
             // add_datlich
             // 
@@ -174,14 +151,13 @@
             ClientSize = new Size(1021, 629);
             Controls.Add(datlichListView);
             Controls.Add(delete_datlich);
-            Controls.Add(edit_datlich);
             Controls.Add(add_datlich);
             Controls.Add(patientBookingLabel);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "BenhNhanDatLichForm";
             Text = "Đặt lịch";
-            Load += BenhNhanDatLichForm_Load;
             FormClosing += BenhNhanDatLichForm_Close;
+            Load += BenhNhanDatLichForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -189,7 +165,6 @@
         #endregion
 
         private MaterialSkin.Controls.MaterialButton delete_datlich;
-        private MaterialSkin.Controls.MaterialButton edit_datlich;
         private MaterialSkin.Controls.MaterialButton add_datlich;
         private Label patientBookingLabel;
         private MaterialSkin.Controls.MaterialListView datlichListView;

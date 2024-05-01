@@ -54,9 +54,9 @@ namespace ezbooking.Forms
                 var newItem = new ListViewItem();
 
                 newItem.SubItems.Add(stt.ToString());
-                newItem.SubItems.Add(item.TenBenhNhan.ToString());
-                newItem.SubItems.Add(item.Dvkt.ToString());
-                newItem.SubItems.Add(item.TenBacSi.ToString());
+                newItem.SubItems.Add(item.TenBenhNhan?.ToString());
+                newItem.SubItems.Add(item.Dvkt?.ToString());
+                newItem.SubItems.Add(item.TenBacSi?.ToString());
                 newItem.SubItems.Add(Helpers.GetWorkingTimeRange(item.ThoiGianBatDau, item.ThoiGianKetThuc));
                 //newItem.SubItems.Add(item.Id.ToString());
                 newItem.Tag = item.Id.ToString();
@@ -103,6 +103,11 @@ namespace ezbooking.Forms
         {
             datlichListView.Items.Clear();
             BenhNhanId = 0;
+        }
+
+        private void edit_datlich_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
