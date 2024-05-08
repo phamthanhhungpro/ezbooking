@@ -136,7 +136,7 @@ partial class AppForm
         dvkts.ImageKey = "icons8-massage-64.png";
         dvkts.Location = new Point(4, 39);
         dvkts.Name = "dvkts";
-        dvkts.Size = new Size(991, 475);
+        dvkts.Size = new Size(991, 675);
         dvkts.TabIndex = 5;
         dvkts.Text = "Dịch vụ kĩ thuật";
         dvkts.UseVisualStyleBackColor = true;
@@ -269,7 +269,7 @@ partial class AppForm
         report.ImageKey = "icons8-report-48.png";
         report.Location = new Point(4, 39);
         report.Name = "report";
-        report.Size = new Size(991, 475);
+        report.Size = new Size(991, 675);
         report.TabIndex = 3;
         report.Text = "Báo cáo";
         report.UseVisualStyleBackColor = true;
@@ -336,7 +336,7 @@ partial class AppForm
         device.Location = new Point(4, 39);
         device.Name = "device";
         device.Padding = new Padding(3);
-        device.Size = new Size(991, 475);
+        device.Size = new Size(991, 675);
         device.TabIndex = 4;
         device.Text = "Thiết bị";
         device.UseVisualStyleBackColor = true;
@@ -497,7 +497,7 @@ partial class AppForm
         patient.Location = new Point(4, 39);
         patient.Name = "patient";
         patient.Padding = new Padding(3);
-        patient.Size = new Size(991, 475);
+        patient.Size = new Size(991, 675);
         patient.TabIndex = 1;
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
@@ -726,7 +726,7 @@ partial class AppForm
         doctor.Location = new Point(4, 39);
         doctor.Name = "doctor";
         doctor.Padding = new Padding(3);
-        doctor.Size = new Size(991, 475);
+        doctor.Size = new Size(1010, 658);
         doctor.TabIndex = 0;
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
@@ -863,7 +863,7 @@ partial class AppForm
         doctorListView.MouseState = MouseState.OUT;
         doctorListView.Name = "doctorListView";
         doctorListView.OwnerDraw = true;
-        doctorListView.Size = new Size(985, 347);
+        doctorListView.Size = new Size(987, 513);
         doctorListView.TabIndex = 4;
         doctorListView.UseCompatibleStateImageBehavior = false;
         doctorListView.View = View.Details;
@@ -924,14 +924,14 @@ partial class AppForm
         materialTabControl1.Multiline = true;
         materialTabControl1.Name = "materialTabControl1";
         materialTabControl1.SelectedIndex = 0;
-        materialTabControl1.Size = new Size(999, 518);
+        materialTabControl1.Size = new Size(1018, 701);
         materialTabControl1.TabIndex = 0;
         // 
         // AppForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1005, 585);
+        ClientSize = new Size(1024, 768);
         Controls.Add(materialTabControl1);
         DrawerAutoShow = true;
         DrawerShowIconsWhenHidden = true;

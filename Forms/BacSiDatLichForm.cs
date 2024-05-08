@@ -19,6 +19,7 @@ namespace ezbooking.Forms
             _appDbContext = appDbContext;
             InitializeComponent();
             _bacSiDoiLichForm = bacSiDoiLichForm;
+            _bacSiDoiLichForm.DataChanged += BacSiDatLichForm_Load;
         }
 
         private void BacSiDatLichForm_Load(object sender, EventArgs e)

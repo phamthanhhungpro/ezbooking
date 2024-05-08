@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BenhNhanDatLichForm));
-            delete_datlich = new MaterialSkin.Controls.MaterialButton();
             add_datlich = new MaterialSkin.Controls.MaterialButton();
             patientBookingLabel = new Label();
             datlichListView = new MaterialSkin.Controls.MaterialListView();
@@ -40,28 +39,6 @@
             doctorName = new ColumnHeader();
             time = new ColumnHeader();
             SuspendLayout();
-            // 
-            // delete_datlich
-            // 
-            delete_datlich.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            delete_datlich.Cursor = Cursors.Hand;
-            delete_datlich.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            delete_datlich.Depth = 0;
-            delete_datlich.ForeColor = Color.Red;
-            delete_datlich.HighEmphasis = true;
-            delete_datlich.Icon = null;
-            delete_datlich.Location = new Point(569, 5);
-            delete_datlich.Margin = new Padding(5);
-            delete_datlich.MouseState = MaterialSkin.MouseState.HOVER;
-            delete_datlich.Name = "delete_datlich";
-            delete_datlich.NoAccentTextColor = Color.Empty;
-            delete_datlich.Size = new Size(64, 36);
-            delete_datlich.TabIndex = 10;
-            delete_datlich.Text = "Xóa";
-            delete_datlich.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
-            delete_datlich.UseAccentColor = true;
-            delete_datlich.UseVisualStyleBackColor = true;
-            delete_datlich.Click += delete_datlich_Click;
             // 
             // add_datlich
             // 
@@ -110,7 +87,7 @@
             datlichListView.MouseState = MaterialSkin.MouseState.OUT;
             datlichListView.Name = "datlichListView";
             datlichListView.OwnerDraw = true;
-            datlichListView.Size = new Size(997, 542);
+            datlichListView.Size = new Size(982, 634);
             datlichListView.TabIndex = 11;
             datlichListView.UseCompatibleStateImageBehavior = false;
             datlichListView.View = View.Details;
@@ -148,9 +125,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1021, 629);
+            ClientSize = new Size(1006, 721);
             Controls.Add(datlichListView);
-            Controls.Add(delete_datlich);
             Controls.Add(add_datlich);
             Controls.Add(patientBookingLabel);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -163,8 +139,6 @@
         }
 
         #endregion
-
-        private MaterialSkin.Controls.MaterialButton delete_datlich;
         private MaterialSkin.Controls.MaterialButton add_datlich;
         private Label patientBookingLabel;
         private MaterialSkin.Controls.MaterialListView datlichListView;

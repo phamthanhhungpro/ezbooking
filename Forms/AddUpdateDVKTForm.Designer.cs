@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUpdateDVKTForm));
             tableLayoutPanel1 = new TableLayoutPanel();
+            loaiThuThuat = new MaterialSkin.Controls.MaterialMaskedTextBox();
             TimeTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
             ChiPhiTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
             ComboThietBi = new MaterialSkin.Controls.MaterialComboBox();
             serviceNameTxt = new MaterialSkin.Controls.MaterialMaskedTextBox();
             save_service_btn = new MaterialSkin.Controls.MaterialButton();
-            loaiThuThuat = new MaterialSkin.Controls.MaterialMaskedTextBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,8 +55,50 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.Size = new Size(618, 296);
+            tableLayoutPanel1.Size = new Size(770, 315);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // loaiThuThuat
+            // 
+            loaiThuThuat.AllowPromptAsInput = true;
+            loaiThuThuat.AnimateReadOnly = false;
+            loaiThuThuat.AsciiOnly = false;
+            loaiThuThuat.BackgroundImageLayout = ImageLayout.None;
+            loaiThuThuat.BeepOnError = false;
+            loaiThuThuat.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
+            loaiThuThuat.Depth = 0;
+            loaiThuThuat.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            loaiThuThuat.HidePromptOnLeave = false;
+            loaiThuThuat.HideSelection = true;
+            loaiThuThuat.Hint = "Loại thủ thuật";
+            loaiThuThuat.InsertKeyMode = InsertKeyMode.Default;
+            loaiThuThuat.LeadingIcon = null;
+            loaiThuThuat.Location = new Point(3, 213);
+            loaiThuThuat.Mask = "";
+            loaiThuThuat.MaxLength = 32767;
+            loaiThuThuat.MouseState = MaterialSkin.MouseState.OUT;
+            loaiThuThuat.Name = "loaiThuThuat";
+            loaiThuThuat.PasswordChar = '\0';
+            loaiThuThuat.PrefixSuffixText = null;
+            loaiThuThuat.PromptChar = '_';
+            loaiThuThuat.ReadOnly = false;
+            loaiThuThuat.RejectInputOnFirstFailure = false;
+            loaiThuThuat.ResetOnPrompt = true;
+            loaiThuThuat.ResetOnSpace = true;
+            loaiThuThuat.RightToLeft = RightToLeft.No;
+            loaiThuThuat.SelectedText = "";
+            loaiThuThuat.SelectionLength = 0;
+            loaiThuThuat.SelectionStart = 0;
+            loaiThuThuat.ShortcutsEnabled = true;
+            loaiThuThuat.Size = new Size(303, 48);
+            loaiThuThuat.SkipLiterals = true;
+            loaiThuThuat.TabIndex = 8;
+            loaiThuThuat.TabStop = false;
+            loaiThuThuat.TextAlign = HorizontalAlignment.Left;
+            loaiThuThuat.TextMaskFormat = MaskFormat.IncludeLiterals;
+            loaiThuThuat.TrailingIcon = null;
+            loaiThuThuat.UseSystemPasswordChar = false;
+            loaiThuThuat.ValidatingType = null;
             // 
             // TimeTxt
             // 
@@ -73,7 +115,7 @@
             TimeTxt.Hint = "Thời gian";
             TimeTxt.InsertKeyMode = InsertKeyMode.Default;
             TimeTxt.LeadingIcon = null;
-            TimeTxt.Location = new Point(312, 101);
+            TimeTxt.Location = new Point(388, 108);
             TimeTxt.Mask = "";
             TimeTxt.MaxLength = 32767;
             TimeTxt.MouseState = MaterialSkin.MouseState.OUT;
@@ -115,7 +157,7 @@
             ChiPhiTxt.Hint = "Chi phí";
             ChiPhiTxt.InsertKeyMode = InsertKeyMode.Default;
             ChiPhiTxt.LeadingIcon = null;
-            ChiPhiTxt.Location = new Point(3, 101);
+            ChiPhiTxt.Location = new Point(3, 108);
             ChiPhiTxt.Mask = "";
             ChiPhiTxt.MaxLength = 32767;
             ChiPhiTxt.MouseState = MaterialSkin.MouseState.OUT;
@@ -157,7 +199,7 @@
             ComboThietBi.Hint = "Thiết bị";
             ComboThietBi.IntegralHeight = false;
             ComboThietBi.ItemHeight = 43;
-            ComboThietBi.Location = new Point(312, 3);
+            ComboThietBi.Location = new Point(388, 3);
             ComboThietBi.MaxDropDownItems = 4;
             ComboThietBi.MouseState = MaterialSkin.MouseState.OUT;
             ComboThietBi.Name = "ComboThietBi";
@@ -214,7 +256,7 @@
             save_service_btn.Depth = 0;
             save_service_btn.HighEmphasis = true;
             save_service_btn.Icon = null;
-            save_service_btn.Location = new Point(61, 388);
+            save_service_btn.Location = new Point(61, 423);
             save_service_btn.Margin = new Padding(4, 6, 4, 6);
             save_service_btn.MouseState = MaterialSkin.MouseState.HOVER;
             save_service_btn.Name = "save_service_btn";
@@ -227,53 +269,11 @@
             save_service_btn.UseVisualStyleBackColor = true;
             save_service_btn.Click += save_service_btn_Click;
             // 
-            // loaiThuThuat
-            // 
-            loaiThuThuat.AllowPromptAsInput = true;
-            loaiThuThuat.AnimateReadOnly = false;
-            loaiThuThuat.AsciiOnly = false;
-            loaiThuThuat.BackgroundImageLayout = ImageLayout.None;
-            loaiThuThuat.BeepOnError = false;
-            loaiThuThuat.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
-            loaiThuThuat.Depth = 0;
-            loaiThuThuat.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            loaiThuThuat.HidePromptOnLeave = false;
-            loaiThuThuat.HideSelection = true;
-            loaiThuThuat.Hint = "Loại thủ thuật";
-            loaiThuThuat.InsertKeyMode = InsertKeyMode.Default;
-            loaiThuThuat.LeadingIcon = null;
-            loaiThuThuat.Location = new Point(3, 199);
-            loaiThuThuat.Mask = "";
-            loaiThuThuat.MaxLength = 32767;
-            loaiThuThuat.MouseState = MaterialSkin.MouseState.OUT;
-            loaiThuThuat.Name = "loaiThuThuat";
-            loaiThuThuat.PasswordChar = '\0';
-            loaiThuThuat.PrefixSuffixText = null;
-            loaiThuThuat.PromptChar = '_';
-            loaiThuThuat.ReadOnly = false;
-            loaiThuThuat.RejectInputOnFirstFailure = false;
-            loaiThuThuat.ResetOnPrompt = true;
-            loaiThuThuat.ResetOnSpace = true;
-            loaiThuThuat.RightToLeft = RightToLeft.No;
-            loaiThuThuat.SelectedText = "";
-            loaiThuThuat.SelectionLength = 0;
-            loaiThuThuat.SelectionStart = 0;
-            loaiThuThuat.ShortcutsEnabled = true;
-            loaiThuThuat.Size = new Size(303, 48);
-            loaiThuThuat.SkipLiterals = true;
-            loaiThuThuat.TabIndex = 8;
-            loaiThuThuat.TabStop = false;
-            loaiThuThuat.TextAlign = HorizontalAlignment.Left;
-            loaiThuThuat.TextMaskFormat = MaskFormat.IncludeLiterals;
-            loaiThuThuat.TrailingIcon = null;
-            loaiThuThuat.UseSystemPasswordChar = false;
-            loaiThuThuat.ValidatingType = null;
-            // 
             // AddUpdateDVKTForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1006, 721);
             Controls.Add(save_service_btn);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");

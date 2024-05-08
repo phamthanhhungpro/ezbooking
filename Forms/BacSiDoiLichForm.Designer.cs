@@ -32,9 +32,9 @@
             tenbacsi = new MaterialSkin.Controls.MaterialMaskedTextBox();
             tenbenhnhan = new MaterialSkin.Controls.MaterialMaskedTextBox();
             tendichvu = new MaterialSkin.Controls.MaterialMaskedTextBox();
-            bacsi_checkbox = new CheckedListBox();
             thoigian = new MaterialSkin.Controls.MaterialMaskedTextBox();
             save_btn = new MaterialSkin.Controls.MaterialButton();
+            bacsi_checkbox = new CheckedListBox();
             SuspendLayout();
             // 
             // tenbacsi
@@ -166,14 +166,6 @@
             tendichvu.UseSystemPasswordChar = false;
             tendichvu.ValidatingType = null;
             // 
-            // bacsi_checkbox
-            // 
-            bacsi_checkbox.FormattingEnabled = true;
-            bacsi_checkbox.Location = new Point(15, 197);
-            bacsi_checkbox.Name = "bacsi_checkbox";
-            bacsi_checkbox.Size = new Size(715, 158);
-            bacsi_checkbox.TabIndex = 4;
-            // 
             // thoigian
             // 
             thoigian.AllowPromptAsInput = true;
@@ -229,18 +221,28 @@
             save_btn.MouseState = MaterialSkin.MouseState.HOVER;
             save_btn.Name = "save_btn";
             save_btn.NoAccentTextColor = Color.Empty;
-            save_btn.Size = new Size(158, 36);
+            save_btn.Size = new Size(119, 36);
             save_btn.TabIndex = 6;
             save_btn.Text = "Lưu thay đổi";
             save_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             save_btn.UseAccentColor = false;
             save_btn.UseVisualStyleBackColor = true;
+            save_btn.Click += save_btn_Click;
+            // 
+            // bacsi_checkbox
+            // 
+            bacsi_checkbox.FormattingEnabled = true;
+            bacsi_checkbox.Location = new Point(15, 197);
+            bacsi_checkbox.Name = "bacsi_checkbox";
+            bacsi_checkbox.Size = new Size(715, 158);
+            bacsi_checkbox.TabIndex = 4;
+            bacsi_checkbox.ItemCheck += bacsi_checkbox_ItemCheck;
             // 
             // BacSiDoiLichForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1006, 721);
             Controls.Add(save_btn);
             Controls.Add(thoigian);
             Controls.Add(bacsi_checkbox);
@@ -250,6 +252,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "BacSiDoiLichForm";
             Text = "Đổi lịch";
+            FormClosing += BacSiDoiLichForm_FormClosed;
             Load += BacSiDoiLichForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -260,8 +263,8 @@
         private MaterialSkin.Controls.MaterialMaskedTextBox tenbacsi;
         private MaterialSkin.Controls.MaterialMaskedTextBox tenbenhnhan;
         private MaterialSkin.Controls.MaterialMaskedTextBox tendichvu;
-        private CheckedListBox bacsi_checkbox;
         private MaterialSkin.Controls.MaterialMaskedTextBox thoigian;
         private MaterialSkin.Controls.MaterialButton save_btn;
+        private CheckedListBox bacsi_checkbox;
     }
 }

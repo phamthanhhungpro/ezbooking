@@ -5,7 +5,6 @@ using ezbooking.Shared.Dtos;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace ezbooking;
 
@@ -225,6 +224,11 @@ public partial class AppForm : MaterialForm
             .FirstOrDefault(x => x.Id == int.Parse(id));
 
         _appDbContext.BacSiKTVs.Remove(toDelete);
+
+        // remove all related data
+        var thoiGianBieus = _appDbContext.ThoiGianBieus.Where(x => x.BacSiKTV.Id == int.Parse(id)).ToList();
+        _appDbContext.ThoiGianBieus.RemoveRange(thoiGianBieus);
+
         _appDbContext.SaveChanges();
 
         LoadTabBacSiKtv();
@@ -325,9 +329,25 @@ public partial class AppForm : MaterialForm
         }
         var toDelete = _appDbContext.ThietBis
             .FirstOrDefault(x => x.Id == int.Parse(id));
+
+        // check if the device is being used
+        var isBeingUsed = _appDbContext.DichVuKTs
+                            .Include(x => x.ThietBi)
+                            .Any(x => x.ThietBi.Id == int.Parse(id));
+
+        if (isBeingUsed)
+        {
+            MessageBox.Show("Thiết bị đang được sử dụng! Vui lòng xóa DVKT trước", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
         try
         {
             _appDbContext.ThietBis.Remove(toDelete);
+
+            // remove all related data
+            var thoiGianSuDungThietBi = _appDbContext.ThoiGianSuDungThietBis.Where(x => x.ThietBi.Id == int.Parse(id)).ToList();
+            _appDbContext.ThoiGianSuDungThietBis.RemoveRange(thoiGianSuDungThietBi);
+
             _appDbContext.SaveChanges();
             MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -472,6 +492,10 @@ public partial class AppForm : MaterialForm
         toDelete.IsDeleted = true;
         toDelete.DeletedAt = DateTime.Now;
 
+        // remove all related data
+        var thoiGianBieus = _appDbContext.ThoiGianBieus.Where(x => x.BenhNhan.Id == int.Parse(id)).ToList();
+        _appDbContext.ThoiGianBieus.RemoveRange(thoiGianBieus);
+
         _appDbContext.SaveChanges();
 
         LoadTabNguoiBenh();
@@ -555,6 +579,21 @@ public partial class AppForm : MaterialForm
         {
             var toDelete = _appDbContext.DichVuKTs.FirstOrDefault(x => x.Id == int.Parse(id));
 
+            // remove all related data
+            var thoiGianBieus = _appDbContext.ThoiGianBieus.Where(x => x.DichVuKT.Id == int.Parse(id)).ToList();
+            _appDbContext.ThoiGianBieus.RemoveRange(thoiGianBieus);
+
+            // remove relation with bacsi
+            var bacSiKTVs = _appDbContext.BacSiKTVs.Include(x => x.DichVuKTs).ToList();
+            foreach (var bacSiKTV in bacSiKTVs)
+            {
+                var dvkt = bacSiKTV.DichVuKTs.FirstOrDefault(x => x.Id == int.Parse(id));
+                if (dvkt != null)
+                {
+                    bacSiKTV.DichVuKTs.Remove(dvkt);
+                }
+            }
+
             _appDbContext.DichVuKTs.Remove(toDelete);
 
             _appDbContext.SaveChanges();
@@ -606,7 +645,7 @@ public partial class AppForm : MaterialForm
     /// <summary>
     /// BAO CAO
     /// </summary>
-    
+
     private void LoadTabBaoCao()
     {
         var startOfWeek = Helpers.GetStartOfWeek(DateTime.Now);

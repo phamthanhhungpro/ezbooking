@@ -10,16 +10,18 @@ namespace ezbooking.Forms
     {
         private readonly AppDbContext _appDbContext;
         private readonly AddUpdateDatLichForm _addUpdateDatLichForm;
+        private readonly DatLichBenhNhanForm _datLichBenhNhanForm;
 
         public int BenhNhanId = 0;
         public BenhNhanDatLichForm(AppDbContext appDbContext,
-                                   AddUpdateDatLichForm addUpdateDatLichForm)
+                                   AddUpdateDatLichForm addUpdateDatLichForm,
+                                   DatLichBenhNhanForm datLichBenhNhanForm)
         {
             InitializeComponent();
             _appDbContext = appDbContext;
             _addUpdateDatLichForm = addUpdateDatLichForm;
-            _addUpdateDatLichForm.DataChanged += BenhNhanDatLichForm_Load;
-
+            _datLichBenhNhanForm = datLichBenhNhanForm;
+            _datLichBenhNhanForm.DataChanged += BenhNhanDatLichForm_Load;
         }
 
         private List<ThoiGianBieuDto> GetListDatLich()
@@ -72,8 +74,10 @@ namespace ezbooking.Forms
 
         private void add_datlich_Click(object sender, EventArgs e)
         {
-            _addUpdateDatLichForm.BenhNhanId = BenhNhanId;
-            _addUpdateDatLichForm.ShowDialog();
+            //_addUpdateDatLichForm.BenhNhanId = BenhNhanId;
+            //_addUpdateDatLichForm.ShowDialog();
+            _datLichBenhNhanForm.BenhNhanId = BenhNhanId;
+            _datLichBenhNhanForm.ShowDialog();
         }
 
         public void LoadDataToUI()

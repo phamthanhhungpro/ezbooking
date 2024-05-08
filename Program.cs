@@ -41,5 +41,6 @@ static class Program
         services.AddScoped<AddUpdateDatLichForm>();
         services.AddScoped<BacSiDatLichForm>();
         services.AddScoped<BacSiDoiLichForm>();
+        services.AddScoped<DatLichBenhNhanForm>();
     }
 }

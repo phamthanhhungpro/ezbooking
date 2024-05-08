@@ -57,7 +57,6 @@
             panel1.Controls.Add(time_device_txt);
             panel1.Controls.Add(soluong_device_txt);
             panel1.Controls.Add(name_device_txt);
-            panel1.Controls.Add(save_device_btn);
             panel1.Location = new Point(21, 60);
             panel1.Name = "panel1";
             panel1.Size = new Size(374, 311);
@@ -125,7 +124,7 @@
             save_device_btn.Depth = 0;
             save_device_btn.HighEmphasis = true;
             save_device_btn.Icon = null;
-            save_device_btn.Location = new Point(0, 275);
+            save_device_btn.Location = new Point(21, 394);
             save_device_btn.Margin = new Padding(4, 6, 4, 6);
             save_device_btn.MouseState = MaterialSkin.MouseState.HOVER;
             save_device_btn.Name = "save_device_btn";
@@ -176,18 +175,18 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(816, 410);
+            ClientSize = new Size(1006, 721);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(device_title_label);
+            Controls.Add(save_device_btn);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateThietBiForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AddUpdateThietBiForm";
-            Load += AddUpdateThietBiForm_Load;
             FormClosing += AddUpdateThietBiForm_FormClosing;
+            Load += AddUpdateThietBiForm_Load;
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

@@ -113,5 +113,15 @@ namespace ezbooking.Shared
                 delta -= 7;
             return date.AddDays(delta);
         }
+
+        public static string GetRandomItem(this List<string> list)
+        {
+            // Generate a random index within the range of the list
+            Random rand = new Random();
+            int index = rand.Next(0, list.Count);
+
+            // Return the item at the randomly generated index
+            return list[index];
+        }
     }
 }

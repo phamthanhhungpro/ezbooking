@@ -49,14 +49,14 @@
             AddUpdateBenhNhanLayout.Controls.Add(address, 1, 0);
             AddUpdateBenhNhanLayout.Controls.Add(benhnhanDvkts, 0, 2);
             AddUpdateBenhNhanLayout.Controls.Add(save_btn, 0, 3);
-            AddUpdateBenhNhanLayout.Location = new Point(12, 25);
+            AddUpdateBenhNhanLayout.Location = new Point(1, 54);
             AddUpdateBenhNhanLayout.Name = "AddUpdateBenhNhanLayout";
             AddUpdateBenhNhanLayout.RowCount = 4;
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            AddUpdateBenhNhanLayout.Size = new Size(776, 413);
+            AddUpdateBenhNhanLayout.Size = new Size(982, 413);
             AddUpdateBenhNhanLayout.TabIndex = 0;
             // 
             // phone
@@ -92,7 +92,7 @@
             phone.SelectionLength = 0;
             phone.SelectionStart = 0;
             phone.ShortcutsEnabled = true;
-            phone.Size = new Size(382, 48);
+            phone.Size = new Size(485, 48);
             phone.SkipLiterals = true;
             phone.TabIndex = 2;
             phone.TabStop = false;
@@ -135,7 +135,7 @@
             name.SelectionLength = 0;
             name.SelectionStart = 0;
             name.ShortcutsEnabled = true;
-            name.Size = new Size(382, 48);
+            name.Size = new Size(485, 48);
             name.SkipLiterals = true;
             name.TabIndex = 0;
             name.TabStop = false;
@@ -161,7 +161,7 @@
             address.Hint = "Địa chỉ";
             address.InsertKeyMode = InsertKeyMode.Default;
             address.LeadingIcon = null;
-            address.Location = new Point(391, 17);
+            address.Location = new Point(494, 17);
             address.Mask = "";
             address.MaxLength = 32767;
             address.MouseState = MaterialSkin.MouseState.OUT;
@@ -178,7 +178,7 @@
             address.SelectionLength = 0;
             address.SelectionStart = 0;
             address.ShortcutsEnabled = true;
-            address.Size = new Size(382, 48);
+            address.Size = new Size(485, 48);
             address.SkipLiterals = true;
             address.TabIndex = 1;
             address.TabStop = false;
@@ -197,7 +197,7 @@
             benhnhanDvkts.Location = new Point(3, 167);
             benhnhanDvkts.MouseState = MaterialSkin.MouseState.HOVER;
             benhnhanDvkts.Name = "benhnhanDvkts";
-            benhnhanDvkts.Size = new Size(382, 200);
+            benhnhanDvkts.Size = new Size(485, 200);
             benhnhanDvkts.Striped = false;
             benhnhanDvkts.StripeDarkColor = Color.Empty;
             benhnhanDvkts.TabIndex = 3;
@@ -226,13 +226,13 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1006, 721);
             Controls.Add(AddUpdateBenhNhanLayout);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateBenhNhanForm";
             Text = "Thêm/Cập nhật thông tin bệnh nhân";
-            Load += AddUpdateBenhNhanForm_Load;
             FormClosing += AddUpdateBenhNhanForm_Close;
+            Load += AddUpdateBenhNhanForm_Load;
             AddUpdateBenhNhanLayout.ResumeLayout(false);
             AddUpdateBenhNhanLayout.PerformLayout();
             ResumeLayout(false);

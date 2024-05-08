@@ -55,7 +55,7 @@
             tableLayoutPanel1.Controls.Add(doctorName, 0, 0);
             tableLayoutPanel1.Controls.Add(doctorSave, 0, 4);
             tableLayoutPanel1.Controls.Add(doctorDvktCheckList, 0, 3);
-            tableLayoutPanel1.Location = new Point(12, 36);
+            tableLayoutPanel1.Location = new Point(12, 42);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 5;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
@@ -63,7 +63,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.Size = new Size(776, 402);
+            tableLayoutPanel1.Size = new Size(982, 402);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // doctorEndTime
@@ -82,7 +82,7 @@
             doctorEndTime.Hint = "Giờ kết thúc làm việc";
             doctorEndTime.InsertKeyMode = InsertKeyMode.Default;
             doctorEndTime.LeadingIcon = null;
-            doctorEndTime.Location = new Point(391, 176);
+            doctorEndTime.Location = new Point(494, 176);
             doctorEndTime.Mask = "";
             doctorEndTime.MaxLength = 32767;
             doctorEndTime.MouseState = MaterialSkin.MouseState.OUT;
@@ -99,7 +99,7 @@
             doctorEndTime.SelectionLength = 0;
             doctorEndTime.SelectionStart = 0;
             doctorEndTime.ShortcutsEnabled = true;
-            doctorEndTime.Size = new Size(382, 48);
+            doctorEndTime.Size = new Size(485, 48);
             doctorEndTime.SkipLiterals = true;
             doctorEndTime.TabIndex = 5;
             doctorEndTime.TabStop = false;
@@ -142,7 +142,7 @@
             doctorStartTime.SelectionLength = 0;
             doctorStartTime.SelectionStart = 0;
             doctorStartTime.ShortcutsEnabled = true;
-            doctorStartTime.Size = new Size(382, 48);
+            doctorStartTime.Size = new Size(485, 48);
             doctorStartTime.SkipLiterals = true;
             doctorStartTime.TabIndex = 4;
             doctorStartTime.TabStop = false;
@@ -168,7 +168,7 @@
             doctorEmail.Hint = "Email";
             doctorEmail.InsertKeyMode = InsertKeyMode.Default;
             doctorEmail.LeadingIcon = null;
-            doctorEmail.Location = new Point(391, 96);
+            doctorEmail.Location = new Point(494, 96);
             doctorEmail.Mask = "";
             doctorEmail.MaxLength = 32767;
             doctorEmail.MouseState = MaterialSkin.MouseState.OUT;
@@ -185,7 +185,7 @@
             doctorEmail.SelectionLength = 0;
             doctorEmail.SelectionStart = 0;
             doctorEmail.ShortcutsEnabled = true;
-            doctorEmail.Size = new Size(382, 48);
+            doctorEmail.Size = new Size(485, 48);
             doctorEmail.SkipLiterals = true;
             doctorEmail.TabIndex = 3;
             doctorEmail.TabStop = false;
@@ -228,7 +228,7 @@
             doctorPhone.SelectionLength = 0;
             doctorPhone.SelectionStart = 0;
             doctorPhone.ShortcutsEnabled = true;
-            doctorPhone.Size = new Size(382, 48);
+            doctorPhone.Size = new Size(485, 48);
             doctorPhone.SkipLiterals = true;
             doctorPhone.TabIndex = 2;
             doctorPhone.TabStop = false;
@@ -254,7 +254,7 @@
             doctorAddress.Hint = "Địa chỉ";
             doctorAddress.InsertKeyMode = InsertKeyMode.Default;
             doctorAddress.LeadingIcon = null;
-            doctorAddress.Location = new Point(391, 16);
+            doctorAddress.Location = new Point(494, 16);
             doctorAddress.Mask = "";
             doctorAddress.MaxLength = 32767;
             doctorAddress.MouseState = MaterialSkin.MouseState.OUT;
@@ -271,7 +271,7 @@
             doctorAddress.SelectionLength = 0;
             doctorAddress.SelectionStart = 0;
             doctorAddress.ShortcutsEnabled = true;
-            doctorAddress.Size = new Size(382, 48);
+            doctorAddress.Size = new Size(485, 48);
             doctorAddress.SkipLiterals = true;
             doctorAddress.TabIndex = 1;
             doctorAddress.TabStop = false;
@@ -314,7 +314,7 @@
             doctorName.SelectionLength = 0;
             doctorName.SelectionStart = 0;
             doctorName.ShortcutsEnabled = true;
-            doctorName.Size = new Size(382, 48);
+            doctorName.Size = new Size(485, 48);
             doctorName.SkipLiterals = true;
             doctorName.TabIndex = 0;
             doctorName.TabStop = false;
@@ -355,7 +355,7 @@
             doctorDvktCheckList.Location = new Point(3, 243);
             doctorDvktCheckList.MouseState = MaterialSkin.MouseState.HOVER;
             doctorDvktCheckList.Name = "doctorDvktCheckList";
-            doctorDvktCheckList.Size = new Size(382, 114);
+            doctorDvktCheckList.Size = new Size(485, 114);
             doctorDvktCheckList.Striped = false;
             doctorDvktCheckList.StripeDarkColor = Color.Empty;
             doctorDvktCheckList.TabIndex = 1;
@@ -364,14 +364,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1006, 721);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddUpdateBacSiForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Thêm/Sửa thông tin bác sĩ-Ktv";
-            Load += AddUpdateBacSiForm_Load;
             FormClosing += AddUpdateBacSiForm_FormClosing;
+            Load += AddUpdateBacSiForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

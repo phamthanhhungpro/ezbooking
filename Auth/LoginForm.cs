@@ -11,11 +11,18 @@ public partial class LoginForm : Form
 
     private void login_btn_Click(object sender, EventArgs e)
     {
-        // Close the login form
-        this.Hide();
+        if (usernameTxt.Text == "admin" && passwordTxt.Text == "12341234")
+        {
+            // Close the login form
+            this.Hide();
 
-        // Show the main form
-        _appForm.Show();
+            // Show the main form
+            _appForm.Show();
+        }
+        else
+        {
+            MessageBox.Show("Login failed!");
+        }
 
     }
 

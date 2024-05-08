@@ -88,7 +88,7 @@
             datlichListView.MouseState = MaterialSkin.MouseState.OUT;
             datlichListView.Name = "datlichListView";
             datlichListView.OwnerDraw = true;
-            datlichListView.Size = new Size(997, 542);
+            datlichListView.Size = new Size(970, 644);
             datlichListView.TabIndex = 12;
             datlichListView.UseCompatibleStateImageBehavior = false;
             datlichListView.View = View.Details;
@@ -126,7 +126,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1033, 619);
+            ClientSize = new Size(1006, 721);
             Controls.Add(datlichListView);
             Controls.Add(edit_datlich);
             Controls.Add(bacsi_datlich_label);
