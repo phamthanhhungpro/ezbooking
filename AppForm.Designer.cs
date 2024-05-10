@@ -67,6 +67,7 @@ partial class AppForm
         hiddenDeviceId = new ColumnHeader();
         deviceTitleLabel = new Label();
         patient = new TabPage();
+        nguoibenh_thongke_btn = new MaterialButton();
         patient_paging_label = new MaterialLabel();
         patientBook = new MaterialButton();
         patient_next_btn = new Button();
@@ -84,6 +85,7 @@ partial class AppForm
         add_patient_btn = new MaterialButton();
         label1 = new Label();
         doctor = new TabPage();
+        thongke_btn = new MaterialButton();
         bacsi_changelich = new MaterialButton();
         searchTextBox = new MaterialTextBox();
         delete_doctor = new MaterialButton();
@@ -136,7 +138,7 @@ partial class AppForm
         dvkts.ImageKey = "icons8-massage-64.png";
         dvkts.Location = new Point(4, 39);
         dvkts.Name = "dvkts";
-        dvkts.Size = new Size(991, 675);
+        dvkts.Size = new Size(1010, 658);
         dvkts.TabIndex = 5;
         dvkts.Text = "Dịch vụ kĩ thuật";
         dvkts.UseVisualStyleBackColor = true;
@@ -269,7 +271,7 @@ partial class AppForm
         report.ImageKey = "icons8-report-48.png";
         report.Location = new Point(4, 39);
         report.Name = "report";
-        report.Size = new Size(991, 675);
+        report.Size = new Size(1010, 658);
         report.TabIndex = 3;
         report.Text = "Báo cáo";
         report.UseVisualStyleBackColor = true;
@@ -336,7 +338,7 @@ partial class AppForm
         device.Location = new Point(4, 39);
         device.Name = "device";
         device.Padding = new Padding(3);
-        device.Size = new Size(991, 675);
+        device.Size = new Size(1010, 658);
         device.TabIndex = 4;
         device.Text = "Thiết bị";
         device.UseVisualStyleBackColor = true;
@@ -482,6 +484,7 @@ partial class AppForm
         // 
         // patient
         // 
+        patient.Controls.Add(nguoibenh_thongke_btn);
         patient.Controls.Add(patient_paging_label);
         patient.Controls.Add(patientBook);
         patient.Controls.Add(patient_next_btn);
@@ -497,10 +500,30 @@ partial class AppForm
         patient.Location = new Point(4, 39);
         patient.Name = "patient";
         patient.Padding = new Padding(3);
-        patient.Size = new Size(991, 675);
+        patient.Size = new Size(1010, 658);
         patient.TabIndex = 1;
         patient.Text = "Người bệnh";
         patient.UseVisualStyleBackColor = true;
+        // 
+        // nguoibenh_thongke_btn
+        // 
+        nguoibenh_thongke_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        nguoibenh_thongke_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        nguoibenh_thongke_btn.Depth = 0;
+        nguoibenh_thongke_btn.HighEmphasis = true;
+        nguoibenh_thongke_btn.Icon = null;
+        nguoibenh_thongke_btn.Location = new Point(591, 9);
+        nguoibenh_thongke_btn.Margin = new Padding(4, 6, 4, 6);
+        nguoibenh_thongke_btn.MouseState = MouseState.HOVER;
+        nguoibenh_thongke_btn.Name = "nguoibenh_thongke_btn";
+        nguoibenh_thongke_btn.NoAccentTextColor = Color.Empty;
+        nguoibenh_thongke_btn.Size = new Size(93, 36);
+        nguoibenh_thongke_btn.TabIndex = 16;
+        nguoibenh_thongke_btn.Text = "Thống kê";
+        nguoibenh_thongke_btn.Type = MaterialButton.MaterialButtonType.Contained;
+        nguoibenh_thongke_btn.UseAccentColor = true;
+        nguoibenh_thongke_btn.UseVisualStyleBackColor = true;
+        nguoibenh_thongke_btn.Click += nguoibenh_thongke_btn_Click;
         // 
         // patient_paging_label
         // 
@@ -715,6 +738,7 @@ partial class AppForm
         // 
         // doctor
         // 
+        doctor.Controls.Add(thongke_btn);
         doctor.Controls.Add(bacsi_changelich);
         doctor.Controls.Add(searchTextBox);
         doctor.Controls.Add(delete_doctor);
@@ -730,6 +754,26 @@ partial class AppForm
         doctor.TabIndex = 0;
         doctor.Text = "Bác sĩ - KTV";
         doctor.UseVisualStyleBackColor = true;
+        // 
+        // thongke_btn
+        // 
+        thongke_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+        thongke_btn.Density = MaterialButton.MaterialButtonDensity.Default;
+        thongke_btn.Depth = 0;
+        thongke_btn.HighEmphasis = true;
+        thongke_btn.Icon = null;
+        thongke_btn.Location = new Point(655, 9);
+        thongke_btn.Margin = new Padding(4, 6, 4, 6);
+        thongke_btn.MouseState = MouseState.HOVER;
+        thongke_btn.Name = "thongke_btn";
+        thongke_btn.NoAccentTextColor = Color.Empty;
+        thongke_btn.Size = new Size(93, 36);
+        thongke_btn.TabIndex = 15;
+        thongke_btn.Text = "Thống kê";
+        thongke_btn.Type = MaterialButton.MaterialButtonType.Contained;
+        thongke_btn.UseAccentColor = true;
+        thongke_btn.UseVisualStyleBackColor = true;
+        thongke_btn.Click += thongke_btn_Click;
         // 
         // bacsi_changelich
         // 
@@ -1023,4 +1067,6 @@ partial class AppForm
     private ColumnHeader baocao_tenbacsi;
     private ColumnHeader baocao_thunhap;
     private Label baocao_label;
+    private MaterialButton nguoibenh_thongke_btn;
+    private MaterialButton thongke_btn;
 }

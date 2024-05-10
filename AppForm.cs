@@ -17,6 +17,7 @@ public partial class AppForm : MaterialForm
     private readonly AddUpdateBenhNhanForm _addUpdateBenhNhanForm;
     private readonly BenhNhanDatLichForm _benhNhanDatLichForm;
     private readonly BacSiDatLichForm _bacsiDatLichForm;
+    private readonly LoaiThuThuatForm _loaiThuThuatForm;
 
     private int pageIndex = 1;
     private int pageSize = 20;
@@ -28,7 +29,8 @@ public partial class AppForm : MaterialForm
                    AddUpdateDVKTForm addUpdateDVKT,
                    AddUpdateBenhNhanForm addUpdateBenhNhanForm,
                    BenhNhanDatLichForm benhNhanDatLichForm,
-                   BacSiDatLichForm bacsiDatLichForm)
+                   BacSiDatLichForm bacsiDatLichForm,
+                   LoaiThuThuatForm loaiThuThuatForm)
     {
         InitializeComponent();
 
@@ -61,6 +63,7 @@ public partial class AppForm : MaterialForm
         _addUpdateDVKTForm.DataChanged += TabChanged;
         _addUpdateBenhNhanForm.DataChanged += TabChanged;
         _bacsiDatLichForm = bacsiDatLichForm;
+        _loaiThuThuatForm = loaiThuThuatForm;
     }
 
     private void AppForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -683,5 +686,57 @@ public partial class AppForm : MaterialForm
 
             thunhap_lstview.Items.Add(newItem);
         }
+    }
+
+
+    /// <summary>
+    /// Thống kê loại thủ thuật
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void thongke_btn_Click(object sender, EventArgs e)
+    {
+        if (doctorListView.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = doctorListView.SelectedItems[0];
+        var id = selectedRow.SubItems[7].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bác sĩ cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Open a new form and pass data into it for update
+        _loaiThuThuatForm.Id = int.Parse(id);
+        _loaiThuThuatForm.ViewType = 0;
+
+        _loaiThuThuatForm.ShowDialog();
+    }
+
+    private void nguoibenh_thongke_btn_Click(object sender, EventArgs e)
+    {
+        if (patientListview.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Get selected row data
+        var selectedRow = patientListview.SelectedItems[0];
+        var id = selectedRow.SubItems[5].Text;
+
+        if (id == null)
+        {
+            MessageBox.Show("Vui lòng chọn bệnh nhân cần cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        // Open a new form and pass data into it for update
+        _loaiThuThuatForm.Id = int.Parse(id);
+        _loaiThuThuatForm.ViewType = 0;
+
+        _loaiThuThuatForm.ShowDialog();
     }
 }

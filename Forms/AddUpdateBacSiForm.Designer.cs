@@ -60,10 +60,10 @@
             tableLayoutPanel1.RowCount = 5;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel1.Size = new Size(982, 402);
+            tableLayoutPanel1.Size = new Size(982, 527);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // doctorEndTime
@@ -82,7 +82,7 @@
             doctorEndTime.Hint = "Giờ kết thúc làm việc";
             doctorEndTime.InsertKeyMode = InsertKeyMode.Default;
             doctorEndTime.LeadingIcon = null;
-            doctorEndTime.Location = new Point(494, 176);
+            doctorEndTime.Location = new Point(494, 225);
             doctorEndTime.Mask = "";
             doctorEndTime.MaxLength = 32767;
             doctorEndTime.MouseState = MaterialSkin.MouseState.OUT;
@@ -125,7 +125,7 @@
             doctorStartTime.Hint = "Giờ bắt đầu làm việc";
             doctorStartTime.InsertKeyMode = InsertKeyMode.Default;
             doctorStartTime.LeadingIcon = null;
-            doctorStartTime.Location = new Point(3, 176);
+            doctorStartTime.Location = new Point(3, 225);
             doctorStartTime.Mask = "";
             doctorStartTime.MaxLength = 32767;
             doctorStartTime.MouseState = MaterialSkin.MouseState.OUT;
@@ -168,7 +168,7 @@
             doctorEmail.Hint = "Email";
             doctorEmail.InsertKeyMode = InsertKeyMode.Default;
             doctorEmail.LeadingIcon = null;
-            doctorEmail.Location = new Point(494, 96);
+            doctorEmail.Location = new Point(494, 133);
             doctorEmail.Mask = "";
             doctorEmail.MaxLength = 32767;
             doctorEmail.MouseState = MaterialSkin.MouseState.OUT;
@@ -211,7 +211,7 @@
             doctorPhone.Hint = "Số điện thoại";
             doctorPhone.InsertKeyMode = InsertKeyMode.Default;
             doctorPhone.LeadingIcon = null;
-            doctorPhone.Location = new Point(3, 96);
+            doctorPhone.Location = new Point(3, 133);
             doctorPhone.Mask = "";
             doctorPhone.MaxLength = 32767;
             doctorPhone.MouseState = MaterialSkin.MouseState.OUT;
@@ -254,7 +254,7 @@
             doctorAddress.Hint = "Địa chỉ";
             doctorAddress.InsertKeyMode = InsertKeyMode.Default;
             doctorAddress.LeadingIcon = null;
-            doctorAddress.Location = new Point(494, 16);
+            doctorAddress.Location = new Point(494, 28);
             doctorAddress.Mask = "";
             doctorAddress.MaxLength = 32767;
             doctorAddress.MouseState = MaterialSkin.MouseState.OUT;
@@ -297,7 +297,7 @@
             doctorName.Hint = "Họ và tên";
             doctorName.InsertKeyMode = InsertKeyMode.Default;
             doctorName.LeadingIcon = null;
-            doctorName.Location = new Point(3, 16);
+            doctorName.Location = new Point(3, 28);
             doctorName.Mask = "";
             doctorName.MaxLength = 32767;
             doctorName.MouseState = MaterialSkin.MouseState.OUT;
@@ -333,12 +333,12 @@
             doctorSave.Depth = 0;
             doctorSave.HighEmphasis = true;
             doctorSave.Icon = null;
-            doctorSave.Location = new Point(4, 366);
+            doctorSave.Location = new Point(4, 485);
             doctorSave.Margin = new Padding(4, 6, 4, 6);
             doctorSave.MouseState = MaterialSkin.MouseState.HOVER;
             doctorSave.Name = "doctorSave";
             doctorSave.NoAccentTextColor = Color.Empty;
-            doctorSave.Size = new Size(130, 30);
+            doctorSave.Size = new Size(130, 36);
             doctorSave.TabIndex = 7;
             doctorSave.Text = "Lưu thông tin";
             doctorSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -352,10 +352,10 @@
             doctorDvktCheckList.AutoScroll = true;
             doctorDvktCheckList.BackColor = SystemColors.Control;
             doctorDvktCheckList.Depth = 0;
-            doctorDvktCheckList.Location = new Point(3, 243);
+            doctorDvktCheckList.Location = new Point(3, 311);
             doctorDvktCheckList.MouseState = MaterialSkin.MouseState.HOVER;
             doctorDvktCheckList.Name = "doctorDvktCheckList";
-            doctorDvktCheckList.Size = new Size(485, 114);
+            doctorDvktCheckList.Size = new Size(485, 139);
             doctorDvktCheckList.Striped = false;
             doctorDvktCheckList.StripeDarkColor = Color.Empty;
             doctorDvktCheckList.TabIndex = 1;
