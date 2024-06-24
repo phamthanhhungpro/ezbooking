@@ -29,13 +29,52 @@ namespace ezbooking.Forms
 
         private void DatLichBenhNhanForm_Load(object sender, EventArgs e)
         {
+            var benhNhan = _appDbContext.BenhNhans.Find(BenhNhanId);
             var listDvkt = GetListDvkt();
 
-            // Tự động lấy bác sĩ và thời gian phù hợp
-            var rowData = new List<string>();
+            // Đặt lịch cho ngày đầu tiên nhập viện; sau thời gian bệnh nhân nhập viện 5 phút
+            var thoigianNhapVien = DateTime.Now.Date.Add(TimeSpan.Parse(benhNhan.GioBenhNhanVao));
+            var thoigianBatDau = thoigianNhapVien.AddMinutes(5);
+            if (thoigianBatDau < DateTime.Now)
+            {
+                DateTime now = DateTime.Now;
+
+                // Calculate the number of minutes to add to reach the next 5th minute
+                int minutesToAdd = 5 - (now.Minute % 5);
+
+                // Create the new DateTime object with the updated minutes
+                DateTime thoigianBatDauTemp = now.AddMinutes(minutesToAdd);
+
+                // Set the seconds and milliseconds to zero to ensure it's a clean minute
+                thoigianBatDau = new DateTime(thoigianBatDauTemp.Year, thoigianBatDauTemp.Month, thoigianBatDauTemp.Day,
+                                              thoigianBatDauTemp.Hour, thoigianBatDauTemp.Minute, 0, 0);
+            }
+            var firstDayRowData = new List<string>();
+
             foreach (var dvkt in listDvkt)
             {
-                var time = GetBacSiLowestIncome(GetTime(dvkt));
+                var time = GetBacSiLowestIncome(GetTime(dvkt, thoigianBatDau));
+                firstDayRowData.Add(dvkt.TenDichVu + "          " + time);
+                addedBacsi.Add(new BacSiAndTime
+                {
+                    TenBacSi = time.Split("--")[0],
+                    ThoiGianBatDau = DateTime.Parse(time.Split("--")[1].Split("-")[0]),
+                    ThoiGianKetThuc = DateTime.Parse(time.Split("--")[1].Split("-")[1])
+                });
+
+                addedBenhNhanTime.Add(new BenhNhanAndTime
+                {
+                    ThoiGianBatDau = DateTime.Parse(time.Split("--")[1].Split("-")[0]),
+                    ThoiGianKetThuc = DateTime.Parse(time.Split("--")[1].Split("-")[1])
+                });
+            }
+            // Tự động lấy bác sĩ và thời gian phù hợp
+            var rowData = new List<string>();
+
+            // Đặt lịch cho ngày hôm sau đầu tiên
+            foreach (var dvkt in listDvkt)
+            {
+                var time = GetBacSiLowestIncome(GetTime(dvkt, DateTime.MinValue));
                 rowData.Add(dvkt.TenDichVu + "          " + time);
                 addedBacsi.Add(new BacSiAndTime
                 {
@@ -50,8 +89,32 @@ namespace ezbooking.Forms
                     ThoiGianKetThuc = DateTime.Parse(time.Split("--")[1].Split("-")[1])
                 });
             }
+            // Đặt lịch cho các ngày hôm sau
+            var nextDay = rowData.ToList();
+            for (var i = 0; i < benhNhan.SoNgayDieuTri - 2; i++)
+            {
+                var nextDayData = new List<string>();
+                foreach (var item in nextDay)
+                {
+                    var tendvkt = item.Split("          ")[0];
+                    var bacsiTime = item.Split("          ")[1];
+                    var tenbacsi = bacsiTime.Split("--")[0];
+                    var timeRange = bacsiTime.Split("--")[1];
+                    var thoigianbatdau = DateTime.Parse(timeRange.Split("-")[0]).AddDays(1);
+                    var thoigianketthuc = DateTime.Parse(timeRange.Split("-")[1]).AddDays(1);
 
-            FillDataToUI(rowData);
+                    var rowString = tendvkt + "          " + tenbacsi + "--" + Helpers.GetWorkingTimeRange(thoigianbatdau, thoigianketthuc);
+
+                    nextDayData.Add(rowString);
+                    nextDay = nextDayData.ToList();
+                }
+
+                rowData.AddRange(nextDayData);
+            }
+
+            firstDayRowData.AddRange(rowData);
+
+            FillDataToUI(firstDayRowData);
         }
 
         // get list dvkt of this benhnhan
@@ -89,26 +152,48 @@ namespace ezbooking.Forms
             }
         }
 
-        private List<string> GetTime(DichVuKT dvkt)
+        private List<string> GetTime(DichVuKT dvkt, DateTime thoigianbatdau)
         {
-            var listBacsiFree = new List<string>();
-
-            if (dvkt.ThietBi == null)
+            List<string> listBacsiFree;
+            if (thoigianbatdau > DateTime.MinValue)
             {
-                listBacsiFree = GetListTimeRangeBacSi(DateTime.MinValue, DateTime.MaxValue, dvkt);
+                if (dvkt.ThietBi == null)
+                {
+                    listBacsiFree = GetListTimeRangeBacSiForFirstDay(thoigianbatdau, DateTime.MaxValue, dvkt, thoigianbatdau);
+                }
+                else
+                {
+
+                    var (thietBiStart, thietbiEnd) = GetTimeRangeThietBi(dvkt);
+
+                    if (dvkt.ThietBi.SoLuong == 0)
+                    {
+                        MessageBox.Show("Thiết bị không khả dụng trong thời gian này");
+                        return new List<string>();
+                    }
+
+                    listBacsiFree = GetListTimeRangeBacSiForFirstDay(thietBiStart, thietbiEnd, dvkt, thoigianbatdau);
+                }
             }
             else
             {
-
-                var (thietBiStart, thietbiEnd) = GetTimeRangeThietBi(dvkt);
-
-                if (dvkt.ThietBi.SoLuong == 0)
+                if (dvkt.ThietBi == null)
                 {
-                    MessageBox.Show("Thiết bị không khả dụng trong thời gian này");
-                    return new List<string>();
+                    listBacsiFree = GetListTimeRangeBacSi(DateTime.MinValue, DateTime.MaxValue, dvkt);
                 }
+                else
+                {
 
-                listBacsiFree = GetListTimeRangeBacSi(thietBiStart, thietbiEnd, dvkt);
+                    var (thietBiStart, thietbiEnd) = GetTimeRangeThietBi(dvkt);
+
+                    if (dvkt.ThietBi.SoLuong == 0)
+                    {
+                        MessageBox.Show("Thiết bị không khả dụng trong thời gian này");
+                        return new List<string>();
+                    }
+
+                    listBacsiFree = GetListTimeRangeBacSi(thietBiStart, thietbiEnd, dvkt);
+                }
             }
 
             return listBacsiFree;
@@ -498,5 +583,187 @@ namespace ezbooking.Forms
         {
             DataChanged?.Invoke(this, e);
         }
+
+
+        private List<string> GetListTimeRangeBacSiForFirstDay(DateTime thietbiStart, DateTime thietbiEnd, DichVuKT dvkt, DateTime thoigianNhapVien)
+        {
+            var result = new List<string>();
+            var benhnhanTgb = _appDbContext.ThoiGianBieus.Include(tgb => tgb.BenhNhan)
+                                            .Where(tgb => tgb.BenhNhan.Id == BenhNhanId)
+                                            .Select(a => new BenhNhanAndTime
+                                            {
+                                                ThoiGianBatDau = a.ThoiGianBatDau,
+                                                ThoiGianKetThuc = a.ThoiGianKetThuc
+                                            })
+                                            .ToList();
+
+            benhnhanTgb.AddRange(addedBenhNhanTime);
+
+            var benhnhanFree = benhnhanTgb.Any() ? benhnhanTgb.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5) : thoigianNhapVien;
+
+            var nextDayStartTime = thoigianNhapVien;
+
+            if (benhnhanFree > nextDayStartTime)
+            {
+                nextDayStartTime = benhnhanFree;
+            }
+            if (benhnhanFree > thietbiStart)
+            {
+                thietbiStart = benhnhanFree;
+            }
+
+
+            if (dvkt.ThietBi == null)
+            {
+                var bacsiFree = new List<BacSiFreeTime>();
+                var bacsis = _appDbContext.BacSiKTVs
+                           .Include(bs => bs.ThoiGianBieus)
+                           .Include(bs => bs.DichVuKTs)
+                           .Where(bs => bs.DichVuKTs.Any(dv => dv.Id == dvkt.Id))
+                           .ToList();
+
+                // Vòng for này để lấy danh sách bác sĩ có thể làm dvkt này; và thời gian rảnh gần nhất của họ
+                foreach (var item in bacsis)
+                {
+                    if (addedBacsi.Any(addedBacsi => addedBacsi.TenBacSi == item.TenBacSiKTV))
+                    {
+                        var addedData = addedBacsi.Where(addedBacsi => addedBacsi.TenBacSi == item.TenBacSiKTV).MaxBy(a => a.ThoiGianKetThuc);
+
+                        var tempBacsi = new BacSiFreeTime
+                        {
+                            Id = item.Id,
+                            Name = item.TenBacSiKTV,
+                            TimeStart = addedData.ThoiGianKetThuc.AddMinutes(5) > benhnhanFree ? addedData.ThoiGianKetThuc.AddMinutes(5) : benhnhanFree,
+                        };
+                        tempBacsi.TimeEnd = tempBacsi.TimeStart.AddMinutes(dvkt.ThoiGian);
+
+                        bacsiFree.Add(tempBacsi);
+                    }
+                    else
+                    {
+                        if (item.ThoiGianBieus.Count == 0)
+                        {
+                            bacsiFree.Add(new BacSiFreeTime
+                            {
+                                Id = item.Id,
+                                Name = item.TenBacSiKTV,
+                                TimeStart = nextDayStartTime,
+                                TimeEnd = nextDayStartTime.AddMinutes(dvkt.ThoiGian)
+                            });
+                        }
+                        else
+                        {
+                            var tempBacsi = new BacSiFreeTime
+                            {
+                                Id = item.Id,
+                                Name = item.TenBacSiKTV,
+                                TimeStart = item.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5) > benhnhanFree ? item.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5) : benhnhanFree,
+                            };
+                            tempBacsi.TimeEnd = tempBacsi.TimeStart.AddMinutes(dvkt.ThoiGian);
+
+                            bacsiFree.Add(tempBacsi);
+                        }
+                    }
+                }
+
+                foreach (var item in bacsiFree)
+                {
+                    if (item.TimeEnd.TimeOfDay >= MorningEndTime.ToTimeSpan() && item.TimeEnd.TimeOfDay <= AfternoonStartTime.ToTimeSpan())
+                    {
+                        var start = new DateTime(item.TimeEnd.Year, item.TimeEnd.Month, item.TimeEnd.Day, AfternoonStartTime.Hour, AfternoonStartTime.Minute, 0);
+                        var end = start.AddMinutes(dvkt.ThoiGian);
+                        result.Add(item.Name + "--" + Helpers.GetWorkingTimeRange(start, end));
+                        continue;
+                    }
+
+                    if (item.TimeEnd.TimeOfDay >= AfternoonEndTime.ToTimeSpan())
+                    {
+                        //var nextDayTime = item.TimeEnd.AddDays(1);
+                        //var start = new DateTime(nextDayTime.Year, nextDayTime.Month, nextDayTime.Day, MorningStartTime.Hour, MorningStartTime.Minute, 0);
+                        //var end = start.AddMinutes(dvkt.ThoiGian);
+                        //result.Add(item.Name + "--" + Helpers.GetWorkingTimeRange(start, end));
+                        continue;
+                    }
+
+                    result.Add(item.Name + "--" + Helpers.GetWorkingTimeRange(item.TimeStart, item.TimeEnd));
+                }
+                return result;
+            }
+
+            // Dịch vụ có sử dụng thiết bị
+            var bacsi = _appDbContext.BacSiKTVs
+                                            .Include(bs => bs.ThoiGianBieus)
+                                            .Include(bs => bs.DichVuKTs)
+                                            .Where(bs => bs.DichVuKTs.Any(dv => dv.Id == dvkt.Id))
+                                            .Where(bs => bs.ThoiGianBieus.All(tgb => tgb.ThoiGianKetThuc <= thietbiStart))
+                                            .ToList();
+            if (bacsi.Count == 0)
+            {
+                var preBacsiFree = _appDbContext.BacSiKTVs
+                                           .Include(bs => bs.ThoiGianBieus)
+                                           .Include(bs => bs.DichVuKTs)
+                                           .Where(bs => bs.DichVuKTs.Any(dv => dv.Id == dvkt.Id))
+                                           .Select(bs => new BacSiFreeTime
+                                           {
+                                               Id = bs.Id,
+                                               Name = bs.TenBacSiKTV,
+                                               TimeStart = bs.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5),
+                                               TimeEnd = bs.ThoiGianBieus.Max(tgb => tgb.ThoiGianKetThuc).AddMinutes(5).AddMinutes(dvkt.ThoiGian)
+                                           })
+                                           .ToList();
+
+                var bacsiFree = new List<BacSiFreeTime>();
+                foreach (var item in preBacsiFree)
+                {
+                    if (addedBacsi.Any(addedBacsi => addedBacsi.TenBacSi == item.Name))
+                    {
+                        var addedData = addedBacsi.Where(addedBacsi => addedBacsi.TenBacSi == item.Name).MaxBy(a => a.ThoiGianKetThuc);
+                        bacsiFree.Add(new BacSiFreeTime
+                        {
+                            Id = item.Id,
+                            Name = item.Name,
+                            TimeStart = addedData.ThoiGianKetThuc.AddMinutes(5),
+                            TimeEnd = addedData.ThoiGianKetThuc.AddMinutes(5).AddMinutes(dvkt.ThoiGian)
+                        });
+                    }
+                    else
+                    {
+                        bacsiFree.Add(item);
+                    }
+                }
+
+                foreach (var item in bacsiFree)
+                {
+                    if (item.TimeEnd.TimeOfDay >= MorningEndTime.ToTimeSpan() && item.TimeEnd.TimeOfDay <= AfternoonStartTime.ToTimeSpan())
+                    {
+                        var start = new DateTime(item.TimeEnd.Year, item.TimeEnd.Month, item.TimeEnd.Day, AfternoonStartTime.Hour, AfternoonStartTime.Minute, 0);
+                        var end = start.AddMinutes(dvkt.ThoiGian);
+                        result.Add(item.Name + "--" + Helpers.GetWorkingTimeRange(start, end));
+                        continue;
+                    }
+
+                    if (item.TimeEnd.TimeOfDay >= AfternoonEndTime.ToTimeSpan())
+                    {
+                        //var nextDayTime = item.TimeEnd.AddDays(1);
+                        //var start = new DateTime(nextDayTime.Year, nextDayTime.Month, nextDayTime.Day, MorningStartTime.Hour, MorningStartTime.Minute, 0);
+                        //var end = start.AddMinutes(dvkt.ThoiGian);
+                        //result.Add(item.Name + "--" + Helpers.GetWorkingTimeRange(start, end));
+                        continue;
+                    }
+
+                    result.Add(item.Name + "--" + Helpers.GetWorkingTimeRange(item.TimeStart, item.TimeEnd));
+                }
+            }
+            else
+            {
+                foreach (var item in bacsi)
+                {
+                    result.Add(item.TenBacSiKTV + "--" + Helpers.GetWorkingTimeRange(thietbiStart, thietbiStart.AddMinutes(dvkt.ThoiGian)));
+                }
+            }
+
+            return result;
+        }
+
     }
 }
