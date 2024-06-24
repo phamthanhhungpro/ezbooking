@@ -35,12 +35,15 @@ namespace ezbooking.Models
             {
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<BacSiKTV>(entity =>
             {
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+                entity.Property(e => e.IsKtv).HasDefaultValue(false);
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<BenhNhan>(entity =>
@@ -54,12 +57,14 @@ namespace ezbooking.Models
             {
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
 
             modelBuilder.Entity<ThoiGianSuDungThietBi>(entity =>
             {
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+                entity.HasQueryFilter(e => !e.IsDeleted);
             });
         }
     }

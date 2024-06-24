@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ezbooking.Migrations
 {
     /// <inheritdoc />
-    public partial class Init1st : Migration
+    public partial class UpdateBenhNhanDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,11 +22,12 @@ namespace ezbooking.Migrations
                     SoDienThoai = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     TrangThai = table.Column<string>(type: "TEXT", nullable: true),
+                    IsKtv = table.Column<bool>(type: "INTEGER", nullable: false),
                     GioBatDau = table.Column<TimeOnly>(type: "TEXT", nullable: false),
                     GioKetThuc = table.Column<TimeOnly>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     DeletedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -42,9 +44,11 @@ namespace ezbooking.Migrations
                     TenBenhNhan = table.Column<string>(type: "TEXT", nullable: true),
                     DiaChi = table.Column<string>(type: "TEXT", nullable: true),
                     SoDienThoai = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    GioBenhNhanVao = table.Column<string>(type: "TEXT", nullable: true),
+                    SoNgayDieuTri = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     DeletedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -63,9 +67,9 @@ namespace ezbooking.Migrations
                     HinhAnh = table.Column<string>(type: "TEXT", nullable: true),
                     SoLuong = table.Column<int>(type: "INTEGER", nullable: false),
                     ThoiGianCachNhau = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     DeletedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -82,11 +86,11 @@ namespace ezbooking.Migrations
                     TenDichVu = table.Column<string>(type: "TEXT", nullable: true),
                     ChiPhi = table.Column<int>(type: "INTEGER", nullable: false),
                     ThoiGian = table.Column<int>(type: "INTEGER", nullable: false),
-                    IdThietBi = table.Column<int>(type: "INTEGER", nullable: false),
+                    LoaiDichVu = table.Column<int>(type: "INTEGER", nullable: false),
                     ThietBiId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     DeletedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -94,6 +98,30 @@ namespace ezbooking.Migrations
                     table.PrimaryKey("PK_DichVuKTs", x => x.Id);
                     table.ForeignKey(
                         name: "FK_DichVuKTs_ThietBis_ThietBiId",
+                        column: x => x.ThietBiId,
+                        principalTable: "ThietBis",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ThoiGianSuDungThietBis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ThietBiId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ThoiGianBatDau = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ThoiGianKetThuc = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
+                    DeletedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ThoiGianSuDungThietBis", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ThoiGianSuDungThietBis_ThietBis_ThietBiId",
                         column: x => x.ThietBiId,
                         principalTable: "ThietBis",
                         principalColumn: "Id");
@@ -124,6 +152,30 @@ namespace ezbooking.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BenhNhanDichVuKT",
+                columns: table => new
+                {
+                    BenhNhansId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DichVuKTsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BenhNhanDichVuKT", x => new { x.BenhNhansId, x.DichVuKTsId });
+                    table.ForeignKey(
+                        name: "FK_BenhNhanDichVuKT_BenhNhans_BenhNhansId",
+                        column: x => x.BenhNhansId,
+                        principalTable: "BenhNhans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BenhNhanDichVuKT_DichVuKTs_DichVuKTsId",
+                        column: x => x.DichVuKTsId,
+                        principalTable: "DichVuKTs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ThoiGianBieus",
                 columns: table => new
                 {
@@ -131,15 +183,12 @@ namespace ezbooking.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ThoiGianBatDau = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ThoiGianKetThuc = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IdDichVuKT = table.Column<int>(type: "INTEGER", nullable: false),
                     DichVuKTId = table.Column<int>(type: "INTEGER", nullable: true),
-                    IdBacSiKTV = table.Column<int>(type: "INTEGER", nullable: false),
                     BacSiKTVId = table.Column<int>(type: "INTEGER", nullable: true),
-                    IdBenhNhan = table.Column<int>(type: "INTEGER", nullable: false),
                     BenhNhanId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     DeletedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -168,6 +217,11 @@ namespace ezbooking.Migrations
                 column: "DichVuKTsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BenhNhanDichVuKT_DichVuKTsId",
+                table: "BenhNhanDichVuKT",
+                column: "DichVuKTsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DichVuKTs_ThietBiId",
                 table: "DichVuKTs",
                 column: "ThietBiId");
@@ -186,6 +240,11 @@ namespace ezbooking.Migrations
                 name: "IX_ThoiGianBieus_DichVuKTId",
                 table: "ThoiGianBieus",
                 column: "DichVuKTId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ThoiGianSuDungThietBis_ThietBiId",
+                table: "ThoiGianSuDungThietBis",
+                column: "ThietBiId");
         }
 
         /// <inheritdoc />
@@ -195,7 +254,13 @@ namespace ezbooking.Migrations
                 name: "BacSiKTVDichVuKT");
 
             migrationBuilder.DropTable(
+                name: "BenhNhanDichVuKT");
+
+            migrationBuilder.DropTable(
                 name: "ThoiGianBieus");
+
+            migrationBuilder.DropTable(
+                name: "ThoiGianSuDungThietBis");
 
             migrationBuilder.DropTable(
                 name: "BacSiKTVs");

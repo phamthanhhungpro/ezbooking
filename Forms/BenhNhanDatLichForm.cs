@@ -74,8 +74,6 @@ namespace ezbooking.Forms
 
         private void add_datlich_Click(object sender, EventArgs e)
         {
-            //_addUpdateDatLichForm.BenhNhanId = BenhNhanId;
-            //_addUpdateDatLichForm.ShowDialog();
             _datLichBenhNhanForm.BenhNhanId = BenhNhanId;
             _datLichBenhNhanForm.ShowDialog();
         }
@@ -112,6 +110,19 @@ namespace ezbooking.Forms
         private void edit_datlich_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void benhnhan_doilich_btn_Click(object sender, EventArgs e)
+        {
+            if (datlichListView.SelectedItems.Count > 0)
+            {
+                var selectedItem = datlichListView.SelectedItems[0];
+                var id = int.Parse(selectedItem.Tag.ToString());
+                _datLichBenhNhanForm.BenhNhanId = BenhNhanId;
+                _datLichBenhNhanForm.ThoiGianBieuId = id;
+
+                _datLichBenhNhanForm.ShowDialog();
+            }
         }
     }
 }

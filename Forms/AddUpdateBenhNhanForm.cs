@@ -65,7 +65,9 @@ namespace ezbooking.Forms
                     TenBenhNhan = name.Text,
                     SoDienThoai = phone.Text,
                     DiaChi = address.Text,
-                    DichVuKTs = selectedDichVuKTs
+                    DichVuKTs = selectedDichVuKTs,
+                    GioBenhNhanVao = GioBenhNhanVao.Text,
+                    SoNgayDieuTri = int.Parse(SoNgayDieuTri.Text),
                 };
 
                 if (!_isUpdate)
@@ -83,6 +85,8 @@ namespace ezbooking.Forms
                     toUpdate.SoDienThoai = benhNhan.SoDienThoai;
                     toUpdate.DiaChi = benhNhan.DiaChi;
                     toUpdate.DichVuKTs = benhNhan.DichVuKTs;
+                    toUpdate.GioBenhNhanVao = benhNhan.GioBenhNhanVao;
+                    toUpdate.SoNgayDieuTri = benhNhan.SoNgayDieuTri;
 
                     _appDbContext.SaveChanges();
                 }
@@ -134,6 +138,9 @@ namespace ezbooking.Forms
                 name.Text = benhNhan.TenBenhNhan;
                 address.Text = benhNhan.DiaChi;
                 phone.Text = benhNhan.SoDienThoai;
+                GioBenhNhanVao.Text = benhNhan.GioBenhNhanVao;
+                SoNgayDieuTri.Text = benhNhan.SoNgayDieuTri.ToString();
+
                 LoadDvktList();
 
                 foreach (var item in benhnhanDvkts.Items)

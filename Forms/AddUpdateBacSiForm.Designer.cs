@@ -38,6 +38,7 @@
             doctorName = new MaterialSkin.Controls.MaterialMaskedTextBox();
             doctorSave = new MaterialSkin.Controls.MaterialButton();
             doctorDvktCheckList = new MaterialSkin.Controls.MaterialCheckedListBox();
+            isBacSi = new MaterialSkin.Controls.MaterialCheckbox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             tableLayoutPanel1.Controls.Add(doctorName, 0, 0);
             tableLayoutPanel1.Controls.Add(doctorSave, 0, 4);
             tableLayoutPanel1.Controls.Add(doctorDvktCheckList, 0, 3);
+            tableLayoutPanel1.Controls.Add(isBacSi, 1, 3);
             tableLayoutPanel1.Location = new Point(12, 42);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 5;
@@ -360,6 +362,23 @@
             doctorDvktCheckList.StripeDarkColor = Color.Empty;
             doctorDvktCheckList.TabIndex = 1;
             // 
+            // isBacSi
+            // 
+            isBacSi.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            isBacSi.AutoSize = true;
+            isBacSi.Depth = 0;
+            isBacSi.Location = new Point(491, 362);
+            isBacSi.Margin = new Padding(0);
+            isBacSi.MouseLocation = new Point(-1, -1);
+            isBacSi.MouseState = MaterialSkin.MouseState.HOVER;
+            isBacSi.Name = "isBacSi";
+            isBacSi.ReadOnly = false;
+            isBacSi.Ripple = true;
+            isBacSi.Size = new Size(491, 37);
+            isBacSi.TabIndex = 1;
+            isBacSi.Text = "Là kĩ thuật viên";
+            isBacSi.UseVisualStyleBackColor = true;
+            // 
             // AddUpdateBacSiForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -388,5 +407,6 @@
         private MaterialSkin.Controls.MaterialMaskedTextBox doctorName;
         private MaterialSkin.Controls.MaterialButton doctorSave;
         private MaterialSkin.Controls.MaterialCheckedListBox doctorDvktCheckList;
+        private MaterialSkin.Controls.MaterialCheckbox isBacSi;
     }
 }

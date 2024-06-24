@@ -11,8 +11,8 @@ using ezbooking.Models;
 namespace ezbooking.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240412072456_Init2st")]
-    partial class Init2st
+    [Migration("20240614021201_UpdateBenhNhanDB")]
+    partial class UpdateBenhNhanDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,21 @@ namespace ezbooking.Migrations
                     b.ToTable("BacSiKTVDichVuKT");
                 });
 
+            modelBuilder.Entity("BenhNhanDichVuKT", b =>
+                {
+                    b.Property<int>("BenhNhansId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DichVuKTsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BenhNhansId", "DichVuKTsId");
+
+                    b.HasIndex("DichVuKTsId");
+
+                    b.ToTable("BenhNhanDichVuKT");
+                });
+
             modelBuilder.Entity("ezbooking.Models.BacSiKTV", b =>
                 {
                     b.Property<int>("Id")
@@ -42,7 +57,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
@@ -60,6 +77,11 @@ namespace ezbooking.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsKtv")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SoDienThoai")
@@ -86,7 +108,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
@@ -94,11 +118,19 @@ namespace ezbooking.Migrations
                     b.Property<string>("DiaChi")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GioBenhNhanVao")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("SoDienThoai")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("SoNgayDieuTri")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("TenBenhNhan")
                         .HasColumnType("TEXT");
@@ -121,12 +153,19 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("LoaiDichVu")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("TenDichVu")
@@ -155,7 +194,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
@@ -164,7 +205,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("MoTa")
                         .HasColumnType("TEXT");
@@ -199,7 +242,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
@@ -208,7 +253,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("ThoiGianBatDau")
                         .HasColumnType("TEXT");
@@ -230,11 +277,64 @@ namespace ezbooking.Migrations
                     b.ToTable("ThoiGianBieus");
                 });
 
+            modelBuilder.Entity("ezbooking.Models.ThoiGianSuDungThietBi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
+
+                    b.Property<int?>("ThietBiId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ThoiGianBatDau")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ThoiGianKetThuc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ThietBiId");
+
+                    b.ToTable("ThoiGianSuDungThietBis");
+                });
+
             modelBuilder.Entity("BacSiKTVDichVuKT", b =>
                 {
                     b.HasOne("ezbooking.Models.BacSiKTV", null)
                         .WithMany()
                         .HasForeignKey("BacSiKTVsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ezbooking.Models.DichVuKT", null)
+                        .WithMany()
+                        .HasForeignKey("DichVuKTsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BenhNhanDichVuKT", b =>
+                {
+                    b.HasOne("ezbooking.Models.BenhNhan", null)
+                        .WithMany()
+                        .HasForeignKey("BenhNhansId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -257,11 +357,11 @@ namespace ezbooking.Migrations
             modelBuilder.Entity("ezbooking.Models.ThoiGianBieu", b =>
                 {
                     b.HasOne("ezbooking.Models.BacSiKTV", "BacSiKTV")
-                        .WithMany()
+                        .WithMany("ThoiGianBieus")
                         .HasForeignKey("BacSiKTVId");
 
                     b.HasOne("ezbooking.Models.BenhNhan", "BenhNhan")
-                        .WithMany()
+                        .WithMany("ThoiGianBieus")
                         .HasForeignKey("BenhNhanId");
 
                     b.HasOne("ezbooking.Models.DichVuKT", "DichVuKT")
@@ -273,6 +373,25 @@ namespace ezbooking.Migrations
                     b.Navigation("BenhNhan");
 
                     b.Navigation("DichVuKT");
+                });
+
+            modelBuilder.Entity("ezbooking.Models.ThoiGianSuDungThietBi", b =>
+                {
+                    b.HasOne("ezbooking.Models.ThietBi", "ThietBi")
+                        .WithMany()
+                        .HasForeignKey("ThietBiId");
+
+                    b.Navigation("ThietBi");
+                });
+
+            modelBuilder.Entity("ezbooking.Models.BacSiKTV", b =>
+                {
+                    b.Navigation("ThoiGianBieus");
+                });
+
+            modelBuilder.Entity("ezbooking.Models.BenhNhan", b =>
+                {
+                    b.Navigation("ThoiGianBieus");
                 });
 #pragma warning restore 612, 618
         }

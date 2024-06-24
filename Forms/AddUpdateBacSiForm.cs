@@ -65,7 +65,8 @@ namespace ezbooking.Forms
                     TrangThai = "active",
                     GioBatDau = Helpers.GetTime(doctorStartTime.Text),
                     GioKetThuc = Helpers.GetTime(doctorEndTime.Text),
-                    DichVuKTs = selectedDichVuKTs
+                    DichVuKTs = selectedDichVuKTs,
+                    IsKtv = isBacSi.Checked
                 };
 
                 if (!_isUpdate)
@@ -87,6 +88,7 @@ namespace ezbooking.Forms
                     toUpdate.GioBatDau = bacSiKTV.GioBatDau;
                     toUpdate.GioKetThuc = bacSiKTV.GioKetThuc;
                     toUpdate.DichVuKTs = selectedDichVuKTs;
+                    toUpdate.IsKtv = bacSiKTV.IsKtv;
 
                     _appDbContext.SaveChanges();
                 }
@@ -138,6 +140,7 @@ namespace ezbooking.Forms
                 doctorEmail.Text = bacSiKTV.Email;
                 doctorStartTime.Text = bacSiKTV.GioBatDau.ToString();
                 doctorEndTime.Text = bacSiKTV.GioKetThuc.ToString();
+                isBacSi.Checked = bacSiKTV.IsKtv;
 
                 LoadDvktList();
                 foreach (var item in doctorDvktCheckList.Items)

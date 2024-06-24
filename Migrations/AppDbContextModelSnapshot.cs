@@ -78,6 +78,9 @@ namespace ezbooking.Migrations
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("IsKtv")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("SoDienThoai")
                         .HasColumnType("TEXT");
 
@@ -112,6 +115,9 @@ namespace ezbooking.Migrations
                     b.Property<string>("DiaChi")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GioBenhNhanVao")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
@@ -119,6 +125,9 @@ namespace ezbooking.Migrations
 
                     b.Property<string>("SoDienThoai")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("SoNgayDieuTri")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("TenBenhNhan")
                         .HasColumnType("TEXT");

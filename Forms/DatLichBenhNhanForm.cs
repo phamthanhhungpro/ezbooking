@@ -11,6 +11,7 @@ namespace ezbooking.Forms
     {
         private readonly AppDbContext _appDbContext;
         public int BenhNhanId = 0;
+        public int ThoiGianBieuId = 0;
         public event EventHandler DataChanged;
 
         public TimeOnly MorningEndTime = new(12, 0);
@@ -63,6 +64,13 @@ namespace ezbooking.Forms
                 .DichVuKTs
                 .ToList();
 
+            if (ThoiGianBieuId != 0)
+            {
+                var dvkt = _appDbContext.ThoiGianBieus.Include(t => t.DichVuKT).Where(t => t.Id == ThoiGianBieuId)
+                    .Select(t => t.DichVuKT).ToList();
+
+                return dvkt;
+            }
             return dichVuKTs;
         }
 
@@ -457,6 +465,14 @@ namespace ezbooking.Forms
                         }
 
                     }
+                }
+
+                if (ThoiGianBieuId != 0)
+                {
+                    var toDelThoigianbieu = _appDbContext.ThoiGianBieus.FirstOrDefault(t => t.Id == ThoiGianBieuId);
+
+                    toDelThoigianbieu.DeletedAt = DateTime.Now;
+                    toDelThoigianbieu.IsDeleted = true;
                 }
 
                 _appDbContext.SaveChanges();

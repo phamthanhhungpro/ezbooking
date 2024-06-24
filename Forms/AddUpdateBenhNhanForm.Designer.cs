@@ -35,6 +35,8 @@
             address = new MaterialSkin.Controls.MaterialMaskedTextBox();
             benhnhanDvkts = new MaterialSkin.Controls.MaterialCheckedListBox();
             save_btn = new MaterialSkin.Controls.MaterialButton();
+            GioBenhNhanVao = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            SoNgayDieuTri = new MaterialSkin.Controls.MaterialMaskedTextBox();
             AddUpdateBenhNhanLayout.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,14 +51,17 @@
             AddUpdateBenhNhanLayout.Controls.Add(address, 1, 0);
             AddUpdateBenhNhanLayout.Controls.Add(benhnhanDvkts, 0, 2);
             AddUpdateBenhNhanLayout.Controls.Add(save_btn, 0, 3);
-            AddUpdateBenhNhanLayout.Location = new Point(1, 54);
+            AddUpdateBenhNhanLayout.Controls.Add(GioBenhNhanVao, 1, 1);
+            AddUpdateBenhNhanLayout.Controls.Add(SoNgayDieuTri, 1, 2);
+            AddUpdateBenhNhanLayout.Location = new Point(1, 40);
+            AddUpdateBenhNhanLayout.Margin = new Padding(3, 2, 3, 2);
             AddUpdateBenhNhanLayout.Name = "AddUpdateBenhNhanLayout";
             AddUpdateBenhNhanLayout.RowCount = 4;
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             AddUpdateBenhNhanLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            AddUpdateBenhNhanLayout.Size = new Size(982, 413);
+            AddUpdateBenhNhanLayout.Size = new Size(859, 490);
             AddUpdateBenhNhanLayout.TabIndex = 0;
             // 
             // phone
@@ -75,7 +80,8 @@
             phone.Hint = "Số điện thoại";
             phone.InsertKeyMode = InsertKeyMode.Default;
             phone.LeadingIcon = null;
-            phone.Location = new Point(3, 99);
+            phone.Location = new Point(3, 123);
+            phone.Margin = new Padding(3, 2, 3, 2);
             phone.Mask = "";
             phone.MaxLength = 32767;
             phone.MouseState = MaterialSkin.MouseState.OUT;
@@ -92,7 +98,7 @@
             phone.SelectionLength = 0;
             phone.SelectionStart = 0;
             phone.ShortcutsEnabled = true;
-            phone.Size = new Size(485, 48);
+            phone.Size = new Size(423, 48);
             phone.SkipLiterals = true;
             phone.TabIndex = 2;
             phone.TabStop = false;
@@ -118,7 +124,8 @@
             name.Hint = "Tên bệnh nhân";
             name.InsertKeyMode = InsertKeyMode.Default;
             name.LeadingIcon = null;
-            name.Location = new Point(3, 17);
+            name.Location = new Point(3, 25);
+            name.Margin = new Padding(3, 2, 3, 2);
             name.Mask = "";
             name.MaxLength = 32767;
             name.MouseState = MaterialSkin.MouseState.OUT;
@@ -135,7 +142,7 @@
             name.SelectionLength = 0;
             name.SelectionStart = 0;
             name.ShortcutsEnabled = true;
-            name.Size = new Size(485, 48);
+            name.Size = new Size(423, 48);
             name.SkipLiterals = true;
             name.TabIndex = 0;
             name.TabStop = false;
@@ -161,7 +168,8 @@
             address.Hint = "Địa chỉ";
             address.InsertKeyMode = InsertKeyMode.Default;
             address.LeadingIcon = null;
-            address.Location = new Point(494, 17);
+            address.Location = new Point(432, 25);
+            address.Margin = new Padding(3, 2, 3, 2);
             address.Mask = "";
             address.MaxLength = 32767;
             address.MouseState = MaterialSkin.MouseState.OUT;
@@ -178,7 +186,7 @@
             address.SelectionLength = 0;
             address.SelectionStart = 0;
             address.ShortcutsEnabled = true;
-            address.Size = new Size(485, 48);
+            address.Size = new Size(424, 48);
             address.SkipLiterals = true;
             address.TabIndex = 1;
             address.TabStop = false;
@@ -194,10 +202,11 @@
             benhnhanDvkts.AutoScroll = true;
             benhnhanDvkts.BackColor = SystemColors.Control;
             benhnhanDvkts.Depth = 0;
-            benhnhanDvkts.Location = new Point(3, 167);
+            benhnhanDvkts.Location = new Point(3, 198);
+            benhnhanDvkts.Margin = new Padding(3, 2, 3, 2);
             benhnhanDvkts.MouseState = MaterialSkin.MouseState.HOVER;
             benhnhanDvkts.Name = "benhnhanDvkts";
-            benhnhanDvkts.Size = new Size(485, 200);
+            benhnhanDvkts.Size = new Size(423, 241);
             benhnhanDvkts.Striped = false;
             benhnhanDvkts.StripeDarkColor = Color.Empty;
             benhnhanDvkts.TabIndex = 3;
@@ -209,12 +218,12 @@
             save_btn.Depth = 0;
             save_btn.HighEmphasis = true;
             save_btn.Icon = null;
-            save_btn.Location = new Point(4, 376);
-            save_btn.Margin = new Padding(4, 6, 4, 6);
+            save_btn.Location = new Point(4, 445);
+            save_btn.Margin = new Padding(4);
             save_btn.MouseState = MaterialSkin.MouseState.HOVER;
             save_btn.Name = "save_btn";
             save_btn.NoAccentTextColor = Color.Empty;
-            save_btn.Size = new Size(64, 31);
+            save_btn.Size = new Size(64, 36);
             save_btn.TabIndex = 4;
             save_btn.Text = "Lưu";
             save_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -222,13 +231,102 @@
             save_btn.UseVisualStyleBackColor = true;
             save_btn.Click += save_btn_Click;
             // 
+            // GioBenhNhanVao
+            // 
+            GioBenhNhanVao.AllowPromptAsInput = true;
+            GioBenhNhanVao.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            GioBenhNhanVao.AnimateReadOnly = false;
+            GioBenhNhanVao.AsciiOnly = false;
+            GioBenhNhanVao.BackgroundImageLayout = ImageLayout.None;
+            GioBenhNhanVao.BeepOnError = false;
+            GioBenhNhanVao.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
+            GioBenhNhanVao.Depth = 0;
+            GioBenhNhanVao.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            GioBenhNhanVao.HidePromptOnLeave = false;
+            GioBenhNhanVao.HideSelection = true;
+            GioBenhNhanVao.Hint = "Giờ bệnh nhân vào. VD: 08:30";
+            GioBenhNhanVao.InsertKeyMode = InsertKeyMode.Default;
+            GioBenhNhanVao.LeadingIcon = null;
+            GioBenhNhanVao.Location = new Point(432, 123);
+            GioBenhNhanVao.Margin = new Padding(3, 2, 3, 2);
+            GioBenhNhanVao.Mask = "";
+            GioBenhNhanVao.MaxLength = 32767;
+            GioBenhNhanVao.MouseState = MaterialSkin.MouseState.OUT;
+            GioBenhNhanVao.Name = "GioBenhNhanVao";
+            GioBenhNhanVao.PasswordChar = '\0';
+            GioBenhNhanVao.PrefixSuffixText = null;
+            GioBenhNhanVao.PromptChar = '_';
+            GioBenhNhanVao.ReadOnly = false;
+            GioBenhNhanVao.RejectInputOnFirstFailure = false;
+            GioBenhNhanVao.ResetOnPrompt = true;
+            GioBenhNhanVao.ResetOnSpace = true;
+            GioBenhNhanVao.RightToLeft = RightToLeft.No;
+            GioBenhNhanVao.SelectedText = "";
+            GioBenhNhanVao.SelectionLength = 0;
+            GioBenhNhanVao.SelectionStart = 0;
+            GioBenhNhanVao.ShortcutsEnabled = true;
+            GioBenhNhanVao.Size = new Size(424, 48);
+            GioBenhNhanVao.SkipLiterals = true;
+            GioBenhNhanVao.TabIndex = 5;
+            GioBenhNhanVao.TabStop = false;
+            GioBenhNhanVao.TextAlign = HorizontalAlignment.Left;
+            GioBenhNhanVao.TextMaskFormat = MaskFormat.IncludeLiterals;
+            GioBenhNhanVao.TrailingIcon = null;
+            GioBenhNhanVao.UseSystemPasswordChar = false;
+            GioBenhNhanVao.ValidatingType = null;
+            // 
+            // SoNgayDieuTri
+            // 
+            SoNgayDieuTri.AllowPromptAsInput = true;
+            SoNgayDieuTri.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            SoNgayDieuTri.AnimateReadOnly = false;
+            SoNgayDieuTri.AsciiOnly = false;
+            SoNgayDieuTri.BackgroundImageLayout = ImageLayout.None;
+            SoNgayDieuTri.BeepOnError = false;
+            SoNgayDieuTri.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
+            SoNgayDieuTri.Depth = 0;
+            SoNgayDieuTri.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            SoNgayDieuTri.HidePromptOnLeave = false;
+            SoNgayDieuTri.HideSelection = true;
+            SoNgayDieuTri.Hint = "Số ngày điều trị";
+            SoNgayDieuTri.InsertKeyMode = InsertKeyMode.Default;
+            SoNgayDieuTri.LeadingIcon = null;
+            SoNgayDieuTri.Location = new Point(432, 294);
+            SoNgayDieuTri.Margin = new Padding(3, 2, 3, 2);
+            SoNgayDieuTri.Mask = "";
+            SoNgayDieuTri.MaxLength = 32767;
+            SoNgayDieuTri.MouseState = MaterialSkin.MouseState.OUT;
+            SoNgayDieuTri.Name = "SoNgayDieuTri";
+            SoNgayDieuTri.PasswordChar = '\0';
+            SoNgayDieuTri.PrefixSuffixText = null;
+            SoNgayDieuTri.PromptChar = '_';
+            SoNgayDieuTri.ReadOnly = false;
+            SoNgayDieuTri.RejectInputOnFirstFailure = false;
+            SoNgayDieuTri.ResetOnPrompt = true;
+            SoNgayDieuTri.ResetOnSpace = true;
+            SoNgayDieuTri.RightToLeft = RightToLeft.No;
+            SoNgayDieuTri.SelectedText = "";
+            SoNgayDieuTri.SelectionLength = 0;
+            SoNgayDieuTri.SelectionStart = 0;
+            SoNgayDieuTri.ShortcutsEnabled = true;
+            SoNgayDieuTri.Size = new Size(424, 48);
+            SoNgayDieuTri.SkipLiterals = true;
+            SoNgayDieuTri.TabIndex = 6;
+            SoNgayDieuTri.TabStop = false;
+            SoNgayDieuTri.TextAlign = HorizontalAlignment.Left;
+            SoNgayDieuTri.TextMaskFormat = MaskFormat.IncludeLiterals;
+            SoNgayDieuTri.TrailingIcon = null;
+            SoNgayDieuTri.UseSystemPasswordChar = false;
+            SoNgayDieuTri.ValidatingType = null;
+            // 
             // AddUpdateBenhNhanForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1006, 721);
+            ClientSize = new Size(880, 541);
             Controls.Add(AddUpdateBenhNhanLayout);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AddUpdateBenhNhanForm";
             Text = "Thêm/Cập nhật thông tin bệnh nhân";
             FormClosing += AddUpdateBenhNhanForm_Close;
@@ -246,5 +344,7 @@
         private MaterialSkin.Controls.MaterialMaskedTextBox address;
         private MaterialSkin.Controls.MaterialCheckedListBox benhnhanDvkts;
         private MaterialSkin.Controls.MaterialButton save_btn;
+        private MaterialSkin.Controls.MaterialMaskedTextBox GioBenhNhanVao;
+        private MaterialSkin.Controls.MaterialMaskedTextBox SoNgayDieuTri;
     }
 }

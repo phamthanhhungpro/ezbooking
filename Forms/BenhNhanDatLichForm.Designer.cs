@@ -38,6 +38,7 @@
             dvkt = new ColumnHeader();
             doctorName = new ColumnHeader();
             time = new ColumnHeader();
+            benhnhan_doilich_btn = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // add_datlich
@@ -121,11 +122,34 @@
             time.Text = "Khung giờ";
             time.Width = 300;
             // 
+            // benhnhan_doilich_btn
+            // 
+            benhnhan_doilich_btn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            benhnhan_doilich_btn.Cursor = Cursors.Hand;
+            benhnhan_doilich_btn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            benhnhan_doilich_btn.Depth = 0;
+            benhnhan_doilich_btn.ForeColor = SystemColors.ActiveCaption;
+            benhnhan_doilich_btn.HighEmphasis = true;
+            benhnhan_doilich_btn.Icon = null;
+            benhnhan_doilich_btn.Location = new Point(571, 5);
+            benhnhan_doilich_btn.Margin = new Padding(5);
+            benhnhan_doilich_btn.MouseState = MaterialSkin.MouseState.HOVER;
+            benhnhan_doilich_btn.Name = "benhnhan_doilich_btn";
+            benhnhan_doilich_btn.NoAccentTextColor = Color.Empty;
+            benhnhan_doilich_btn.Size = new Size(64, 36);
+            benhnhan_doilich_btn.TabIndex = 12;
+            benhnhan_doilich_btn.Text = "Đổi lịch";
+            benhnhan_doilich_btn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
+            benhnhan_doilich_btn.UseAccentColor = false;
+            benhnhan_doilich_btn.UseVisualStyleBackColor = false;
+            benhnhan_doilich_btn.Click += benhnhan_doilich_btn_Click;
+            // 
             // BenhNhanDatLichForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1006, 721);
+            Controls.Add(benhnhan_doilich_btn);
             Controls.Add(datlichListView);
             Controls.Add(add_datlich);
             Controls.Add(patientBookingLabel);
@@ -148,5 +172,6 @@
         private ColumnHeader dvkt;
         private ColumnHeader doctorName;
         private ColumnHeader time;
+        private MaterialSkin.Controls.MaterialButton benhnhan_doilich_btn;
     }
 }

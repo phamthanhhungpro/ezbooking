@@ -7,6 +7,7 @@
         public string SoDienThoai { get; set; }
         public string Email { get; set; }
         public string TrangThai { get; set; }
+        public bool IsKtv { get; set; }
         public TimeOnly GioBatDau { get; set; }
         public TimeOnly GioKetThuc { get; set; }
 
